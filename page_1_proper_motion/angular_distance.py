@@ -1,4 +1,4 @@
-# Calculate the angular distance between two stars (S1, S2)
+# Calculate the angular distance between two given stars (S1, S2)
 import math # math.cos
 
 def declinationinDecimalDegrees(star_declination):
