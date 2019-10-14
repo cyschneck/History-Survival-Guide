@@ -8,3 +8,13 @@ Relevant code behind a given guidebook page
 
 ### [Page 1: Proper Motion](https://github.com/cyschneck/History-Survival-Guide/tree/master/page_1_proper_motion)
 Determine Angular Motion Between Two Given Stars
+
+Included:
+* Python code to determine the angular distance between two Stars
+
+### [Page 3: Hobo Symbols](https://github.com/cyschneck/History-Survival-Guide/tree/master/page_1_proper_motion)
+Hobo Signs and Symbols with definitions
+
+Included:
+* Each individual Hobo symbols (png), 248 x 248 pixels that is formatted for Slack
+* Zip file with all symbols
