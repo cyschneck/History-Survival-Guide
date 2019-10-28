@@ -21,7 +21,7 @@ Hobo Signs and Symbols with definitions
 
 Included:
 * Each individual Hobo symbols (png), 248 x 248 pixels that is formatted for Slack
-* Zip file with all symbols
+* [Zip file with all symbols](https://github.com/cyschneck/History-Survival-Guide/blob/master/page_3_hobo_symbols/all_hobo_signs_and_symbols.zip)
 
 Guidebook pages:
 
