@@ -16,7 +16,7 @@ Guidebook page:
 
 [Page 1: Proper Motion](http://historysurvivalguide.com/page/determine-eon-proper-motion/)
 
-### [Page 3-...: Hobo Symbols](https://github.com/cyschneck/History-Survival-Guide/tree/master/page_3_hobo_symbols)
+### [Page 3-6: Hobo Symbols](https://github.com/cyschneck/History-Survival-Guide/tree/master/page_3_hobo_symbols)
 Hobo Signs and Symbols with definitions
 
 Included:
@@ -30,3 +30,5 @@ Guidebook pages:
 [Page 4: Hobo Signs](http://historysurvivalguide.com/page/hobo-signs-and-symbols-part-two/)
 
 [Page 5: Hobo Signs](http://historysurvivalguide.com/page/hobo-signs-and-symbols-part-three/)
+
+[Page 6: Hobo Signs](http://historysurvivalguide.com/page/hobo-signs-and-symbols-part-four/)
