@@ -1,8 +1,13 @@
 # A Time Traveler’s Guide to Surviving History
-### A History Survival Guide
+### History Survival Guide
+
 ![Banner_Light](https://user-images.githubusercontent.com/22159116/64215868-b84b1500-ce73-11e9-98fc-4cac0c190fc4.jpg)
 
-Relevant code behind a given guidebook page
+**About This Project**
+
+A science and history blog that explores scientific concepts with practical information about how to recreate and use the techniques described.  The History Survival Guide (or,  A Time Traveler’s Guide to Surviving History) has been updating since July 2019. Each page is the accumulation of research for a particular topic, synthesized and summarized in a useful ‘survival guide’ format. So far, topics covered included using the proper motion of stars to determine what time period a time traveler could have found themselves in, deciphering ‘Hobo Symbols’ of the 1800’s, and how to make a protractor. All pages are done in a pulp science fiction aesthetic.
+
+This github includse all relevant code and images used in a given guidebook page
 
 [historysurvivalguide.com](http://historysurvivalguide.com/)
 
@@ -36,6 +41,9 @@ Guidebook pages:
 ### [Page 10: Pioneer Plaque](https://github.com/cyschneck/History-Survival-Guide/tree/master/page_10_pioneer_plaque)
 
 Clean PNG of the Pioneer Plaque
+
+![pioneer_plaque+png](https://github.com/cyschneck/History-Survival-Guide/blob/master/page_10_pioneer_plaque/full_scale_pioneer_plaque.png)
+
 Reuse of this image is governed by [NASA's image use policy](https://www.nasa.gov/multimedia/guidelines/index.html).
 
 [Page 10: Pioneer Plaque](http://historysurvivalguide.com/page/pioneer_plaque/)
