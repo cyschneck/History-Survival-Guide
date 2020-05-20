@@ -28,6 +28,12 @@ Included:
 * Each individual Hobo symbols (png), 248 x 248 pixels that is formatted for Slack
 * [Zip file with all symbols](https://github.com/cyschneck/History-Survival-Guide/blob/master/page_3_hobo_symbols/all_hobo_signs_and_symbols.zip)
 
+| ![good_dog](https://github.com/cyschneck/History-Survival-Guide/blob/master/page_3_hobo_symbols/good_dog.png) | ![bad_dog](https://github.com/cyschneck/History-Survival-Guide/blob/master/page_3_hobo_symbols/bad_dog.png) |
+| ------------- | ------------- |
+| ![bad_man_with_gun](https://github.com/cyschneck/History-Survival-Guide/blob/master/page_3_hobo_symbols/bad_man_with_gun_lives_here.png) | ![kind_woman_lives_here](https://github.com/cyschneck/History-Survival-Guide/blob/master/page_3_hobo_symbols/kind_woman_lives_here.png) | ------------- | ------------- |
+| ![safe_camp](https://github.com/cyschneck/History-Survival-Guide/blob/master/page_3_hobo_symbols/safe_camp.png) | ![courthouse](https://github.com/cyschneck/History-Survival-Guide/blob/master/page_3_hobo_symbols/courthouse.png) | | ------------- | ------------- |
+ ![dangerous_drinking_water](https://github.com/cyschneck/History-Survival-Guide/blob/master/page_3_hobo_symbols/dangerous_drinking_water.png) | ![doctor](https://github.com/cyschneck/History-Survival-Guide/blob/master/page_3_hobo_symbols/doctor.png)
+
 Guidebook pages:
 
 [Page 3: Hobo Signs](http://historysurvivalguide.com/page/hobo-signs-and-symbols-part-one/)
