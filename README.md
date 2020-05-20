@@ -32,3 +32,10 @@ Guidebook pages:
 [Page 5: Hobo Signs](http://historysurvivalguide.com/page/hobo-signs-and-symbols-part-three/)
 
 [Page 6: Hobo Signs](http://historysurvivalguide.com/page/hobo-signs-and-symbols-part-four/)
+
+### [Page 10: Pioneer Plaque](https://github.com/cyschneck/History-Survival-Guide/tree/master/page_10_pioneer_plaque)
+
+Clean PNG of the Pioneer Plaque
+Reuse of this image is governed by [NASA's image use policy](https://www.nasa.gov/multimedia/guidelines/index.html).
+
+[Page 10: Pioneer Plaque](http://historysurvivalguide.com/page/pioneer_plaque/)
