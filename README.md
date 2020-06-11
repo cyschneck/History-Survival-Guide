@@ -44,7 +44,7 @@ Guidebook pages:
 
 [Page 6: Hobo Signs](http://historysurvivalguide.com/page/hobo-signs-and-symbols-part-four/)
 
-### [Page 10: Pioneer Plaque](https://github.com/cyschneck/History-Survival-Guide/tree/master/page_10_pioneer_plaque)
+### [Page 10-12: Pioneer Plaque](https://github.com/cyschneck/History-Survival-Guide/tree/master/page_10_pioneer_plaque)
 
 Clean PNG of the Pioneer Plaque
 
