@@ -52,4 +52,8 @@ Clean PNG of the Pioneer Plaque
 
 Reuse of this image is governed by [NASA's image use policy](https://www.nasa.gov/multimedia/guidelines/index.html).
 
-[Page 10: Pioneer Plaque](http://historysurvivalguide.com/page/pioneer_plaque/)
+[Page 10: Pioneer Plaque](http://historysurvivalguide.com/page/pioneer-plaque-part-1/)
+
+[Page 11: Pioneer Plaque](http://historysurvivalguide.com/page/pioneer-plaque-part-2/)
+
+[Page 12: Pioneer Plaque](http://historysurvivalguide.com/page/pioneer-plaque-part-3/)
