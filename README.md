@@ -7,7 +7,7 @@
 
 A science and history blog that explores scientific concepts with practical information about how to recreate and use the techniques described.  The History Survival Guide (or,  A Time Traveler’s Guide to Surviving History) has been updating since July 2019. Each page is the accumulation of research for a particular topic, synthesized and summarized in a useful ‘survival guide’ format. So far, topics covered included using the proper motion of stars to determine what time period a time traveler could have found themselves in, deciphering ‘Hobo Symbols’ of the 1800’s, and how to read the Pioneer Plaque. All pages are done in a pulp science fiction aesthetic.
 
-This github includse all relevant code and images used in a given guidebook page
+This github repo includes all relevant code and images used in a given guidebook page
 
 [historysurvivalguide.com](http://historysurvivalguide.com/)
 
