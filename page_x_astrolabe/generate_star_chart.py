@@ -39,6 +39,8 @@ def plotCircluar(star_list):
 	#ax.set_yticklabels(['$-80^{\circ}$', '$-70^{\circ}$', '$-60^{\circ}$'], fontsize=10)
 	ax.scatter(star_list[0][0], star_list[0][1])
 	plt.show()
+	fig.savefig('star_chart.png', dpi=fig.dpi)
+
 
 if __name__ == '__main__':
 	sirus_star = ["06.45.08917", -16.42]
