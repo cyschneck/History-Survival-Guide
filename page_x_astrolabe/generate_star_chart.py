@@ -1,19 +1,24 @@
 # Generate a star chart for astrolabe
+# python3 generate_star_chart.py
 import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib.gridspec as gridspec
 
-def convertRAhrtoRadians(ra_in_hr):
-	# convert RA from hours to degrees
-	ra_hr, ra_min, ra_sec = list(map(int, ra_in_hr.split('.')))
-	ra_min /= 60
-	ra_sec /= 3600
-	ra_total = ra_hr + ra_min + ra_sec
-	ra_in_degrees = ra_total * 15
-	
-	# convert RA from degrees to radians
-	ra_in_radains = ra_in_degrees / 180.0 * np.pi
-	return ra_in_radains
+def convertRAhrtoRadians(star_list):
+	# change first element in the list object [RA, dec]
+	for star in star_list:
+		ra_in_hr = star[1]
+		# convert RA from hours to degrees
+		ra_hr, ra_min, ra_sec = list(map(int, ra_in_hr.split('.')))
+		ra_min /= 60
+		ra_sec /= 3600
+		ra_total = ra_hr + ra_min + ra_sec
+		ra_in_degrees = ra_total * 15
+		
+		# convert RA from degrees to radians
+		ra_in_radians = ra_in_degrees / 180.0 * np.pi
+		star[1] = ra_in_radians
+	return star_list
 
 def plotCircluar(star_list):
 	# plot star chart as a circular graph
@@ -37,15 +42,34 @@ def plotCircluar(star_list):
 	plt.yticks(declination_values, fontsize=5)
 	ax.set_rlabel_position(120)
 	#ax.set_yticklabels(['$-80^{\circ}$', '$-70^{\circ}$', '$-60^{\circ}$'], fontsize=10)
-	ax.scatter(star_list[0][0], star_list[0][1])
+	
+	# convert to x and y values
+	x_star_labels = []
+	x_ra_values = []
+	y_dec_values = []
+	for star in star_list:
+		x_star_labels.append(star[0])
+		x_ra_values.append(star[1])
+		y_dec_values.append(star[2])
+	ax.scatter(x_ra_values, y_dec_values)
+	# label stars
+	for i, txt in enumerate(x_star_labels): 
+		ax.annotate(txt, (x_ra_values[i], y_dec_values[i]))
 	plt.show()
 	fig.savefig('star_chart.png', dpi=fig.dpi)
 
-
 if __name__ == '__main__':
-	sirus_star = ["06.45.08917", -16.42]
-	sirus_star[0] = convertRAhrtoRadians(sirus_star[0])
+	sirus_star = ["Sirus", "06.45.08917", -16.42]
+	dubhe_star = ["Dubhe", "11.03.4367152", 61.45]
+
+	# add stars to total star list
 	star_chart_list = []
 	star_chart_list.append(sirus_star)
+	star_chart_list.append(dubhe_star)
+	
+	# Convert Star chart from RA hours to Radians to chart
 	print(star_chart_list)
+	star_chart_list = convertRAhrtoRadians(star_chart_list)
+	print(star_chart_list)
+	
 	plotCircluar(star_chart_list)
