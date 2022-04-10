@@ -14,7 +14,7 @@ def convertRAhrtoRadians(star_list):
 		ra_sec /= 3600
 		ra_total = ra_hr + ra_min + ra_sec
 		ra_in_degrees = ra_total * 15
-		
+
 		# convert RA from degrees to radians
 		ra_in_radians = ra_in_degrees / 180.0 * np.pi
 		star[1] = ra_in_radians
@@ -52,6 +52,7 @@ def plotCircluar(star_list):
 		x_ra_values.append(star[1])
 		y_dec_values.append(star[2])
 	ax.scatter(x_ra_values, y_dec_values)
+
 	# label stars
 	for i, txt in enumerate(x_star_labels): 
 		ax.annotate(txt, (x_ra_values[i], y_dec_values[i]))
@@ -59,8 +60,8 @@ def plotCircluar(star_list):
 	fig.savefig('star_chart.png', dpi=fig.dpi)
 
 if __name__ == '__main__':
-	sirus_star = ["Sirus", "06.45.08917", -16.42]
-	dubhe_star = ["Dubhe", "11.03.4367152", 61.45]
+	sirus_star = ["Sirus", "06.45.08", -16.42]
+	dubhe_star = ["Dubhe", "11.03.43", 61.45]
 
 	# add stars to total star list
 	star_chart_list = []
