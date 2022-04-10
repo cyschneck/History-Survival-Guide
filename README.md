@@ -59,3 +59,4 @@ Reuse of this image is governed by [NASA's image use policy](https://www.nasa.go
 [Page 12: Pioneer Plaque](http://historysurvivalguide.com/page/pioneer-plaque-part-3/)
 
 ### [Page X: Astrolabe](https://github.com/cyschneck/History-Survival-Guide/tree/master/page_x_astrolabe)
+![star_chart+png](https://github.com/cyschneck/History-Survival-Guide/blob/master/page_x_astrolabe/star_chart.png)
