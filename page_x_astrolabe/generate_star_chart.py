@@ -20,9 +20,9 @@ def convertRAhrtoRadians(star_list):
 		star[1] = ra_in_radians
 	return star_list
 
-def plotCircluar(star_list):
+def plotCircluar(star_list, displayStarNamesLabels, displayDeclinationMarks):
 	# plot star chart as a circular graph
-	fig = plt.figure(figsize=(8,8), dpi=120)
+	fig = plt.figure(figsize=(12,12), dpi=100)
 	ax = fig.subplots(subplot_kw={'projection': 'polar'})
 
 	# Set Right Ascension (astronomical 'longitude') as X
@@ -39,11 +39,12 @@ def plotCircluar(star_list):
 	# Set Declination (astronomical 'latitude') as Y
 	ax.set_ylim(-90, 90)
 	declination_values = np.arange(-90, 91, 10)
+	#if displayDeclinationMarks:
 	plt.yticks(declination_values, fontsize=5)
 	ax.set_rlabel_position(120)
 	#ax.set_yticklabels(['$-80^{\circ}$', '$-70^{\circ}$', '$-60^{\circ}$'], fontsize=10)
 	
-	# convert to x and y values
+	# convert to x and y values for stars
 	x_star_labels = []
 	x_ra_values = []
 	y_dec_values = []
@@ -54,23 +55,31 @@ def plotCircluar(star_list):
 	ax.scatter(x_ra_values, y_dec_values)
 
 	# label stars
-	for i, txt in enumerate(x_star_labels): 
-		ax.annotate(txt, (x_ra_values[i], y_dec_values[i]))
+	if displayStarNamesLabels:
+		for i, txt in enumerate(x_star_labels):
+			ax.annotate(txt, (x_ra_values[i], y_dec_values[i]))
 	plt.show()
 	fig.savefig('star_chart.png', dpi=fig.dpi)
 
 if __name__ == '__main__':
+	# stars to be included: 'name', ra HH.MM.SS, declination DD.SS
 	sirus_star = ["Sirus", "06.45.08", -16.42]
 	dubhe_star = ["Dubhe", "11.03.43", 61.45]
+	megrez_star = ["Megrez", "12.15.25", 57.01]
+	polaris_star = ["Polaris", "02.31.49", 89.15]
 
 	# add stars to total star list
 	star_chart_list = []
 	star_chart_list.append(sirus_star)
 	star_chart_list.append(dubhe_star)
+	star_chart_list.append(megrez_star)
+	star_chart_list.append(polaris_star)
 	
 	# Convert Star chart from RA hours to Radians to chart
 	print(star_chart_list)
 	star_chart_list = convertRAhrtoRadians(star_chart_list)
 	print(star_chart_list)
-	
-	plotCircluar(star_chart_list)
+
+	displayStarNames = True # display chart with star names
+	displayDeclinationMarks = False # display declination marks
+	plotCircluar(star_chart_list, displayStarNames, displayDeclinationMarks)
