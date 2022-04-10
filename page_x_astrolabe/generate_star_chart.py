@@ -20,7 +20,7 @@ def convertRAhrtoRadians(star_list):
 		star[1] = ra_in_radians
 	return star_list
 
-def plotCircluar(star_list, displayStarNamesLabels, displayDeclinationMarks):
+def plotCircluar(star_list, northOrSouth, displayStarNamesLabels, displayDeclinationMarks):
 	# plot star chart as a circular graph
 	fig = plt.figure(figsize=(12,12), dpi=100)
 	ax = fig.subplots(subplot_kw={'projection': 'polar'})
@@ -37,10 +37,26 @@ def plotCircluar(star_list, displayStarNamesLabels, displayDeclinationMarks):
 						'$21^h$'], fontsize=10)
 	
 	# Set Declination (astronomical 'latitude') as Y
-	ax.set_ylim(-90, 90)
-	declination_values = np.arange(-90, 91, 10)
+	northern_chart_min = -30
+	northern_chart_max = 70
+	southern_chart_min = -70
+	southern_chart_max = 30
+	full_declination_min = -90
+	full_declination_max = 90
+
+	# Split up chart into North/South hemisphere
+	if northOrSouth == "Both":
+		ax.set_ylim(full_declination_min, full_declination_max)
+		declination_values = np.arange(full_declination_min, full_declination_max+1, 10) # +1 to show max value in range
+	if northOrSouth == "North":
+		ax.set_ylim(northern_chart_min, northern_chart_max)
+		declination_values = np.arange(northern_chart_min, northern_chart_max+1, 5) # +1 to show max value in range
+	if northOrSouth == "South":
+		ax.set_ylim(southern_chart_min, southern_chart_max)
+		declination_values = np.arange(southern_chart_min, southern_chart_max+1, 5) # +1 to show max value in range
+
 	if displayDeclinationMarks:
-		plt.yticks(declination_values, fontsize=5)
+		plt.yticks(declination_values, fontsize=7)
 		#ax.set_yticklabels(['$-80^{\circ}$', '$-70^{\circ}$', '$-60^{\circ}$'], fontsize=10)
 		ax.set_rlabel_position(120)
 	else:
@@ -84,8 +100,6 @@ if __name__ == '__main__':
 	mimosa_star = ["Mimosa", "12.47.43", -59.41]
 	gamma_phoenics_star = ["Gamma Phoenics", "01.28.21", -43.19]
 	beta_hydri_star = ["Beta Hydri", "00.25.45", -77.15]
-	
-	
 
 	# add stars to total star list
 	northern_star_chart_list = [sirus_star,
@@ -117,4 +131,4 @@ if __name__ == '__main__':
 	displayDeclinationMarks = True # display declination marks
 	northOrSouth = "Both" # options: "North", "South", "Both" (changes the declination range)
 
-	plotCircluar(star_chart_list, displayStarNames, displayDeclinationMarks)
+	plotCircluar(star_chart_list, northOrSouth, displayStarNames, displayDeclinationMarks)
