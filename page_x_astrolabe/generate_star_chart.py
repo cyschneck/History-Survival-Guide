@@ -43,25 +43,34 @@ def plotCircluar(star_list, northOrSouth, displayStarNamesLabels, displayDeclina
 	southern_chart_max = 30
 	full_declination_min = -90
 	full_declination_max = 90
-
+	
+	def displayDeclinationMarksOnAxix(declination_values):
+		# flip the internal axis to have the min declination on the outer ring and the max in the middle
+		ax.set_rlim(declination_values[0], declination_values[len(declination_values)-1])
+		if displayDeclinationMarks: # display axis
+			#ax.set_yticklabels(['$-80^{\circ}$', '$-70^{\circ}$', '$-60^{\circ}$'], fontsize=10)
+			plt.yticks(declination_values, fontsize=7)
+			ax.set_yticklabels(ax.get_yticks()[::-1])
+			ax.set_rlabel_position(120)
+		else:
+			plt.yticks(declination_values, fontsize=0) # do not display axis
+			ax.set_yticklabels(ax.get_yticks()[::-1])
+			ax.set_rlabel_position(120)
+			
 	# Split up chart into North/South hemisphere
 	if northOrSouth == "Both":
 		ax.set_ylim(full_declination_min, full_declination_max)
 		declination_values = np.arange(full_declination_min, full_declination_max+1, 10) # +1 to show max value in range
+		displayDeclinationMarksOnAxix(declination_values)
 	if northOrSouth == "North":
 		ax.set_ylim(northern_chart_min, northern_chart_max)
 		declination_values = np.arange(northern_chart_min, northern_chart_max+1, 5) # +1 to show max value in range
+		displayDeclinationMarksOnAxix(declination_values)
 	if northOrSouth == "South":
 		ax.set_ylim(southern_chart_min, southern_chart_max)
 		declination_values = np.arange(southern_chart_min, southern_chart_max+1, 5) # +1 to show max value in range
+		displayDeclinationMarksOnAxix(declination_values)
 
-	if displayDeclinationMarks:
-		plt.yticks(declination_values, fontsize=7)
-		#ax.set_yticklabels(['$-80^{\circ}$', '$-70^{\circ}$', '$-60^{\circ}$'], fontsize=10)
-		ax.set_rlabel_position(120)
-	else:
-		plt.yticks(declination_values, fontsize=0)
-	
 	# convert to x and y values for stars
 	x_star_labels = []
 	x_ra_values = []
