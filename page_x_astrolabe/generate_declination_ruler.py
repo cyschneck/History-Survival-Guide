@@ -12,11 +12,13 @@ def rulerLengthSegements(graphPlotSegements):
 	# convert segements into length segements
 	for segement_in_circle in x_degreeSegements:
 		angle_of_inclination = 90 - (segement_in_circle*10)
+
 		segement_in_radians = (segement_in_circle * np.pi / 180)
-		equation_of_length = math.tan(5*segement_in_radians)
-		#equation_of_length = math.tan((90-angle_of_inclination))/2
+		equation_of_length = math.tan(5*segement_in_radians) # previous
+		#equation_of_length = math.tan((angle_of_inclination))/2 # temp
+
 		print("Segement: {0} = {1} = {2}".format(segement_in_circle, angle_of_inclination, equation_of_length))
-		#y_lengthSegements.append(equation_of_length)
+		y_lengthSegements.append(equation_of_length)
 
 	# optional graph of segements
 	if graphPlotSegements:
@@ -28,7 +30,7 @@ def rulerLengthSegements(graphPlotSegements):
 def plotLengthSegements(x_degreeSegements, y_lengthSegements):
 	# plot Segements (n) vs. Length of Segements
 	plt.xticks(x_degreeSegements)
-	plt.title("Length of Declination Ruler Segements: tan(5n)")
+	plt.title("Length of Declination Ruler Segements: EQUATION")
 	plt.xlabel("Degree Segements")
 	plt.ylabel("Length of Segement when r = 1")
 	plt.scatter(x_degreeSegements, y_lengthSegements)
@@ -58,5 +60,5 @@ def calculateRuler(rulerSegements):
 
 if __name__ == '__main__':
 	# Generate and plot
-	graphPlotSegements = False # should plot the segements on a graph
+	graphPlotSegements = True # should plot the segements on a graph
 	rulerLengthSegements(graphPlotSegements)
