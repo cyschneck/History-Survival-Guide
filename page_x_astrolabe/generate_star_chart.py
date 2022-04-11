@@ -127,8 +127,9 @@ if __name__ == '__main__':
 	star_chart_list = convertRAhrtoRadians(star_chart_list)
 	#print(star_chart_list)
 
-	displayStarNames = True # display chart with star names
-	displayDeclinationMarks = True # display declination marks
-	northOrSouth = "Both" # options: "North", "South", "Both" (changes the declination range)
+	# Chart options
+	displayStarNames = True # display chart with star names (False/True)
+	displayDeclinationMarks = True # display declination marks (False/True)
+	northOrSouth = "North" # options: "North", "South", "Both" (changes the declination range)
 
 	plotCircluar(star_chart_list, northOrSouth, displayStarNames, displayDeclinationMarks)
