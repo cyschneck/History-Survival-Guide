@@ -16,7 +16,7 @@ def convertRAhrtoRadians(star_list):
 		ra_in_degrees = ra_total * 15
 
 		# convert RA from degrees to radians
-		ra_in_radians = ra_in_degrees / 180.0 * np.pi
+		ra_in_radians = np.deg2rad(ra_in_degrees)
 		star[1] = ra_in_radians
 	return star_list
 
@@ -177,6 +177,6 @@ if __name__ == '__main__':
 	# Chart options
 	displayStarNames = True # display chart with star names (False/True)
 	displayDeclinationNumbers = True # display declination marks (False/True)
-	northOrSouth = "North" # options: "North", "South", "Both" (changes the declination range)
+	northOrSouth = "Both" # options: "North", "South", "Both" (changes the declination range)
 
 	plotCircluar(star_chart_list, northOrSouth, displayStarNames, displayDeclinationNumbers)
