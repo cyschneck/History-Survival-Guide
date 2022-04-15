@@ -3,6 +3,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib.gridspec as gridspec
+import generate_declination_ruler as declination_ruler_script # import declination script to retrieve declination values
 
 def convertRAhrtoRadians(star_list):
 	# change first element in the list object [RA, dec]
@@ -89,12 +90,14 @@ def plotCircluar(star_list, northOrSouth, displayStarNamesLabels, displayDeclina
 		#print("{0} - {1} = {2:4f}".format(max_dec_value, star[2], max_dec_value - star[2]))
 		#print("{0} + {1} = {2:4f}\n".format(max_dec_value - star[2], min_dec_value, y_pos))
 		y_dec_values.append(y_pos)
-	ax.scatter(x_ra_values, y_dec_values)
+	ax.scatter(x_ra_values, y_dec_values, s=10)
 
 	# label stars (optional)
 	if displayStarNamesLabels:
 		for i, txt in enumerate(x_star_labels):
-			ax.annotate(txt, (x_ra_values[i], y_dec_values[i]), fontsize=8)
+			ax.annotate(txt, (x_ra_values[i], y_dec_values[i]), 
+						horizontalalignment='center', verticalalignment='bottom', 
+						fontsize=8)
 
 	plt.show()
 	fig.savefig('star_chart.png', dpi=fig.dpi)
@@ -179,4 +182,9 @@ if __name__ == '__main__':
 	displayDeclinationNumbers = True # display declination marks (False/True)
 	northOrSouth = "Both" # options: "North", "South", "Both" (changes the declination range)
 
+	# Calculate declination values
+	ruler_position_dict = declination_ruler_script.triggerDeclinationCalculations(dec_min = -30, dec_max = 90)
+	print(ruler_position_dict)
+
+	# Plot star chart on a circular polar coordinate system
 	plotCircluar(star_chart_list, northOrSouth, displayStarNames, displayDeclinationNumbers)
