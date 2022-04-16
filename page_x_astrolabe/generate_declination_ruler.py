@@ -35,7 +35,7 @@ def calculateRuler(graphPlotSegments, total_ruler_length, declination_min, decli
 	# Calculate the ruler based on a ruler length and the range of the declinations
 	length_of_the_ruler_to_be_used = total_ruler_length/2 # cut ruler in half
 
-	declination_angles_ruler = np.arange(declination_min, declination_max+1, 10)
+	declination_angles_ruler = np.arange(declination_min, declination_max+1, 5)
 	#print("\nDeclination Range of Angles: {0}".format(declination_angles_ruler))
 
 	total_ruler_ratio_length = 0
