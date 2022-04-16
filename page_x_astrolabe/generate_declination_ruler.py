@@ -1,5 +1,6 @@
-# Generate a star chart for astrolabe
-# python3 generate_declination_ruler.py
+# Generate a declination ruler for astrolabe star chart
+# Triggered within generate_star_chart.py
+
 import numpy as np
 import matplotlib.pyplot as plt
 import math
@@ -17,6 +18,24 @@ def calculateLength(angle_of_inclination):
 	equation_of_length = math.tan(angle_in_radians) # calculated
 	return equation_of_length
 
+def rulerRatioValue(declination_angles_ruler_list, total_ruler_len):
+	# returns the ratio of the ruler
+	# Calculate the ruler based on a ruler length and the range of the declinations
+	length_of_the_ruler_to_be_used = total_ruler_len/2 # cut ruler in half
+
+	total_ruler_ratio_length = 0
+	for angle_declination in declination_angles_ruler_list:
+		#print("{0:.4f} + {1:.4f} = {2:.4f}".format(total_ruler_ratio_length, calculateLength(angle_declination), total_ruler_ratio_length + calculateLength(angle_declination)))
+		total_ruler_ratio_length += calculateLength(angle_declination)
+	#print("Total length of ruler with r = 1: {0}".format(total_ruler_ratio_length))
+	#print("Length of ruler to compare to (1/2 total) = {0} cm".format(length_of_the_ruler_to_be_used))
+
+	#print(declination_angles_ruler_list)
+	#print(len(declination_angles_ruler_list))
+	ratio_of_ruler = length_of_the_ruler_to_be_used / total_ruler_ratio_length
+	print("Ratio of ruler: {0} / {1} = {2}\n".format(length_of_the_ruler_to_be_used, total_ruler_ratio_length, ratio_of_ruler))
+	return ratio_of_ruler
+
 def calculateRuler(graphPlotSegments, total_ruler_length, declination_min, declination_max):
 	# define the length of each segment in ruler when radius = 1
 	x_angleOfDeclination = np.arange(-80,90,10)
@@ -32,31 +51,21 @@ def calculateRuler(graphPlotSegments, total_ruler_length, declination_min, decli
 	if graphPlotSegments:
 		plotLengthSegments(x_angleOfDeclination, y_lengthSegments)
 
-	# Calculate the ruler based on a ruler length and the range of the declinations
-	length_of_the_ruler_to_be_used = total_ruler_length/2 # cut ruler in half
-
 	declination_angles_ruler = np.arange(declination_min, declination_max+1, 5)
 	#print("\nDeclination Range of Angles: {0}".format(declination_angles_ruler))
 
-	total_ruler_ratio_length = 0
-	for angle_declination in declination_angles_ruler:
-		#print("{0:.4f} + {1:.4f} = {2:.4f}".format(total_ruler_ratio_length, calculateLength(angle_declination), total_ruler_ratio_length + calculateLength(angle_declination)))
-		total_ruler_ratio_length += calculateLength(angle_declination)
-	#print("Total length of ruler with r = 1: {0}".format(total_ruler_ratio_length))
-	#print("Length of ruler to compare to (1/2 total) = {0} cm".format(length_of_the_ruler_to_be_used))
-
-	ratio_of_ruler = length_of_the_ruler_to_be_used / total_ruler_ratio_length
-	#print("Ratio of ruler: {0}".format(ratio_of_ruler))
+	ratio_of_ruler = rulerRatioValue(declination_angles_ruler, total_ruler_length)
 	ruler_position_dict = {} # dict: {degree : position_on_ruler }
 	ruler_position_for_n = 0
 	for n_angle in reversed(declination_angles_ruler): # add values from the largest to the smallest to account for declination lines
 		ruler_position_for_n += calculateLength(n_angle)*ratio_of_ruler
-		print("Degree Segment: {0} = {1:.4f}*{2:.4f} = {3:.4f} = {4:.4f} cm".format(n_angle,
-																				calculateLength(n_angle),
-																				ratio_of_ruler,
-																				calculateLength(n_angle)*ratio_of_ruler,
-																				ruler_position_for_n))
+		#print("Degree Segment: {0} = {1:.4f}*{2:.4f} = {3:.4f} = {4:.4f} cm".format(n_angle,
+		#																		calculateLength(n_angle),
+		#																		ratio_of_ruler,
+		#																		calculateLength(n_angle)*ratio_of_ruler,
+		#																		ruler_position_for_n))
 		ruler_position_dict[n_angle] = ruler_position_for_n
+	ruler_position_dict["RATIO"] = ratio_of_ruler
 	return ruler_position_dict
 
 def plotLengthSegments(x_degreeSegments, y_lengthSegments):
@@ -67,11 +76,3 @@ def plotLengthSegments(x_degreeSegments, y_lengthSegments):
 	plt.ylabel("Length of Segments when r = 1")
 	plt.scatter(x_degreeSegments, y_lengthSegments)
 	plt.show()
-
-if __name__ == '__main__':
-	# Generate and plot (triggered in generate_star_chart.py)
-	pass
-
-	# Manual triggering: 
-	#ruler_position_dict = triggerDeclinationCalculations(ruler_length = 30, dec_min = -30, dec_max = 90)
-	#print(ruler_position_dict)
