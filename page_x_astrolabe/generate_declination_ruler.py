@@ -6,7 +6,7 @@ import math
 
 def triggerDeclinationCalculations(dec_min, dec_max):
 	# access via script in generate_star_chart
-	graphPlotsegments = True # should plot the segments on a graph
+	graphPlotsegments = False # should plot the segments on a graph
 	total_ruler_length = 30
 	declination_ruler_dict = calculateRuler(graphPlotsegments, total_ruler_length, dec_min, dec_max)
 	return declination_ruler_dict

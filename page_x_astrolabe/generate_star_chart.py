@@ -3,7 +3,15 @@
 import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib.gridspec as gridspec
-import generate_declination_ruler as declination_ruler_script # import declination script to retrieve declination values
+import generate_declination_ruler as declination_script # import declination script to retrieve declination values
+
+# Declination ranges for North, South, Both (full)
+northern_declination_min = -30
+northern_declination_max = 70
+southern_declination_min = -70
+southern_declination_max = 30
+full_declination_min = -90
+full_declination_max = 90
 
 def convertRAhrtoRadians(star_list):
 	# change first element in the list object [RA, dec]
@@ -38,13 +46,6 @@ def plotCircluar(star_list, northOrSouth, displayStarNamesLabels, displayDeclina
 						'$21^h$'], fontsize=10)
 	
 	# Set Declination (astronomical 'latitude') as Y
-	northern_chart_min = -30
-	northern_chart_max = 70
-	southern_chart_min = -70
-	southern_chart_max = 30
-	full_declination_min = -90
-	full_declination_max = 90
-
 	# display declination lines on the chart from -min to +max
 	def displayDeclinationMarksOnAxis(declination_values):
 		# flip the internal axis to have the min declination on the outer ring and the max in the middle
@@ -61,20 +62,20 @@ def plotCircluar(star_list, northOrSouth, displayStarNamesLabels, displayDeclina
 		ax.set_ylim(full_declination_min, full_declination_max)
 		declination_values = np.arange(full_declination_min, full_declination_max+1, 10) # +1 to show max value in range
 		displayDeclinationMarksOnAxis(declination_values)
-		max_dec_value = full_declination_max
 		min_dec_value = full_declination_min
+		max_dec_value = full_declination_max
 	if northOrSouth == "North":
-		ax.set_ylim(northern_chart_min, northern_chart_max)
-		declination_values = np.arange(northern_chart_min, northern_chart_max+1, 5) # +1 to show max value in range
+		ax.set_ylim(northern_declination_min, northern_declination_max)
+		declination_values = np.arange(northern_declination_min, northern_declination_max+1, 5) # +1 to show max value in range
 		displayDeclinationMarksOnAxis(declination_values)
-		max_dec_value = northern_chart_max
-		min_dec_value = northern_chart_min
+		min_dec_value = northern_declination_min
+		max_dec_value = northern_declination_max
 	if northOrSouth == "South":
 		ax.set_ylim(southern_chart_min, southern_chart_max)
-		declination_values = np.arange(southern_chart_min, southern_chart_max+1, 5) # +1 to show max value in range
+		declination_values = np.arange(southern_declination_min, southern_declination_max+1, 5) # +1 to show max value in range
 		displayDeclinationMarksOnAxis(declination_values)
-		max_dec_value = southern_chart_max
-		max_dec_value = southern_chart_min
+		max_dec_value = southern_declination_min
+		max_dec_value = southern_declination_max
 
 	# convert to x and y values for stars
 	x_star_labels = []
@@ -180,10 +181,20 @@ if __name__ == '__main__':
 	# Chart options
 	displayStarNames = True # display chart with star names (False/True)
 	displayDeclinationNumbers = True # display declination marks (False/True)
-	northOrSouth = "Both" # options: "North", "South", "Both" (changes the declination range)
+	northOrSouth = "North" # options: "North", "South", "Both" (changes the declination range)
 
 	# Calculate declination values
-	ruler_position_dict = declination_ruler_script.triggerDeclinationCalculations(dec_min = -30, dec_max = 90)
+	if northOrSouth == "North":
+		declination_min = northern_declination_min
+		declination_max = northern_declination_max
+	if northOrSouth == "South":
+		declination_min = southern_declination_min
+		declination_max = southern_declination_max
+	if northOrSouth == "Both":
+		declination_min = full_declination_min
+		declination_max = full_declination_max
+	
+	ruler_position_dict = declination_script.triggerDeclinationCalculations(declination_min, declination_max)
 	print(ruler_position_dict)
 
 	# Plot star chart on a circular polar coordinate system
