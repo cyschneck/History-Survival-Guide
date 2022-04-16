@@ -4,10 +4,10 @@ import numpy as np
 import matplotlib.pyplot as plt
 import math
 
-def triggerDeclinationCalculations(dec_min, dec_max):
+def triggerDeclinationCalculations(ruler_length, dec_min, dec_max):
 	# access via script in generate_star_chart
 	graphPlotsegments = False # should plot the segments on a graph
-	total_ruler_length = 30
+	total_ruler_length = ruler_length
 	declination_ruler_dict = calculateRuler(graphPlotsegments, total_ruler_length, dec_min, dec_max)
 	return declination_ruler_dict
 
@@ -69,6 +69,9 @@ def plotLengthSegments(x_degreeSegments, y_lengthSegments):
 	plt.show()
 
 if __name__ == '__main__':
-	# Generate and plot
-	ruler_position_dict = triggerDeclinationCalculations(dec_min = -30, dec_max = 90)
-	print(ruler_position_dict)
+	# Generate and plot (triggered in generate_star_chart.py)
+	pass
+
+	# Manual triggering: 
+	#ruler_position_dict = triggerDeclinationCalculations(ruler_length = 30, dec_min = -30, dec_max = 90)
+	#print(ruler_position_dict)
