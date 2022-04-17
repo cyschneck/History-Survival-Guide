@@ -59,13 +59,13 @@ def calculateRuler(graphPlotSegments, total_ruler_length, declination_min, decli
 	ruler_position_for_n = 0
 	for n_angle in reversed(declination_angles_ruler): # add values from the largest to the smallest to account for declination lines
 		ruler_position_for_n += calculateLength(n_angle)*ratio_of_ruler
-		#print("Degree Segment: {0} = {1:.4f}*{2:.4f} = {3:.4f} = {4:.4f} cm".format(n_angle,
-		#																		calculateLength(n_angle),
-		#																		ratio_of_ruler,
-		#																		calculateLength(n_angle)*ratio_of_ruler,
-		#																		ruler_position_for_n))
-		ruler_position_dict[n_angle] = ruler_position_for_n
-	ruler_position_dict["RATIO"] = ratio_of_ruler
+		print("Degree Segment: {0} = {1:.4f}*{2:.4f} = {3:.4f} = {4:.4f} cm".format(n_angle,
+																				calculateLength(n_angle),
+																				ratio_of_ruler,
+																				calculateLength(n_angle)*ratio_of_ruler,
+																				ruler_position_for_n))
+		ruler_position_dict[n_angle] = round(ruler_position_for_n, 4)
+	#ruler_position_dict["RATIO"] = ratio_of_ruler
 	return ruler_position_dict
 
 def plotLengthSegments(x_degreeSegments, y_lengthSegments):
