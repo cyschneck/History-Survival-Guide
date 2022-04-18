@@ -63,11 +63,10 @@ def plotCircluar(star_list, northOrSouth, displayStarNamesLabels, displayDeclina
 		max_dec_value = southern_declination_max
 
 	# conversion length of a ruler for -90 to 90
-	print(min_dec_value)
-	print(max_dec_value)
 	full_ruler_length_180 = (180 * (total_ruler_length/2)) / (abs(min_dec_value) + abs(max_dec_value))
 	print("Length of full ratio ruler from {0} (1/2 {1}) = {2}".format(total_ruler_length, total_ruler_length/2, full_ruler_length_180))
 
+	# Store the ruler positions based on degrees and the ratio of the ruler
 	ruler_position_dict = declination_script.triggerDeclinationCalculations(full_ruler_length_180,
 																			min_dec_value, max_dec_value)
 	ruler_ratio = ruler_position_dict.pop("RATIO") # remove ratio value and store
@@ -112,7 +111,7 @@ def plotCircluar(star_list, northOrSouth, displayStarNamesLabels, displayDeclina
 	if northOrSouth == "South":
 		displayDeclinationMarksOnAxis(declination_values, southern_declination_min, southern_declination_max)
 
-	print("\n{0} to {1}".format(min_dec_value, max_dec_value))
+	print("\nRange of Declination: {0} to {1}".format(min_dec_value, max_dec_value))
 	# convert to x and y values for stars
 	x_star_labels = []
 	x_ra_values = []
