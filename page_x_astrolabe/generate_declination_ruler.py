@@ -18,10 +18,9 @@ def calculateLength(angle_of_inclination):
 	equation_of_length = math.tan(angle_in_radians) # calculated
 	return equation_of_length
 
-def rulerRatioValue(declination_angles_ruler_list, total_ruler_len):
+def rulerRatioValue(declination_angles_ruler_list, length_of_the_ruler_to_be_used):
 	# returns the ratio of the ruler
 	# Calculate the ruler based on a ruler length and the range of the declinations
-	length_of_the_ruler_to_be_used = total_ruler_len/2 # cut ruler in half
 
 	total_ruler_ratio_length = 0
 	for angle_declination in declination_angles_ruler_list:
@@ -51,22 +50,33 @@ def calculateRuler(graphPlotSegments, total_ruler_length, declination_min, decli
 	if graphPlotSegments:
 		plotLengthSegments(x_angleOfDeclination, y_lengthSegments)
 
-	declination_angles_ruler = np.arange(declination_min, declination_max+1, 5)
+	declination_angles_ruler = np.arange(-80, 80+1, 5)
 	#print("\nDeclination Range of Angles: {0}".format(declination_angles_ruler))
 
 	ratio_of_ruler = rulerRatioValue(declination_angles_ruler, total_ruler_length)
 	ruler_position_dict = {} # dict: {degree : position_on_ruler }
 	ruler_position_for_n = 0
+	ruler_position_for_n_total = 0
 	for n_angle in reversed(declination_angles_ruler): # add values from the largest to the smallest to account for declination lines
-		ruler_position_for_n += calculateLength(n_angle)*ratio_of_ruler
-		print("Degree Segment: {0} = {1:.4f}*{2:.4f} = {3:.4f} = {4:.4f} cm".format(n_angle,
-																				calculateLength(n_angle),
-																				ratio_of_ruler,
-																				calculateLength(n_angle)*ratio_of_ruler,
-																				ruler_position_for_n))
-		ruler_position_dict[n_angle] = round(ruler_position_for_n, 4)
-	#ruler_position_dict["RATIO"] = ratio_of_ruler
+		ruler_position_for_n = calculateLength(n_angle)*ratio_of_ruler
+		ruler_position_for_n_total += calculateLength(n_angle)*ratio_of_ruler
+		print("Degree Segment: {0} = {1:.4f}*{2:.4f} = {3:.4f} [saved] = [TOTAL] {4:.4f}".format(n_angle,
+																							calculateLength(n_angle),
+																							ratio_of_ruler,
+																							calculateLength(n_angle)*ratio_of_ruler,
+																							ruler_position_for_n_total
+																							))
+		if n_angle >= declination_min and n_angle <= declination_max:
+			ruler_position_dict[n_angle] = round(ruler_position_for_n, 4)
+	ruler_position_dict["RATIO"] = ratio_of_ruler
 	return ruler_position_dict
+
+#def calculateLengthTotal(angle_to_calculate, declination_range_dict, ruler_ratio):
+#	# calculate the length at a specific point
+#	print(angle_to_calculate)
+#	for angle, length in declination_range_dict.items():
+#		if angle < angle_to_calculate:
+#			print((angle, length))
 
 def plotLengthSegments(x_degreeSegments, y_lengthSegments):
 	# plot segments (n) vs. Length of segments
