@@ -5,77 +5,59 @@ import numpy as np
 import matplotlib.pyplot as plt
 import math
 
-def triggerDeclinationCalculations(ruler_length, dec_min, dec_max):
+def triggerDeclinationCalculations(ruler_length, dec_min, dec_max, increment):
 	# access via script in generate_star_chart
 	graphPlotsegments = False # should plot the segments on a graph
 	total_ruler_length = ruler_length
-	declination_ruler_dict = calculateRuler(graphPlotsegments, total_ruler_length, dec_min, dec_max)
+	declination_ruler_dict = calculateRuler(graphPlotsegments, total_ruler_length, dec_min, dec_max, increment)
 	return declination_ruler_dict
 
-def calculateLength(angle_of_inclination):
+def calculateLength(angle_of_inclination, radius_of_circle):
 	# convert angle into length of radius
-	angle_in_radians = np.deg2rad((90 - angle_of_inclination)/2)
-	equation_of_length = math.tan(angle_in_radians) # calculated
+	#print("{0} = {1}".format(angle_of_inclination, 45-angle_of_inclination/2))
+	angle_in_radians = np.deg2rad(45 - angle_of_inclination/2)
+	equation_of_length = radius_of_circle * math.tan(angle_in_radians) # calculated
 	return equation_of_length
 
-def rulerRatioValue(declination_angles_ruler_list, length_of_the_ruler_to_be_used):
-	# returns the ratio of the ruler
-	# Calculate the ruler based on a ruler length and the range of the declinations
+def calculateRadiusOfCircle(min_dec, total_ruler_len):
+	# calculate radius of full circle from -80 to 80 where min dec is the radius of smaller circle
+	radius_of_circle_at_min_dec = (total_ruler_len/2) / math.tan(np.deg2rad(45 - min_dec/2))
+	print("Min declination = {0} for ruler length [{1} cm] = radius of {2:.4f}".format(min_dec, total_ruler_len/2, radius_of_circle_at_min_dec))
+	return radius_of_circle_at_min_dec
 
-	total_ruler_ratio_length = 0
-	for angle_declination in declination_angles_ruler_list:
-		#print("{0:.4f} + {1:.4f} = {2:.4f}".format(total_ruler_ratio_length, calculateLength(angle_declination), total_ruler_ratio_length + calculateLength(angle_declination)))
-		total_ruler_ratio_length += calculateLength(angle_declination)
-	#print("Total length of ruler with r = 1: {0}".format(total_ruler_ratio_length))
-	#print("Length of ruler to compare to (1/2 total) = {0} cm".format(length_of_the_ruler_to_be_used))
-
-	#print(declination_angles_ruler_list)
-	#print(len(declination_angles_ruler_list))
-	ratio_of_ruler = length_of_the_ruler_to_be_used / total_ruler_ratio_length
-	print("Ratio of ruler: {0} / {1} = {2}\n".format(length_of_the_ruler_to_be_used, total_ruler_ratio_length, ratio_of_ruler))
-	return ratio_of_ruler
-
-def calculateRuler(graphPlotSegments, total_ruler_length, declination_min, declination_max):
+def calculateRuler(graphPlotSegments, total_ruler_length, declination_min, declination_max, increment):
 	# define the length of each segment in ruler when radius = 1
-	x_angleOfDeclination = np.arange(-80,80,10) # declination max range from -80 to 80
+	x_angleOfDeclination = np.arange(-80, 80+1,increment) # declination max range from -80 to 80
 	y_lengthSegments = []
 
-	# convert segments into length segments
-	for angle_of_inclination in x_angleOfDeclination:
-		length_of_segment = calculateLength(angle_of_inclination)
-		#print("{0}  = {1:.4f}".format(angle_of_inclination, length_of_segment))
-		y_lengthSegments.append(length_of_segment)
+	declination_angles_ruler = np.arange(-80, 80+1, increment) # declination max range from -80 to 80
+	#print("\nDeclination Range of Angles: {0}".format(declination_angles_ruler))
+
+	# calculate full size of circle to find declination for smaller range
+	radius_of_circle = calculateRadiusOfCircle(declination_min, total_ruler_length)
+	ruler_position_dict = {} # dict: {degree : position_on_ruler }
+	for n_angle in declination_angles_ruler:
+		ruler_position = calculateLength(n_angle, radius_of_circle)
+		y_lengthSegments.append(ruler_position)
+		if n_angle >= declination_min and n_angle <= declination_max:
+			ruler_position_dict[n_angle] = round(ruler_position, 4)
+			print("Angle {0} = {1:.4f}".format(n_angle, ruler_position))
 
 	# optional graph of segments
 	if graphPlotSegments:
+		print(len(x_angleOfDeclination))
+		print(len(y_lengthSegments))
 		plotLengthSegments(x_angleOfDeclination, y_lengthSegments)
 
-	declination_angles_ruler = np.arange(-80, 80+1, 5) # declination max range from -80 to 80
-	#print("\nDeclination Range of Angles: {0}".format(declination_angles_ruler))
-
-	ratio_of_ruler = rulerRatioValue(declination_angles_ruler, total_ruler_length)
-	ruler_position_dict = {} # dict: {degree : position_on_ruler }
-	ruler_position_for_n = 0 # ruler position based on calculated length
-	ruler_position_for_n_total = 0 # ruler position based on length added up for each position (printed)
-	for n_angle in reversed(declination_angles_ruler): # add values from the largest to the smallest to account for declination lines
-		ruler_position_for_n = calculateLength(n_angle)*ratio_of_ruler # multipled by ratio to fit on ruler
-		ruler_position_for_n_total += calculateLength(n_angle)*ratio_of_ruler
-		print("Degree [Total]: {0} = {1:.4f}*{2:.4f} = {3:.4f} [saved] = [TOTAL] {4:.4f}".format(n_angle,
-																							calculateLength(n_angle),
-																							ratio_of_ruler,
-																							calculateLength(n_angle)*ratio_of_ruler,
-																							ruler_position_for_n_total
-																							))
-		if n_angle >= declination_min and n_angle <= declination_max:
-			ruler_position_dict[n_angle] = round(ruler_position_for_n, 4)
-	ruler_position_dict["RATIO"] = ratio_of_ruler # saves "RATIO" to be used in generate_star_chart.py
 	return ruler_position_dict
 
 def plotLengthSegments(x_degreeSegments, y_lengthSegments):
 	# plot segments (n) vs. Length of segments
+	fig = plt.figure(figsize=(10,10), dpi=100)
+	ax = fig.subplots()
 	plt.xticks(x_degreeSegments)
-	plt.title("Length of Declination Ruler Segments: tan(90 - angle) * (1/2)")
+	plt.title("Length of Declination Ruler Position: tan(45 - angle/2) * (1/2)")
 	plt.xlabel("Degree")
-	plt.ylabel("Length of Segments when r = 1")
+	plt.ylabel("Length")
 	plt.scatter(x_degreeSegments, y_lengthSegments)
 	plt.show()

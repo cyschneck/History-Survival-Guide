@@ -29,10 +29,9 @@ def convertRAhrtoRadians(star_list):
 		star[1] = ra_in_radians
 	return star_list
 
-def plotCircluar(star_list, northOrSouth, displayStarNamesLabels, displayDeclinationNumbers, total_ruler_length):
+def plotCircluar(star_list, northOrSouth, displayStarNamesLabels, displayDeclinationNumbers, total_ruler_length, increment_by):
 	# plot star chart as a circular graph
-	#fig = plt.figure(figsize=(12,12), dpi=100)
-	fig = plt.figure(figsize=(10,10), dpi=100)
+	fig = plt.figure(figsize=(12,12), dpi=100)
 	ax = fig.subplots(subplot_kw={'projection': 'polar'})
 
 	# Set Right Ascension (astronomical 'longitude') as X
@@ -49,57 +48,34 @@ def plotCircluar(star_list, northOrSouth, displayStarNamesLabels, displayDeclina
 	# Set Declination (astronomical 'latitude') as Y
 
 	# Split up chart into North/South hemisphere
-	if northOrSouth == "Both":
-		declination_values = np.arange(full_declination_min, full_declination_max+1, 10) # +1 to show max value in range
+	if northOrSouth == "Full":
+		declination_values = np.arange(full_declination_min, full_declination_max+1, 5) # +1 to show max value in range
 		min_dec_value = full_declination_min
 		max_dec_value = full_declination_max
 	if northOrSouth == "North":
-		declination_values = np.arange(northern_declination_min, northern_declination_max+1, 10) # +1 to show max value in range
+		declination_values = np.arange(northern_declination_min, northern_declination_max+1, 5) # +1 to show max value in range
 		min_dec_value = northern_declination_min
 		max_dec_value = northern_declination_max
 	if northOrSouth == "South":
-		declination_values = np.arange(southern_declination_min, southern_declination_max+1, 10) # +1 to show max value in range
+		declination_values = np.arange(southern_declination_min, southern_declination_max+1, 5) # +1 to show max value in range
 		min_dec_value = southern_declination_min
 		max_dec_value = southern_declination_max
 
-	# conversion length of a ruler for -90 to 90
-	full_ruler_length_180 = (180 * (total_ruler_length/2)) / (abs(min_dec_value) + abs(max_dec_value))
-	print("Length of full ratio ruler from {0} (1/2 {1}) = {2}".format(total_ruler_length, total_ruler_length/2, full_ruler_length_180))
-
 	# Store the ruler positions based on degrees and the ratio of the ruler
-	ruler_position_dict = declination_script.triggerDeclinationCalculations(full_ruler_length_180,
-																			min_dec_value, max_dec_value)
-	ruler_ratio = ruler_position_dict.pop("RATIO") # remove ratio value and store
-
-	# add values to get the distance for ruler in max-min range
-	degree_ruler_for_min_max_range_dict = {} # dictionary for degrees in max/min range and their lengths
-	ruler_position_for_n_total = 0
-
-	# create a ruler for the range used instead of the full range
-	from collections import OrderedDict
-	ordered_dict_declination = OrderedDict(reversed(sorted(ruler_position_dict.items(), key=lambda x:x[0])))
-	for n_angle, ruler_length in ordered_dict_declination.items(): # add values from the largest to the smallest to account for declination lines
-		# convert to be within range of ruler/2
-		ruler_position_for_n_total += ruler_length # add lengths as iterating
-		percent_of_total = ruler_position_for_n_total / sum(ordered_dict_declination.values()) # find percentage of full length
-		ruler_position = percent_of_total * total_ruler_length/2 # convert to fit on the ruler of x length
-		print("Degree {0} = {1} = {2:.4f}% =  {3:4f} [saved]".format(n_angle, 
-													ruler_length,
-													percent_of_total,
-													ruler_position))
-		degree_ruler_for_min_max_range_dict[n_angle] = round(ruler_position, 4)
+	ruler_position_dict = declination_script.triggerDeclinationCalculations(total_ruler_length,
+																			min_dec_value, max_dec_value, increment_by)
 
 	# display declination lines on the chart from -min to +max
 	def displayDeclinationMarksOnAxis(declination_values, dec_min, dec_max):
 		# set declination marks based on the ruler to space out lines
-		ruler_declination_position = list(degree_ruler_for_min_max_range_dict.values())
-		ruler_declination_labels = list(degree_ruler_for_min_max_range_dict.keys())
-		both_label_values = [list(x) for x in zip(ruler_declination_position, ruler_declination_labels)]
+		ruler_declination_position = list(ruler_position_dict.values())
+		ruler_declination_labels = list(ruler_position_dict.keys())
+		#both_label_values = [list(x) for x in zip(ruler_declination_position, ruler_declination_labels)] # for testing
 		ax.set_ylim(0, max(ruler_declination_position))
 		if displayDeclinationNumbers: # display axis
 			plt.yticks(ruler_declination_position, fontsize=7)
-			ax.set_yticklabels(both_label_values)
-			ax.set_rlabel_position(270)
+			ax.set_yticklabels(ruler_declination_labels)
+			ax.set_rlabel_position(120)
 		else:
 			plt.yticks(ruler_declination_labels, fontsize=0) # do not display axis
 
@@ -112,31 +88,18 @@ def plotCircluar(star_list, northOrSouth, displayStarNamesLabels, displayDeclina
 		displayDeclinationMarksOnAxis(declination_values, southern_declination_min, southern_declination_max)
 
 	print("\nRange of Declination: {0} to {1}".format(min_dec_value, max_dec_value))
+	radius_of_circle = declination_script.calculateRadiusOfCircle(declination_min, total_ruler_length)
 	# convert to x and y values for stars
 	x_star_labels = []
 	x_ra_values = []
 	y_dec_values = []
 	for star in star_list:
-		x_star_labels.append(star[0])
-		x_ra_values.append(star[1])
-
-		ruler_position = star[2]
-		#if star[2] <= max_dec_value and star[2] >= min_dec_value: # within range of declination being displayed
-		#	if star[2] > 0:
-		#		nearest_five = star[2] - (star[2]%5) # round to the nearest length to round (55.56 to 55)
-		#	else:
-		#		nearest_five = star[2]  - (star[2]%5) + 5 # round to nearest length to round when negatigve (-15 instead of -20)
-		#	length_at_nearest_five = degree_ruler_for_min_max_range_dict[nearest_five]
-		#	declination_length_of_angle = declination_script.calculateLength(star[2])*ruler_ratio
-		#	ruler_position = length_at_nearest_five + declination_length_of_angle
-		#	print("{0}: {1} = {2:4f}({3}) + {4:4f} = {5:4f}".format(star[0], star[2], 
-		#														length_at_nearest_five, nearest_five, 
-		#														declination_length_of_angle, ruler_position))
-		#else:
-		#	ruler_position = -1
-		#print("{0} : {1} = {2} = {3}".format(star[0], star[2], position_on_full_length_ruler, ruler_position))
-
-		y_dec_values.append(ruler_position)
+		ruler_position = declination_script.calculateLength(star[2], radius_of_circle) # convert degree to position on radius
+		print("{0}: {1} = {2:.4f}".format(star[0], star[2], ruler_position))
+		if star[2] > min_dec_value and star[2] < max_dec_value: # only display stars within range of declination values
+			x_star_labels.append(star[0])
+			x_ra_values.append(star[1])
+			y_dec_values.append(ruler_position)
 	ax.scatter(x_ra_values, y_dec_values, s=10)
 
 	# label stars (optional)
@@ -225,8 +188,10 @@ if __name__ == '__main__':
 	# Chart options
 	displayStarNames = True # display chart with star names (False/True)
 	displayDeclinationNumbers = True # display declination marks (False/True)
-	northOrSouth = "North" # options: "North", "South", "Both" (changes the declination range)
+	northOrSouth = "North" # options: "North", "South", "Full" (changes the declination range)
 	total_ruler_length = 30 # units (cut in half for each side of the ruler) (currently has to be even)
+	increment_by = 10 # increment degrees by (1, 5, 10)
+
 
 	# Calculate declination values
 	if northOrSouth == "North":
@@ -235,7 +200,7 @@ if __name__ == '__main__':
 	if northOrSouth == "South":
 		declination_min = southern_declination_min
 		declination_max = southern_declination_max
-	if northOrSouth == "Both":
+	if northOrSouth == "Full":
 		declination_min = full_declination_min
 		declination_max = full_declination_max
 
@@ -244,4 +209,5 @@ if __name__ == '__main__':
 				northOrSouth,
 				displayStarNames,
 				displayDeclinationNumbers,
-				total_ruler_length)
+				total_ruler_length,
+				increment_by)
