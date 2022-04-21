@@ -36,23 +36,43 @@ def plotLatitudePlate(ruler_length, northOrSouth, displayDeclination):
 	print("Tropic of Capricorn radius ({0}) = {1}".format(45-(tropic_of_capricorn)/2, capricorn_radius))
 	print("Equator radius = {0:.4f}".format(equator_radius))
 	print("Tropic of Cancer radius ({0}) = {1:.4f}".format(45-tropic_of_cancer/2, cancer_radius))
-	declination_labels = ["Tropic of Capricorn", "Equator", "Tropic of Cancer"]
-	declination_position = [capricorn_radius, equator_radius, cancer_radius]
+
+	declination_position = []
+	declination_labels = []
+
+	ax.set_ylim(0, radius_of_plate) # limit range to within the tropics
+
+	def plotCircles(radius_pos, label_name, label_color):
+		# plot 360 degrees circle
+		declination_labels.append(label_name)
+		declination_position.append(radius_pos)
+		for curve in [[[0, 360], [radius_pos, radius_pos]]]: # draw a circle in 360 degrees
+			curve[0] = np.deg2rad(curve[0])
+			x = np.linspace(curve[0][0], curve[0][1], num=360)
+			y = interp1d(curve[0], curve[1])(x)
+			ax.plot(x, y, color=label_color)
+
+	# Draw circle/curve for: Tropic of Cancer, Equator, Tropic of Capricon
+	tropics_labels = ["Tropic of Capricorn", "Equator", "Tropic of Cancer"]
+	tropics_positions = [capricorn_radius, equator_radius, cancer_radius]
+	for i, pos in enumerate(tropics_positions):
+		plotCircles(pos, tropics_labels[i], "Black")
+	
+	# Draw circle/curve for: Horizon
+	horizon_position = 8
+	declination_labels.append("Horizon")
+	declination_position.append(horizon_position)
+	plotCircles(horizon_position, "Horizon", "Blue")
+	
+	# Draw circle/curve for: Declination latitude angles
+	##TODO
+
+	# Display circle labels
 	if displayDeclination:
 		plt.yticks(declination_position, fontsize=7)
 		ax.set_yticklabels(declination_labels, horizontalalignment="left", verticalalignment="bottom")
 	else:
 		plt.yticks(declination_position, fontsize=0) # do not display
-	#ax.set_yticklabels(declination_position)
-
-	# Draw circle/curve at specific position
-	ax.set_ylim(0, radius_of_plate)
-	for dec in declination_position:
-		for curve in [[[0, 360], [dec, dec]]]: # draw a circle in 360 degrees
-			curve[0] = np.deg2rad(curve[0])
-			x = np.linspace(curve[0][0], curve[0][1], num=360)
-			y = interp1d(curve[0], curve[1])(x)
-			ax.plot(x, y, color="black")
 
 	plt.show()
 	fig.savefig('latitude_plate.png', dpi=fig.dpi)
