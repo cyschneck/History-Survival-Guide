@@ -49,15 +49,15 @@ def plotCircluar(star_list, northOrSouth, displayStarNamesLabels, displayDeclina
 
 	# Split up chart into North/South hemisphere
 	if northOrSouth == "Full":
-		declination_values = np.arange(full_declination_min, full_declination_max+1, 5) # +1 to show max value in range
+		declination_values = np.arange(full_declination_min, full_declination_max+1, increment_by) # +1 to show max value in range
 		min_dec_value = full_declination_min
 		max_dec_value = full_declination_max
 	if northOrSouth == "North":
-		declination_values = np.arange(northern_declination_min, northern_declination_max+1, 5) # +1 to show max value in range
+		declination_values = np.arange(northern_declination_min, northern_declination_max+1, increment_by) # +1 to show max value in range
 		min_dec_value = northern_declination_min
 		max_dec_value = northern_declination_max
 	if northOrSouth == "South":
-		declination_values = np.arange(southern_declination_min, southern_declination_max+1, 5) # +1 to show max value in range
+		declination_values = np.arange(southern_declination_min, southern_declination_max+1, increment_by) # +1 to show max value in range
 		min_dec_value = southern_declination_min
 		max_dec_value = southern_declination_max
 
@@ -77,7 +77,9 @@ def plotCircluar(star_list, northOrSouth, displayStarNamesLabels, displayDeclina
 			ax.set_yticklabels(ruler_declination_labels)
 			ax.set_rlabel_position(120)
 		else:
-			plt.yticks(ruler_declination_labels, fontsize=0) # do not display axis
+			plt.yticks(ruler_declination_position, fontsize=0) # do not display axis
+			ax.set_yticklabels(ruler_declination_labels)
+			ax.set_rlabel_position(120)
 
 	# Display declination lines based on hemisphere
 	if northOrSouth == "Both":
@@ -191,7 +193,6 @@ if __name__ == '__main__':
 	northOrSouth = "North" # options: "North", "South", "Full" (changes the declination range)
 	total_ruler_length = 30 # units (cut in half for each side of the ruler) (currently has to be even)
 	increment_by = 10 # increment degrees by (1, 5, 10)
-
 
 	# Calculate declination values
 	if northOrSouth == "North":

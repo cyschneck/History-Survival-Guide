@@ -22,7 +22,7 @@ def calculateLength(angle_of_inclination, radius_of_circle):
 def calculateRadiusOfCircle(min_dec, total_ruler_len):
 	# calculate radius of full circle from -80 to 80 where min dec is the radius of smaller circle
 	radius_of_circle_at_min_dec = (total_ruler_len/2) / math.tan(np.deg2rad(45 - min_dec/2))
-	print("Min declination = {0} for ruler length [{1} cm] = radius of {2:.4f}".format(min_dec, total_ruler_len/2, radius_of_circle_at_min_dec))
+	#print("Min declination = {0} for ruler length [{1} cm] = radius of {2:.4f}".format(min_dec, total_ruler_len/2, radius_of_circle_at_min_dec))
 	return radius_of_circle_at_min_dec
 
 def calculateRuler(graphPlotSegments, total_ruler_length, declination_min, declination_max, increment):
@@ -45,8 +45,6 @@ def calculateRuler(graphPlotSegments, total_ruler_length, declination_min, decli
 
 	# optional graph of segments
 	if graphPlotSegments:
-		print(len(x_angleOfDeclination))
-		print(len(y_lengthSegments))
 		plotLengthSegments(x_angleOfDeclination, y_lengthSegments)
 
 	return ruler_position_dict
