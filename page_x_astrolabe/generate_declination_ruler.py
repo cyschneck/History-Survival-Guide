@@ -14,7 +14,7 @@ def triggerDeclinationCalculations(ruler_length, dec_min, dec_max, increment):
 
 def calculateLength(angle_of_inclination, radius_of_circle):
 	# convert angle into length of radius
-	#print("{0} = {1}".format(angle_of_inclination, 45-angle_of_inclination/2))
+	#print("Angle {0} = {1}".format(angle_of_inclination, 45-angle_of_inclination/2))
 	angle_in_radians = np.deg2rad(45 - angle_of_inclination/2)
 	equation_of_length = radius_of_circle * math.tan(angle_in_radians) # calculated
 	return equation_of_length

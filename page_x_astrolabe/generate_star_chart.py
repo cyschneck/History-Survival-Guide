@@ -82,7 +82,7 @@ def plotCircluar(star_list, northOrSouth, displayStarNamesLabels, displayDeclina
 			ax.set_rlabel_position(120)
 
 	# Display declination lines based on hemisphere
-	if northOrSouth == "Both":
+	if northOrSouth == "Full":
 		displayDeclinationMarksOnAxis(declination_values, full_declination_min, full_declination_max)
 	if northOrSouth == "North":
 		displayDeclinationMarksOnAxis(declination_values, northern_declination_min, northern_declination_max)
@@ -117,51 +117,72 @@ def plotCircluar(star_list, northOrSouth, displayStarNamesLabels, displayDeclina
 if __name__ == '__main__':
 	# stars to be included: 'name', ra HH.MM.SS, declination DD.SS
 	# Northern stars (+ declination)
+	aldebaran_star = ["Aldebaran", "04.35.55", 16.30]
+	algol_star = ["Algol", "03.08.10", 40.57]
 	alioth_star = ["Alioth", "12.54.01", 55.57]
 	alkaid_star = ["Alkaid", "13.47.32", 49.18]
+	alphecca_star = ["Alphecca", "15.34.41", 26.42]
 	alpheratz_star = ["Alpheratz", "00.08.23", 29.05]
 	altair_star = ["Altair", "19.50.46", 8.52]
 	arcturus_star = ["Arcturus", "14.15.39", 19.10]
 	bellatrix_star = ["Bellatrix", "05.25.07", 6.20]
 	betelgeuse_star = ["Betelgeuse", "05.55.10", 7.24]
+	caph_star = ["Caph", "00.09.10", 59.08]
+	capella_star = ["Capella", "05.16.41", 45.59]
 	castor_star = ["Castor", "07.34.35", 31.53]
+	deneb_star = ["Deneb", "20.41.25", 45.16]
+	denebola_star = ["Denebola", "11.49.03", 14.34]
 	dubhe_star = ["Dubhe", "11.03.43", 61.45]
 	hamal_star = ["Hamal", "02.07.10", 23.27]
 	megrez_star = ["Megrez", "12.15.25", 57.01]
 	merak_star = ["Merak", "11.01.50", 56.22]
 	mizar_star = ["Mizar", "13.23.55", 54.55]
+	pleiades_celaeno_star = ["Celaeno", "03.44.48", 24.17]
 	polaris_star = ["Polaris", "02.31.49", 89.15]
 	pollux_star = ["Pollux", "07.45.18", 28.01]
 	phecda_star = ["Phecda", "11.53.49", 53.41]
 	procyon_star = ["Procyon", "07.39.18", 5.13]
+	rasalhague_star = ["Rasalhague", "17.34.56", 12.33]
+	regulus_star = ["Regulus", "10.08.22", 11.58]
 	schedar_star = ["Schedar", "00.04.30", 56.32]
 	spica_star = ["Spica", "13.25.11", -11.09]
 	vega_star = ["Vega", "18.36.56", 38.47]
+
 	#Southern stars (- declination)
 	achernar_star = ["Achernar", "01.37.42", -57.14]
+	alphard_star = ["Alphard", "09.27.35", -8.39]
 	ankaa_star = ["Ankaa", "00.26.17", -42.18]
 	beta_hydri_star = ["Beta Hydri", "00.25.45", -77.15]
 	diphda_star = ["Diphda", "00.43.35", -17.59]
 	gamma_phoenics_star = ["Gamma Phoenics", "01.28.21", -43.19]
 	mimosa_star = ["Mimosa", "12.47.43", -59.41]
 	rigel_star = ["Rigel", "05.14.32", -8.12]
+	sadalmelik_star = ["Sadalmelik", "22.05.47", -0.19]
 	sirus_star = ["Sirus", "06.45.08", -16.42]
 	theta_eridani_star = ["Theta Eridani", "02.58.15", -40.18]
+	zubeneschamali_star = ["Zubeneschamali", "15.17.00", -9.22]
 
 	# add stars to total star list
-	northern_star_chart_list = [alioth_star,
+	northern_star_chart_list = [aldebaran_star,
+								algol_star,
+								alioth_star,
 								alkaid_star,
+								alphecca_star,
 								alpheratz_star,
 								altair_star,
 								arcturus_star,
 								bellatrix_star,
 								betelgeuse_star,
+								caph_star,
+								capella_star,
 								castor_star,
+								denebola_star,
 								dubhe_star,
 								hamal_star,
 								megrez_star,
 								merak_star,
 								mizar_star,
+								pleiades_celaeno_star,
 								polaris_star,
 								pollux_star,
 								phecda_star,
@@ -172,6 +193,7 @@ if __name__ == '__main__':
 								]
 
 	southern_star_chart_list = [achernar_star,
+								alphard_star,
 								ankaa_star,
 								beta_hydri_star,
 								diphda_star,
@@ -179,7 +201,8 @@ if __name__ == '__main__':
 								mimosa_star,
 								rigel_star,
 								sirus_star,
-								theta_eridani_star
+								theta_eridani_star,
+								zubeneschamali_star
 								]
 
 	star_chart_list = northern_star_chart_list + southern_star_chart_list
