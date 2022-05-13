@@ -14,7 +14,7 @@ def triggerDeclinationCalculations(ruler_length, dec_min, dec_max, increment):
 
 def calculateLength(angle_of_inclination, radius_of_circle):
 	# convert angle into length of radius
-	#print("Angle {0} = {1}".format(angle_of_inclination, 45-angle_of_inclination/2))
+	#print("Angle {0} = Angle {1}".format(angle_of_inclination, 45-angle_of_inclination/2))
 	angle_in_radians = np.deg2rad(45 - angle_of_inclination/2)
 	equation_of_length = radius_of_circle * math.tan(angle_in_radians) # calculated
 	return equation_of_length
@@ -41,7 +41,7 @@ def calculateRuler(graphPlotSegments, total_ruler_length, declination_min, decli
 		y_lengthSegments.append(ruler_position)
 		if n_angle >= declination_min and n_angle <= declination_max:
 			ruler_position_dict[n_angle] = round(ruler_position, 4)
-			print("Angle {0} = {1:.4f}".format(n_angle, ruler_position))
+			print("Angle {0} = {1:.4f} cm".format(n_angle, ruler_position))
 
 	# optional graph of segments
 	if graphPlotSegments:

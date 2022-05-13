@@ -215,7 +215,7 @@ if __name__ == '__main__':
 	displayDeclinationNumbers = True # display declination marks (False/True)
 	northOrSouth = "North" # options: "North", "South", "Full" (changes the declination range)
 	total_ruler_length = 30 # units (cut in half for each side of the ruler) (currently has to be even)
-	increment_by = 10 # increment degrees by (1, 5, 10)
+	increment_by = 5 # increment degrees by (1, 5, 10)
 
 	# Calculate declination values
 	if northOrSouth == "North":
