@@ -90,10 +90,15 @@ def plotCircluar(star_list, northOrSouth, year_date_YYYY, displayStarNamesLabels
 		displayDeclinationMarksOnAxis(declination_values, southern_declination_min, southern_declination_max)
 
 	# Calculate the RA and Declination of a star based on changes due to Proper Motion
-	def calculateRAandDeclinationViaProperMotion(year_date_YYYY):
+	def calculateRAandDeclinationViaProperMotion(year_date_YYYY, star_ra, star_dec, star_pm_speed, star_pm_angle):
 		# returns calculated RA and Declination
 		current_year = 2022
-		time_since = year_date_YYYY - 2022 # postive = future, negative = past
+		time_since_current_year = year_date_YYYY - current_year # postive = future, negative = past
+
+		star_movement_speed_vector = star_pm_speed * time_since_current_year
+		x_component = star_movement_speed_vector * math.sin(np.deg2rad(star_pm_angle))
+		y_component = star_movement_speed_vector * math.cos(np.deg2rad(star_pm_angle))
+
 		return star_adjusted_ra, star_adjusted_declination
 
 	print("\nRange of Declination: {0} to {1}".format(min_dec_value, max_dec_value))
@@ -107,9 +112,11 @@ def plotCircluar(star_list, northOrSouth, year_date_YYYY, displayStarNamesLabels
 		print("{0}: {1} = {2:.4f}".format(star[0], star[2], ruler_position))
 		if star[2] > min_dec_value and star[2] < max_dec_value: # only display stars within range of declination values
 			x_star_labels.append(star[0])
-			## TODO: star_ra, star_declination = calculateRAandDeclinationViaProperMotion(year_date_YYYY)
-			x_ra_values.append(star[1])
-			y_dec_values.append(ruler_position)
+			star_ra, star_declination = calculateRAandDeclinationViaProperMotion(year_date_YYYY, star[1], ruler_position)
+			x_ra_values.append(star_ra)
+			y_dec_values.append(star_declination)
+			#x_ra_values.append(star[1])
+			#y_dec_values.append(ruler_position)
 	ax.scatter(x_ra_values, y_dec_values, s=10)
 
 	# label stars (optional)
