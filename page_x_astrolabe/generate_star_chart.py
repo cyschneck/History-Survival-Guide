@@ -29,7 +29,7 @@ def convertRAhrtoRadians(star_list):
 		star[1] = ra_in_radians
 	return star_list
 
-def plotCircluar(star_list, northOrSouth, displayStarNamesLabels, displayDeclinationNumbers, total_ruler_length, increment_by):
+def plotCircluar(star_list, northOrSouth, year_date_YYYY, displayStarNamesLabels, displayDeclinationNumbers, total_ruler_length, increment_by):
 	# plot star chart as a circular graph
 	fig = plt.figure(figsize=(12,12), dpi=100)
 	ax = fig.subplots(subplot_kw={'projection': 'polar'})
@@ -89,6 +89,13 @@ def plotCircluar(star_list, northOrSouth, displayStarNamesLabels, displayDeclina
 	if northOrSouth == "South":
 		displayDeclinationMarksOnAxis(declination_values, southern_declination_min, southern_declination_max)
 
+	# Calculate the RA and Declination of a star based on changes due to Proper Motion
+	def calculateRAandDeclinationViaProperMotion(year_date_YYYY):
+		# returns calculated RA and Declination
+		current_year = 2022
+		time_since = year_date_YYYY - 2022 # postive = future, negative = past
+		return star_adjusted_ra, star_adjusted_declination
+
 	print("\nRange of Declination: {0} to {1}".format(min_dec_value, max_dec_value))
 	radius_of_circle = declination_script.calculateRadiusOfCircle(declination_min, total_ruler_length)
 	# convert to x and y values for stars
@@ -100,6 +107,7 @@ def plotCircluar(star_list, northOrSouth, displayStarNamesLabels, displayDeclina
 		print("{0}: {1} = {2:.4f}".format(star[0], star[2], ruler_position))
 		if star[2] > min_dec_value and star[2] < max_dec_value: # only display stars within range of declination values
 			x_star_labels.append(star[0])
+			## TODO: star_ra, star_declination = calculateRAandDeclinationViaProperMotion(year_date_YYYY)
 			x_ra_values.append(star[1])
 			y_dec_values.append(ruler_position)
 	ax.scatter(x_ra_values, y_dec_values, s=10)
@@ -201,7 +209,7 @@ if __name__ == '__main__':
 								gamma_phoenics_star,
 								mimosa_star,
 								rigel_star,
-								sirus_star,
+								sirius_star,
 								theta_eridani_star,
 								zubeneschamali_star
 								]
@@ -217,6 +225,7 @@ if __name__ == '__main__':
 	northOrSouth = "North" # options: "North", "South", "Full" (changes the declination range)
 	total_ruler_length = 30 # units (cut in half for each side of the ruler) (currently has to be even)
 	increment_by = 5 # increment degrees by (1, 5, 10)
+	year_date_YYYY = 2022
 
 	# Calculate declination values
 	if northOrSouth == "North":
@@ -232,6 +241,7 @@ if __name__ == '__main__':
 	# Plot star chart on a circular polar coordinate system
 	plotCircluar(star_chart_list,
 				northOrSouth,
+				year_date_YYYY,
 				displayStarNames,
 				displayDeclinationNumbers,
 				total_ruler_length,
