@@ -15,6 +15,7 @@ perhelion = "Perhelion (AU)"
 aphelion = "Aphelion (AU)"
 orbital_period = "Orbital Period (years)"
 mean_distance = "Mean Distance from Sun (AU)"
+mean_sun_area = "Mean Sun Area (AU)"
 
 def setDictionaryValues(planet_name_value, semi_major_axis_value, eccentricity_value, sidereal_length_in_days):
 	# set a dictionary value
@@ -36,19 +37,20 @@ def determineEccentricityEffectDistance(planet_dict):
 	all_days_of_the_year_list = np.arange(0, planet_dict[sidereal]+1)
 	day_of_perihelion = 4 # for Earth: TODO
 
-	distance_position_for_days_of_year = [] # store the distance from the sun on each day of the sidereal year
+	distance_position_for_days_of_year_with_eccentricity = [] # store the distance from the sun on each day of the sidereal year
 	distance_position_for_days_of_year_without_eccentricity = [] # store distance from sun for a mean distance
 	for day in all_days_of_the_year_list:
 		position_distance_day_au = planet_dict[mean_distance] - planet_dict[eccentricity] * math.cos(np.deg2rad((360/planet_dict[sidereal]) * (day - day_of_perihelion)))
-		distance_position_for_days_of_year.append(position_distance_day_au)
+		distance_position_for_days_of_year_with_eccentricity.append(position_distance_day_au)
 		distance_position_for_days_of_year_without_eccentricity.append(planet_dict[mean_distance])
 
 	# Plot Sidereal Year Distance
 	plotOverSideRealDistance(planet_dict[planet_name],
 							all_days_of_the_year_list,
-							distance_position_for_days_of_year,
+							distance_position_for_days_of_year_with_eccentricity,
 							planet_dict[sidereal]+1,
 							distance_position_for_days_of_year_without_eccentricity)
+	return distance_position_for_days_of_year_with_eccentricity
 
 def plotOverSideRealDistance(planet_name, x, y, range_of_x, y_mean_distance):
 	# Plot Distance from Sun on every day of the Sidereal Year for a planet
@@ -62,10 +64,17 @@ def plotOverSideRealDistance(planet_name, x, y, range_of_x, y_mean_distance):
 	fig.savefig('{0}_eot_sidereal_year_distance.png'.format(planet_name.lower()), dpi=fig.dpi)
 
 if __name__ == '__main__':
-	# Set dictionary values: Planet Name, Semi-Major Axis, Eccentricity, Sidereal
+	# Set dictionary values: Planet Name, Semi-Major Axis (km), Eccentricity, Sidereal
+	setDictionaryValues("Mercury", 57909050, 0.205630, 87.97)
+	setDictionaryValues("Venus", 108208000, 0.006772, 224.701)
 	setDictionaryValues("Earth", 149598923, 0.0167086, 	365.25)
-	setDictionaryValues("Mars", 227939366, 0.0934, 687)
+	setDictionaryValues("Mars", 227939366, 0.0934, 686.98)
+	setDictionaryValues("Jupiter", 778479000, 0.0489, 4332.59)
+	setDictionaryValues("Saturn", 1433536555, 0.0565, 10759.22)
+	setDictionaryValues("Uranus", 2870971632, 0.04717, 30688.5)
+	setDictionaryValues("Neptune", 4498410000, 0.008678, 60195)
 	for planet, single_planet_dictionary in full_planet_dict.items():
 		print(planet)
+		distance_pos_each_day_of_year = determineEccentricityEffectDistance(single_planet_dictionary)
 		print(single_planet_dictionary)
-		determineEccentricityEffectDistance(single_planet_dictionary)
+
