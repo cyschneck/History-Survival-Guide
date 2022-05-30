@@ -61,20 +61,53 @@ def plotOverSideRealDistance(planet_name, x, y, range_of_x, y_mean_distance):
 	plt.scatter(x, y_mean_distance) # plot the mean sun: sun with no eccentricity
 
 	plt.show()
-	fig.savefig('{0}_eot_sidereal_year_distance.png'.format(planet_name.lower()), dpi=fig.dpi)
+	fig.savefig('eot_graphs/{0}_eot_sidereal_year_distance.png'.format(planet_name.lower()), dpi=fig.dpi)
+
+### TESTING ###
+def areaOfMeanSun(mean_distance_of_planet, sidereal_length):
+	# calculate the area for the distance that the mean sun moves every 'day'
+	#print("Mean Distance = {0} AU".format(mean_distance_of_planet))
+	#print("Sidereal Length = {0} Days".format(sidereal_length))
+	angle_for_day = 360 / sidereal_length
+	#print("Angle = {0}".format(math.cos(np.deg2rad(angle_for_day))))
+	#print(2 * (mean_distance_of_planet**2))
+	#print(2*(mean_distance_of_planet*mean_distance_of_planet) * math.cos(np.deg2rad(angle_for_day)))
+	# a = sqrt(b^2 + c^2 - 2bc * cos(angle))
+	distance_traveled = (2 * (mean_distance_of_planet**2)) - (2*(mean_distance_of_planet*mean_distance_of_planet) * math.cos(np.deg2rad(angle_for_day)))
+	distance_traveled = math.sqrt(distance_traveled)
+	#print("Distance Traveled = {0}".format(distance_traveled))
+	# s = 1/2 (a+b+c)
+	s = 0.5 * (distance_traveled + mean_distance_of_planet + mean_distance_of_planet) # semi-perimeter of triangle
+	#print("Semi-Perimeter = {0}".format(s))
+	# Area = sqrt(s(s-a)(s-b)(s-c))
+	mean_sun_area = (s-distance_traveled)*(s-mean_distance_of_planet)*(s-mean_distance_of_planet)
+	mean_sun_area = math.sqrt(s*mean_sun_area)
+	print("Mean Area = {0} AU".format(mean_sun_area))
+	return mean_sun_area
+
+def calculateAnglesForEachDay(area_of_mean_sun, distance_pos_list):
+	# calculate the angles for each day of the year based on Kepler's Second Law
+	# Area_mean = Area_with_eccentricity
+	# Area = 1/2 * bc * sin(angle) == angle = sin^-1(2*Area_Mean / bc)
+	angle_list_for_each_day = []
+	for i in distance_pos_list:
+		print(i)
+		#angle_of_position = math.arcsin((2 * area_of_mean_sun) / (
+### TESTING ###
 
 if __name__ == '__main__':
 	# Set dictionary values: Planet Name, Semi-Major Axis (km), Eccentricity, Sidereal
 	setDictionaryValues("Mercury", 57909050, 0.205630, 87.97)
-	setDictionaryValues("Venus", 108208000, 0.006772, 224.701)
+	#setDictionaryValues("Venus", 108208000, 0.006772, 224.701)
 	setDictionaryValues("Earth", 149598923, 0.0167086, 	365.25)
-	setDictionaryValues("Mars", 227939366, 0.0934, 686.98)
-	setDictionaryValues("Jupiter", 778479000, 0.0489, 4332.59)
-	setDictionaryValues("Saturn", 1433536555, 0.0565, 10759.22)
-	setDictionaryValues("Uranus", 2870971632, 0.04717, 30688.5)
-	setDictionaryValues("Neptune", 4498410000, 0.008678, 60195)
+	#setDictionaryValues("Mars", 227939366, 0.0934, 686.98)
+	#setDictionaryValues("Jupiter", 778479000, 0.0489, 4332.59)
+	#setDictionaryValues("Saturn", 1433536555, 0.0565, 10759.22)
+	#setDictionaryValues("Uranus", 2870971632, 0.04717, 30688.5)
+	#setDictionaryValues("Neptune", 4498410000, 0.008678, 60195)
 	for planet, single_planet_dictionary in full_planet_dict.items():
 		print(planet)
-		distance_pos_each_day_of_year = determineEccentricityEffectDistance(single_planet_dictionary)
 		print(single_planet_dictionary)
+		distance_pos_each_day_of_year = determineEccentricityEffectDistance(single_planet_dictionary)
+		#single_planet_dictionary[mean_sun_area] = areaOfMeanSun(single_planet_dictionary[mean_distance], single_planet_dictionary[sidereal])
 
