@@ -95,24 +95,22 @@ def plotCircluar(star_list, northOrSouth, year_date_YYYY, displayStarNamesLabels
 		# returns calculated RA and Declination
 		current_year = 2022
 		time_since_current_year = year_date_YYYY - current_year # postive = future, negative = past
-		print("Date {0}, RA = {1}, Dec = {2}, PM Speed = {3}, PM Angle = {4}".format(year_date_YYYY,
-																					star_ra,
-																					star_dec,
-																					star_pm_speed,
-																					star_pm_angle))
+		print("{0} Years".format(time_since_current_year))
+		#print("Date {0}, RA = {1}, Dec = {2}, PM Speed = {3}, PM Angle = {4}".format(year_date_YYYY, star_ra, star_dec, star_pm_speed, star_pm_angle))
 
-		star_pm_speed_degrees = 0.00000027777776630942 * star_pm_speed # convert mas to degrees
-		star_movement_speed_vector = star_pm_speed_degrees * time_since_current_year
-		print("Years: {0}, with speed of {1} degree and angle of {2} = {3}".format(time_since_current_year,
-																			star_pm_speed_degrees, star_pm_angle,
-																			star_movement_speed_vector))
-		ra_x_difference_component = star_movement_speed_vector * math.sin(np.deg2rad(star_pm_angle))
-		dec_y_difference_component = star_movement_speed_vector * math.cos(np.deg2rad(star_pm_angle))
-		print("(RA) x = {0}".format(ra_x_difference_component))
-		print("(DEC) y = {0}\n".format(dec_y_difference_component))
+		star_pm_speed_degrees = 0.00000027777776630942 * star_pm_speed # convert mas/yr to degrees/yr
+		star_pm_speed_radains = np.deg2rad(star_pm_speed_degrees) # radains/yr
+		star_movement_radains_per_year = star_pm_speed_radains * time_since_current_year
+		#print("Years: {0}, speed {1} (rad/yr) and angle of {2} ({3} radians)".format(time_since_current_year, star_pm_speed_radains, star_pm_angle, np.deg2rad(star_pm_angle)))
+		#print("Movement Over Time = {0} (rad/yr)".format(star_movement_radains_per_year))
+		
+		ra_x_difference_component = star_movement_radains_per_year * math.cos(np.deg2rad(star_pm_angle))
+		dec_y_difference_component = star_movement_radains_per_year * math.sin(np.deg2rad(star_pm_angle))
+		#print("(RA) x Difference = {0} (rad/yr)".format(ra_x_difference_component))
+		#print("(DEC) y Difference = {0} rad/yr ({1} degrees/yr)".format(dec_y_difference_component, np.rad2deg(dec_y_difference_component)))
 
-		star_adjusted_ra = star_ra #TODO: + ra_x_difference_component
-		star_adjusted_declination = star_dec #TODO: + dec_y_difference_component
+		star_adjusted_ra = star_ra + ra_x_difference_component # in radians
+		star_adjusted_declination = star_dec + np.rad2deg(dec_y_difference_component) # in degrees
 
 		return star_adjusted_ra, star_adjusted_declination
 
@@ -123,19 +121,22 @@ def plotCircluar(star_list, northOrSouth, year_date_YYYY, displayStarNamesLabels
 	x_ra_values = []
 	y_dec_values = []
 	for star in star_list:
-		ruler_position = declination_script.calculateLength(star[2], radius_of_circle) # convert degree to position on radius
-		print("{0}: {1} = {2:.4f}".format(star[0], star[2], ruler_position))
-		if star[2] > min_dec_value and star[2] < max_dec_value: # only display stars within range of declination values
+		print("{0}: {1} RA (radians) and {2} Declination (degrees)".format(star[0], star[1], star[2]))
+		star_ra, star_declination = calculateRAandDeclinationViaProperMotion(year_date_YYYY, 
+																			star[1], 
+																			star[2], 
+																			star[3], 
+																			star[4])
+		print("Adjusted: {0} RA (radians) = {1}".format(star[1], star_ra))
+		print("Adjusted: {0} Declination (degrees) = {1} ".format(star[2], star_declination))
+		dec_ruler_position = declination_script.calculateLength(star_declination, radius_of_circle) # convert degree to position on radius
+		#print("{0}: {1} declination = {2:.4f} cm".format(star[0], star_declination, ruler_position))
+		if star_declination > min_dec_value and star_declination < max_dec_value: # only display stars within range of declination values
 			x_star_labels.append(star[0])
-			star_ra, star_declination = calculateRAandDeclinationViaProperMotion(year_date_YYYY, 
-																				star[1], 
-																				ruler_position, 
-																				star[3], 
-																				star[4])
 			x_ra_values.append(star_ra)
-			y_dec_values.append(star_declination)
-			#x_ra_values.append(star[1])
-			#y_dec_values.append(ruler_position)
+			y_dec_values.append(dec_ruler_position)
+		print("\n")
+
 	ax.scatter(x_ra_values, y_dec_values, s=10)
 
 	# label stars (optional)
@@ -150,7 +151,7 @@ def plotCircluar(star_list, northOrSouth, year_date_YYYY, displayStarNamesLabels
 
 if __name__ == '__main__':
 	# stars to be included: 'name', ra HH.MM.SS, declination DD.SS
-	# stars: ["name", "RA: HH.MM.SS", DD.SS, Proper Motion Speed (mas/yr), Proper motion pos angle (DD.SS)]
+	# stars: ["name", "RA: HH.MM.SS", Declination DD.SS, Proper Motion Speed (mas/yr), Proper Motion Angle (DD.SS)]
 	# Northern stars (+ declination)
 	aldebaran_star = ["Aldebaran", "04.35.55", 16.30, 199.3, 161.4]
 	algol_star = ["Algol", "03.08.10", 40.57, 3.4, 119.0]
@@ -222,6 +223,7 @@ if __name__ == '__main__':
 								pollux_star,
 								phecda_star,
 								procyon_star,
+								regulus_star,
 								schedar_star,
 								spica_star,
 								vega_star
@@ -251,7 +253,7 @@ if __name__ == '__main__':
 	northOrSouth = "North" # options: "North", "South", "Full" (changes the declination range)
 	total_ruler_length = 30 # units (cut in half for each side of the ruler) (currently has to be even)
 	increment_by = 5 # increment degrees by (1, 5, 10)
-	year_of_plate_YYYY = 2024
+	year_of_plate_YYYY = 2022 - 0 # years
 
 	# Calculate declination values
 	if northOrSouth == "North":
