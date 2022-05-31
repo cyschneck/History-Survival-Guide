@@ -12,7 +12,7 @@ northern_declination_max = 70
 southern_declination_min = -70
 southern_declination_max = 30
 full_declination_min = -80 # -90 = 0 length
-full_declination_max = 80 # 90 = Large enough value that makes ratio = 0
+full_declination_max = 80 # 90 = Full Length of Circle
 
 def convertRAhrtoRadians(star_list):
 	# change first element in the list object [RA, dec]
@@ -163,15 +163,18 @@ if __name__ == '__main__':
 	arcturus_star = ["Arcturus", "14.15.39", 19.10, 2279.4, 208.7]
 	bellatrix_star = ["Bellatrix", "05.25.07", 6.20, 15.2, 212.2]
 	betelgeuse_star = ["Betelgeuse", "05.55.10", 7.24, 29.8, 67.7]
-	caph_star = ["Caph", "00.09.10", 59.08, 553.5, 109.0]
+	caph_star = ["Caph", "00.09.10", 59.08, 553.5, 109.0] # Beta Cassiopeiae
 	capella_star = ["Capella", "05.16.41", 45.59, 433.5, 170.0]
+	cor_caroli_star = ["Cor-Caroli", "12.56.01", 38.19, 240.2, 283.2]
 	castor_star = ["Castor", "07.34.35", 31.53, 240.3, 232.8]
 	deneb_star = ["Deneb", "20.41.25", 45.16, 2.7, 47.4]
 	denebola_star = ["Denebola", "11.49.03", 14.34, 510.7, 257.0]
 	dubhe_star = ["Dubhe", "11.03.43", 61.45, 138.5, 255.5]
+	gamma_cassiopeiae_star = ["Gamma Cassiopeiae", "00.56.42", 60.43, 25.5, 98.9] # Gamma Cassiopeiae
 	hamal_star = ["Hamal", "02.07.10", 23.27, 239.7, 128.1]
 	megrez_star = ["Megrez", "12.15.25", 57.01, 104.3, 85.5]
 	merak_star = ["Merak", "11.01.50", 56.22, 88.0, 67.6]
+	muphrid_star = ["Muphrid", "13.54.41", 18.23, 361.5, 189.7]
 	mizar_star = ["Mizar", "13.23.55", 54.55, 124.6, 100.5]
 	pleiades_celaeno_star = ["Celaeno", "03.44.48", 24.17, 49.2, 156.2]
 	polaris_star = ["Polaris", "02.31.49", 89.15, 46.0, 104.9]
@@ -180,7 +183,10 @@ if __name__ == '__main__':
 	procyon_star = ["Procyon", "07.39.18", 5.13, 1259.2, 214.6]
 	rasalhague_star = ["Rasalhague", "17.34.56", 12.33, 246.5, 154.0]
 	regulus_star = ["Regulus", "10.08.22", 11.58, 248.8, 271.3]
-	schedar_star = ["Schedar", "00.04.30", 56.32, 58.4, 122.7]
+	ruchbah_star = ["Ruchbah", "01.25.49", 60.14, 300.5, 99.4] # Delta Cassiopeiae
+	schedar_star = ["Schedar", "00.04.30", 56.32, 58.4, 122.7] # Alpha Cassiopeiae
+	segin_star = ["Segin", "01.54.23", 63.4, 37.3, 120.5] # Epsilon Cassiopeiae
+	seginus_star = ["Seginus", "14.32.04", 38.18, 190.4, 322.6]
 	spica_star = ["Spica", "13.25.11", -11.09, 52.3, 234.1]
 	vega_star = ["Vega", "18.36.56", 38.47, 349.7, 35.1]
 
@@ -212,11 +218,14 @@ if __name__ == '__main__':
 								caph_star,
 								capella_star,
 								castor_star,
+								cor_caroli_star,
 								denebola_star,
 								dubhe_star,
+								gamma_cassiopeiae_star,
 								hamal_star,
 								megrez_star,
 								merak_star,
+								muphrid_star,
 								mizar_star,
 								pleiades_celaeno_star,
 								polaris_star,
@@ -224,7 +233,10 @@ if __name__ == '__main__':
 								phecda_star,
 								procyon_star,
 								regulus_star,
+								ruchbah_star,
 								schedar_star,
+								segin_star,
+								seginus_star,
 								spica_star,
 								vega_star
 								]
@@ -253,7 +265,7 @@ if __name__ == '__main__':
 	northOrSouth = "North" # options: "North", "South", "Full" (changes the declination range)
 	total_ruler_length = 30 # units (cut in half for each side of the ruler) (currently has to be even)
 	increment_by = 5 # increment degrees by (1, 5, 10)
-	year_of_plate_YYYY = 2022 - 0 # years
+	year_of_plate_YYYY = 1969 # B.C.E or written as: 2022 - 150 # years
 
 	# Calculate declination values
 	if northOrSouth == "North":
