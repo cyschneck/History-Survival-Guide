@@ -163,10 +163,11 @@ if __name__ == '__main__':
 	arcturus_star = ["Arcturus", "14.15.39", 19.10, 2279.4, 208.7]
 	bellatrix_star = ["Bellatrix", "05.25.07", 6.20, 15.2, 212.2]
 	betelgeuse_star = ["Betelgeuse", "05.55.10", 7.24, 29.8, 67.7]
+	chara_star = ["Chara", "12.33.43", 41.21, 762.9, 292.5]
 	caph_star = ["Caph", "00.09.10", 59.08, 553.5, 109.0] # Beta Cassiopeiae
 	capella_star = ["Capella", "05.16.41", 45.59, 433.5, 170.0]
-	cor_caroli_star = ["Cor-Caroli", "12.56.01", 38.19, 240.2, 283.2]
 	castor_star = ["Castor", "07.34.35", 31.53, 240.3, 232.8]
+	cor_caroli_star = ["Cor-Caroli", "12.56.01", 38.19, 240.2, 283.2]
 	deneb_star = ["Deneb", "20.41.25", 45.16, 2.7, 47.4]
 	denebola_star = ["Denebola", "11.49.03", 14.34, 510.7, 257.0]
 	dubhe_star = ["Dubhe", "11.03.43", 61.45, 138.5, 255.5]
@@ -192,12 +193,19 @@ if __name__ == '__main__':
 
 	#Southern stars (- declination)
 	achernar_star = ["Achernar", "01.37.42", -57.14, 95.0, 113.7]
+	acrux_star = ["Acrux", "12.26.35", -63.05, 38.8, 247.5] # Southern Cross
 	alphard_star = ["Alphard", "09.27.35", -8.39, 37.6, 336.1]
 	ankaa_star = ["Ankaa", "00.26.17", -42.18, 425.7, 146.8]
+	antares_star = ["Antares", "16.29.24", -26.25, 26.3, 207.5]
 	beta_hydri_star = ["Beta Hydri", "00.25.45", -77.15, 2242.9, 81.6]
+	canopus_star = ["Canopus", "06.23.57", -51.41, 30.6, 40.6]
+	delta_crucis_star = ["Delta Crucis", "12.15.08", -58.44, 38.6, 253.0] # Southern Cross
 	diphda_star = ["Diphda", "00.43.35", -17.59, 234.7, 82.2]
+	formalhaut_star = ["Formalhaut", "22.57.38", -29.37, 367.9, 116.6]
+	gacrux_star = ["Gacrux", "12.31.09", -57.06, 266.6, 173.9] # Southern Cross
 	gamma_phoenics_star = ["Gamma Phoenics", "01.28.21", -43.19, 207.6, 184.9]
-	mimosa_star = ["Mimosa", "12.47.43", -59.41, 45.9, 249.4]
+	hadar_star = ["Hadar", "14.03.49", -60.22, 40.5, 235.2]
+	mimosa_star = ["Mimosa", "12.47.43", -59.41, 45.9, 249.4] # Southern Cross
 	rigel_star = ["Rigel", "05.14.32", -8.12, 1.4, 69.1]
 	sadalmelik_star = ["Sadalmelik", "22.05.47", -0.19, 21.3, 119.3]
 	sirius_star = ["Sirius", "06.45.08", -16.42, 1339.4, 204.1]
@@ -215,6 +223,7 @@ if __name__ == '__main__':
 								arcturus_star,
 								bellatrix_star,
 								betelgeuse_star,
+								chara_star,
 								caph_star,
 								capella_star,
 								castor_star,
@@ -242,11 +251,18 @@ if __name__ == '__main__':
 								]
 
 	southern_star_chart_list = [achernar_star,
+								acrux_star,
 								alphard_star,
 								ankaa_star,
+								antares_star,
 								beta_hydri_star,
+								canopus_star,
+								delta_crucis_star,
 								diphda_star,
+								formalhaut_star,
+								gacrux_star,
 								gamma_phoenics_star,
+								hadar_star,
 								mimosa_star,
 								rigel_star,
 								sirius_star,
