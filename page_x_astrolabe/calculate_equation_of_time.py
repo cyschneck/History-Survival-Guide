@@ -172,22 +172,31 @@ def plotEffectOfEccentricty(planet_name, effect_of_eccentricity_dict):
 	plt.show()
 	fig.savefig('eot_graphs/{0}_eot_effect_of_eccentricity.png'.format(planet_name.lower()), dpi=fig.dpi)
 
-def plotEccentrictyEffectBasedOnEccentricity(all_planet_dict):
+def plotChangeInTimeBasedOnEccentricity(all_planet_dict):
 	# Plot the Effect of Eccentricity based on Eccentricity of the Planets
-	fig = plt.figure(figsize=(12,12), dpi=100)
+	fig, ax = plt.subplots(figsize=(12,12), dpi=100)
 
 	x_eccentricity = []
 	y_change_in_minutes = []
+	planet_names = []
 	for planet, planet_dict in all_planet_dict.items():
 		x_eccentricity.append(planet_dict[eccentricity])
 		y_change_in_minutes.append(planet_dict[eot_effect_of_eccentricity])
+		planet_names.append(planet_dict[planet_name])
 
+	a, b = np.polyfit(x_eccentricity, y_change_in_minutes, 1) # line of best fit
+	plt.yticks(np.arange(0, math.ceil(max(y_change_in_minutes))+1, 5))
+	plt.plot(x_eccentricity, a*np.array(x_eccentricity)+b, color='grey', linestyle='--', linewidth=1)
 	plt.scatter(x_eccentricity, y_change_in_minutes)
-	plt.title("Effect of Eccentricity based on Eccentricity")
+
+	for i, planet_name_txt in enumerate(planet_names): # annotate data points with planet names
+		ax.annotate(planet_name_txt, (x_eccentricity[i], y_change_in_minutes[i]))
+
+	plt.title("Max Change in Minutes due to Eccentricity: Minutes = {0:.2f} + {1:.2f} * Eccentricity".format(b, a))
 	plt.xlabel("Eccentricity")
 	plt.ylabel("Minutes")
 	plt.show()
-	fig.savefig('eot_graphs/overall_eot_effect_of_eccentricity.png', dpi=fig.dpi)
+	fig.savefig('eot_graphs/change_in_time_due_to_eccentricity.png', dpi=fig.dpi)
 
 if __name__ == '__main__':
 	# Set dictionary values: Planet Name, Semi-Major Axis (km), Eccentricity, Sidereal
@@ -208,4 +217,4 @@ if __name__ == '__main__':
 		#print(effect_of_eccentricity_over_year_dict)
 		plotEffectOfEccentricty(single_planet_dictionary[planet_name], effect_of_eccentricity_over_year_dict)
 		print("\n")
-	plotEccentrictyEffectBasedOnEccentricity(full_planet_dict) # plot the change in minutes due to eccentricity
+	plotChangeInTimeBasedOnEccentricity(full_planet_dict) # plot the change in minutes due to eccentricity
