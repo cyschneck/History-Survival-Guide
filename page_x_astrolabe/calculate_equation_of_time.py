@@ -58,7 +58,7 @@ def plotOverSideRealDistance(planet_name, x, y, range_of_x, y_mean_distance):
 	fig = plt.figure(figsize=(12,12), dpi=100)
 	plt.title("{0}: Distance from Sun on Every Day of the Sidereal Year".format(planet_name))
 
-	date_range_split_into_months = np.arange(0, range_of_x+1, range_of_x/12) # TODO: split into 12 months (based on Earth)
+	date_range_split_into_months = np.arange(0, range_of_x+1, range_of_x/12) # split into 12 months (based on Earth)
 	for i, value in enumerate(date_range_split_into_months): date_range_split_into_months[i] = math.floor(value) # round all values
 	plt.xticks(date_range_split_into_months)
 	plt.scatter(x, y) # plot with real sun: sun with eccentricity
@@ -165,19 +165,30 @@ def plotEffectOfEccentricty(planet_dict, effect_of_eccentricity_dict):
 	x_sidereal_days = effect_of_eccentricity_dict.keys()
 	y_clock_minutes = effect_of_eccentricity_dict.values()
 
-	date_range_split_into_months = np.arange(0, planet_dict[sidereal]+1, planet_dict[sidereal]/12) # TODO: split into 12 months (based on Earth)
+	# Set up x axis
+	date_range_split_into_months = np.arange(0, planet_dict[sidereal]+1, planet_dict[sidereal]/12) # split into 12 months (based on Earth)
 	for i, value in enumerate(date_range_split_into_months): date_range_split_into_months[i] = math.floor(value) # round all values
 	plt.xticks(date_range_split_into_months)
-	plt.yticks(np.arange(math.floor(min(y_clock_minutes)), math.ceil(max(y_clock_minutes))+1, 1))
-	plt.scatter(effect_of_eccentricity_dict.keys(), effect_of_eccentricity_dict.values())
 
+	# Set up y axis
+	interval_for_y = 1
+	if max(y_clock_minutes) > 10:
+		interval_for_y = (math.ceil(max(y_clock_minutes)) / 10) # split to only display 10 segments
+	y_range_min = np.arange(math.floor(min(y_clock_minutes)), 0, interval_for_y)
+	for i, value in enumerate(y_range_min): y_range_min[i] = math.ceil(value)
+	y_range_max = np.arange(0, math.ceil(max(y_clock_minutes))+1, interval_for_y)
+	for i, value in enumerate(y_range_max): y_range_max[i] = math.floor(value)
+	y_range = np.concatenate([y_range_min, y_range_max])
+	plt.yticks(y_range)
+
+	plt.scatter(effect_of_eccentricity_dict.keys(), effect_of_eccentricity_dict.values())
 	plt.title("{0}: Difference Between Dynamical Mean and True Solar Time - Effect of Eccentricity (Min: {1}, Max: {2} )".format(planet_dict[planet_name],
 																																min(y_clock_minutes),
 																																max(y_clock_minutes)))
 	plt.xlabel("Days in the Sidereal Year")
 	plt.ylabel("Minutes")
 	plt.show()
-	fig.savefig('eot_graphs/{0}_eot_effect_of_eccentricity.png'.format(planet_name.lower()), dpi=fig.dpi)
+	fig.savefig('eot_graphs/{0}_eot_effect_of_eccentricity.png'.format(planet_dict[planet_name].lower()), dpi=fig.dpi)
 
 def plotChangeInTimeBasedOnEccentricity(all_planet_dict):
 	# Plot the Effect of Eccentricity based on Eccentricity of the Planets
@@ -201,7 +212,7 @@ def plotChangeInTimeBasedOnEccentricity(all_planet_dict):
 
 	plt.title("Max Change in Minutes due to Eccentricity: Minutes = {0:.2f} + {1:.2f} * Eccentricity".format(b, a))
 	plt.xlabel("Eccentricity")
-	plt.ylabel("Minutes")
+	plt.ylabel("Max Change in Minutes")
 	plt.show()
 	fig.savefig('eot_graphs/change_in_time_due_to_eccentricity.png', dpi=fig.dpi)
 
@@ -221,4 +232,4 @@ if __name__ == '__main__':
 		effect_of_eccentricity_over_year_dict = determineTrueAnomoly(single_planet_dictionary)
 		single_planet_dictionary[eot_effect_of_eccentricity] = max(effect_of_eccentricity_over_year_dict.values()) # difference in EOT
 		plotEffectOfEccentricty(single_planet_dictionary, effect_of_eccentricity_over_year_dict)
-	#plotChangeInTimeBasedOnEccentricity(full_planet_dict) # plot the change in minutes due to eccentricity
+	plotChangeInTimeBasedOnEccentricity(full_planet_dict) # plot the change in minutes due to eccentricity
