@@ -65,7 +65,7 @@ def plotOverSideRealDistance(planet_name, x, y, range_of_x, y_mean_distance):
 	plt.scatter(x, y_mean_distance) # plot the mean sun: sun with no eccentricity
 
 	#plt.show()
-	fig.savefig('eot_graphs/{0}_eot_sidereal_year_distance.png'.format(planet_name.lower()), dpi=fig.dpi)
+	fig.savefig('eot_graphs/eccentricity/{0}_eot_sidereal_year_distance.png'.format(planet_name.lower()), dpi=fig.dpi)
 
 def determineTrueAnomoly(planet_dictionary):
 	# determine the time difference due to the eccentricity of a planet (True Anomoly)
@@ -188,7 +188,7 @@ def plotEffectOfEccentricty(planet_dict, effect_of_eccentricity_dict):
 	plt.xlabel("Days in the Sidereal Year")
 	plt.ylabel("Minutes")
 	plt.show()
-	fig.savefig('eot_graphs/{0}_eot_effect_of_eccentricity.png'.format(planet_dict[planet_name].lower()), dpi=fig.dpi)
+	fig.savefig('eot_graphs/eccentricity/{0}_eot_effect_of_eccentricity.png'.format(planet_dict[planet_name].lower()), dpi=fig.dpi)
 
 def plotChangeInTimeBasedOnEccentricity(all_planet_dict):
 	# Plot the Effect of Eccentricity based on Eccentricity of the Planets
@@ -214,7 +214,7 @@ def plotChangeInTimeBasedOnEccentricity(all_planet_dict):
 	plt.xlabel("Eccentricity")
 	plt.ylabel("Max Change in Minutes")
 	plt.show()
-	fig.savefig('eot_graphs/change_in_time_due_to_eccentricity.png', dpi=fig.dpi)
+	fig.savefig('eot_graphs/eccentricity/echange_in_time_due_to_eccentricity.png', dpi=fig.dpi)
 
 if __name__ == '__main__':
 	# Set dictionary values: Planet Name, Semi-Major Axis (km), Eccentricity, Sidereal

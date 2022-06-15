@@ -61,8 +61,8 @@ Reuse of this image is governed by [NASA's image use policy](https://www.nasa.go
 ### [Page X: Equation of Time](https://github.com/cyschneck/History-Survival-Guide/tree/master/page_x_equation_of_time)
 
 **Effect of Eccentricity**
-![earth_effect_of_eccentricity+png](https://github.com/cyschneck/History-Survival-Guide/blob/master/page_x_equation_of_time/eot_graphs/earth_eot_effect_of_eccentricity.png)
-![eccentricity_change_in_time_EOT+png](https://github.com/cyschneck/History-Survival-Guide/blob/master/page_x_equation_of_time/eot_graphs/change_in_time_due_to_eccentricity.png)
+![earth_effect_of_eccentricity+png](https://github.com/cyschneck/History-Survival-Guide/blob/master/page_x_equation_of_time/eot_graphs/eccentricity/earth_eot_effect_of_eccentricity.png)
+![eccentricity_change_in_time_EOT+png](https://github.com/cyschneck/History-Survival-Guide/blob/master/page_x_equation_of_time/eot_graphs/eccentricity/change_in_time_due_to_eccentricity.png)
 
 **Effect of Obliquity**
 
