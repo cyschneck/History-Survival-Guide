@@ -60,5 +60,5 @@ Reuse of this image is governed by [NASA's image use policy](https://www.nasa.go
 
 ### [Page X: Astrolabe](https://github.com/cyschneck/History-Survival-Guide/tree/master/page_x_astrolabe)
 ![star_chart+png](https://github.com/cyschneck/History-Survival-Guide/blob/master/page_x_astrolabe/star_chart.png)
-![earth_effect_of_eccentricity+png](https://github.com/cyschneck/History-Survival-Guide/blob/master/page_x_astrolabe/eot_graphs/earth_eot_effect_of_eccentricity.png)
-![eccentricity_change_in_time_EOT+png](https://github.com/cyschneck/History-Survival-Guide/blob/master/page_x_astrolabe/eot_graphs/change_in_time_due_to_eccentricity.png)
+![earth_effect_of_eccentricity+png](https://github.com/cyschneck/History-Survival-Guide/blob/master/page_x_equation_of_time/eot_graphs/earth_eot_effect_of_eccentricity.png)
+![eccentricity_change_in_time_EOT+png](https://github.com/cyschneck/History-Survival-Guide/blob/master/page_x_equation_of_time/eot_graphs/change_in_time_due_to_eccentricity.png)

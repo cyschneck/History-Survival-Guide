@@ -41,7 +41,7 @@ def calculateRuler(graphPlotSegments, total_ruler_length, declination_min, decli
 		y_lengthSegments.append(ruler_position)
 		if n_angle >= declination_min and n_angle <= declination_max:
 			ruler_position_dict[n_angle] = round(ruler_position, 4)
-			print("Angle {0} = {1:.4f} cm".format(n_angle, ruler_position))
+			#print("Angle {0} = {1:.4f} cm".format(n_angle, ruler_position))
 
 	# optional graph of segments
 	if graphPlotSegments:

@@ -110,8 +110,61 @@ def plotCircluar(star_list, northOrSouth, year_date_YYYY, displayStarNamesLabels
 		#print("(DEC) y Difference = {0} rad/yr ({1} degrees/yr)".format(dec_y_difference_component, np.rad2deg(dec_y_difference_component)))
 
 		star_adjusted_ra = star_ra + ra_x_difference_component # in radians
+		#star_ra = np.deg2rad(15)
+		#star_adjusted_ra = np.deg2rad(95)
 		star_adjusted_declination = star_dec + np.rad2deg(dec_y_difference_component) # in degrees
+		#star_dec = 55
+		#star_adjusted_declination = 155
 
+		# remap within -90 and 90 for postive declinations
+		# TODO: negative declinations
+		'''dec_x = star_adjusted_declination % 360
+		print(dec_x)
+		if dec_x > 90: # 
+			# map from 0 to 90 (postive declinations)
+			if dec_x < 180: 
+				dec_x = 90 + (90 - dec_x)
+			# map from 0 to -90 (negative declinations)
+			if dec_x < 270 and dec_x > 180:
+				dec_x = 180 - dec_x
+			if dec_x < 360 and dec_x > 270:
+				dec_x = -90 + (dec_x - 270)
+			print(dec_x)
+
+		# flip over RA by rotating 180
+
+		print("Original = {0}, New = {1}".format(star_dec, star_adjusted_declination))
+		#print("star RA = {0}".format(np.rad2deg(star_adjusted_ra)))
+		
+		def quadrant(star_ra):
+			print("RA = {0}".format(star_ra))
+			star_ra = star_ra%360
+			#print(star_ra%90)
+			#print(star_ra%180)
+			#print(star_ra%270)
+			#print(star_ra%360)
+			if star_ra%90 == star_ra:
+				return 1
+			if star_ra%180 == star_ra:
+				return 2
+			if star_ra%270 == star_ra:
+				return 3
+			if star_ra%360 == star_ra:
+				return 4
+			else:
+				return 1
+		
+		# compare original quandrant of RA with the new declination's quadrant
+		print("Original Quad = {0}".format(quadrant(np.rad2deg(star_ra))))
+		print("Ajdusted Dec Quad = {0}".format(quadrant(star_adjusted_declination)))
+				
+		#star_adjusted_ra = star_adjusted_ra + np.deg2rad(180)
+		#star_adjusted_ra_flip = star_adjusted_ra + (flip_amount * np.deg2rad(180)) 
+		#print("star RA Flipped ({0} times)= {1}".format(flip_amount, np.rad2deg(star_adjusted_ra_flip)))
+
+		star_adjusted_declination = dec_x'''
+		#print("Final RA: {0}".format(star_adjusted_ra))
+		#print("Final Dec: {0}".format(star_adjusted_declination))
 		return star_adjusted_ra, star_adjusted_declination
 
 	print("\nRange of Declination: {0} to {1}".format(min_dec_value, max_dec_value))
@@ -127,8 +180,8 @@ def plotCircluar(star_list, northOrSouth, year_date_YYYY, displayStarNamesLabels
 																			star[2], 
 																			star[3], 
 																			star[4])
-		print("Adjusted: {0} RA (radians) = {1}".format(star[1], star_ra))
-		print("Adjusted: {0} Declination (degrees) = {1} ".format(star[2], star_declination))
+		#print("Adjusted: {0} RA (radians) = {1}".format(star[1], star_ra))
+		#print("Adjusted: {0} Declination (degrees) = {1} ".format(star[2], star_declination))
 		dec_ruler_position = declination_script.calculateLength(star_declination, radius_of_circle) # convert degree to position on radius
 		#print("{0}: {1} declination = {2:.4f} cm".format(star[0], star_declination, ruler_position))
 		if star_declination > min_dec_value and star_declination < max_dec_value: # only display stars within range of declination values
@@ -155,12 +208,13 @@ if __name__ == '__main__':
 	# Northern stars (+ declination)
 	aldebaran_star = ["Aldebaran", "04.35.55", 16.30, 199.3, 161.4]
 	algol_star = ["Algol", "03.08.10", 40.57, 3.4, 119.0]
-	alioth_star = ["Alioth", "12.54.01", 55.57, 112.2, 94.2]
-	alkaid_star = ["Alkaid", "13.47.32", 49.18, 122.1, 263.0]
+	alioth_star = ["Alioth", "12.54.01", 55.57, 112.2, 94.2] # Big Dipper
+	alkaid_star = ["Alkaid", "13.47.32", 49.18, 122.1, 263.0] # Big Dipper
 	alphecca_star = ["Alphecca", "15.34.41", 26.42, 147.8, 126.4]
 	alpheratz_star = ["Alpheratz", "00.08.23", 29.05, 213.6, 139.9]
 	altair_star = ["Altair", "19.50.46", 8.52, 660.3, 54.3]
 	arcturus_star = ["Arcturus", "14.15.39", 19.10, 2279.4, 208.7]
+	barnards_star = ["Barnard's Star", "17.57.47", 4.44, 10393.3, 355.6]
 	bellatrix_star = ["Bellatrix", "05.25.07", 6.20, 15.2, 212.2]
 	betelgeuse_star = ["Betelgeuse", "05.55.10", 7.24, 29.8, 67.7]
 	chara_star = ["Chara", "12.33.43", 41.21, 762.9, 292.5]
@@ -170,17 +224,17 @@ if __name__ == '__main__':
 	cor_caroli_star = ["Cor-Caroli", "12.56.01", 38.19, 240.2, 283.2]
 	deneb_star = ["Deneb", "20.41.25", 45.16, 2.7, 47.4]
 	denebola_star = ["Denebola", "11.49.03", 14.34, 510.7, 257.0]
-	dubhe_star = ["Dubhe", "11.03.43", 61.45, 138.5, 255.5]
+	dubhe_star = ["Dubhe", "11.03.43", 61.45, 138.5, 255.5] # Big Dipper
 	gamma_cassiopeiae_star = ["Gamma Cassiopeiae", "00.56.42", 60.43, 25.5, 98.9] # Gamma Cassiopeiae
 	hamal_star = ["Hamal", "02.07.10", 23.27, 239.7, 128.1]
-	megrez_star = ["Megrez", "12.15.25", 57.01, 104.3, 85.5]
-	merak_star = ["Merak", "11.01.50", 56.22, 88.0, 67.6]
+	megrez_star = ["Megrez", "12.15.25", 57.01, 104.3, 85.5] # Big Dipper
+	merak_star = ["Merak", "11.01.50", 56.22, 88.0, 67.6] # Big Dipper
 	muphrid_star = ["Muphrid", "13.54.41", 18.23, 361.5, 189.7]
-	mizar_star = ["Mizar", "13.23.55", 54.55, 124.6, 100.5]
+	mizar_star = ["Mizar", "13.23.55", 54.55, 124.6, 100.5] # Big Dipper
 	pleiades_celaeno_star = ["Celaeno", "03.44.48", 24.17, 49.2, 156.2]
 	polaris_star = ["Polaris", "02.31.49", 89.15, 46.0, 104.9]
 	pollux_star = ["Pollux", "07.45.18", 28.01, 628.2, 265.8]
-	phecda_star = ["Phecda", "11.53.49", 53.41, 108.2, 84.2]
+	phecda_star = ["Phecda", "11.53.49", 53.41, 108.2, 84.2] # Big Dipper
 	procyon_star = ["Procyon", "07.39.18", 5.13, 1259.2, 214.6]
 	rasalhague_star = ["Rasalhague", "17.34.56", 12.33, 246.5, 154.0]
 	regulus_star = ["Regulus", "10.08.22", 11.58, 248.8, 271.3]
@@ -221,6 +275,7 @@ if __name__ == '__main__':
 								alpheratz_star,
 								altair_star,
 								arcturus_star,
+								barnards_star,
 								bellatrix_star,
 								betelgeuse_star,
 								chara_star,
@@ -280,8 +335,8 @@ if __name__ == '__main__':
 	displayDeclinationNumbers = True # display declination marks (False/True)
 	northOrSouth = "North" # options: "North", "South", "Full" (changes the declination range)
 	total_ruler_length = 30 # units (cut in half for each side of the ruler) (currently has to be even)
-	increment_by = 5 # increment degrees by (1, 5, 10)
-	year_of_plate_YYYY = 1969 # B.C.E or written as: 2022 - 150 # years
+	increment_by = 5 # increment degrees by 1, 5, 10)
+	year_of_plate_YYYY = 1969 #2022 - 1600000 #1969 # B.C.E or written as: 2022 - 150 # years
 
 	# Calculate declination values
 	if northOrSouth == "North":
