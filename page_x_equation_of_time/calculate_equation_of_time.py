@@ -214,7 +214,7 @@ def plotChangeInTimeBasedOnEccentricity(all_planet_dict):
 	plt.xlabel("Eccentricity")
 	plt.ylabel("Max Change in Minutes")
 	plt.show()
-	fig.savefig('eot_graphs/eccentricity/echange_in_time_due_to_eccentricity.png', dpi=fig.dpi)
+	fig.savefig('eot_graphs/eccentricity/change_in_time_due_to_eccentricity.png', dpi=fig.dpi)
 
 if __name__ == '__main__':
 	# Set dictionary values: Planet Name, Semi-Major Axis (km), Eccentricity, Sidereal
