@@ -64,6 +64,7 @@ def plotOverSideRealDistance(planet_name, x, y, range_of_x, y_mean_distance):
 	plt.scatter(x, y) # plot with real sun: sun with eccentricity
 	plt.scatter(x, y_mean_distance) # plot the mean sun: sun with no eccentricity
 
+	plt.grid()
 	#plt.show()
 	fig.savefig('eot_graphs/eccentricity/{0}_eot_sidereal_year_distance.png'.format(planet_name.lower()), dpi=fig.dpi)
 
@@ -187,6 +188,7 @@ def plotEffectOfEccentricty(planet_dict, effect_of_eccentricity_dict):
 																																max(y_clock_minutes)))
 	plt.xlabel("Days in the Sidereal Year")
 	plt.ylabel("Minutes")
+	plt.grid()
 	plt.show()
 	fig.savefig('eot_graphs/eccentricity/{0}_eot_effect_of_eccentricity.png'.format(planet_dict[planet_name].lower()), dpi=fig.dpi)
 
