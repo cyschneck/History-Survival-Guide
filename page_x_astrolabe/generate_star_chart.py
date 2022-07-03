@@ -11,8 +11,6 @@ northern_declination_min = -30
 northern_declination_max = 70
 southern_declination_min = -70
 southern_declination_max = 30
-full_declination_min = -80 # -90 = 0 length
-full_declination_max = 80 # 90 = Full Length of Circle
 
 def convertRAhrtoRadians(star_list):
 	# change first element in the list object [RA, dec]
@@ -83,8 +81,6 @@ def plotCircluar(star_list, northOrSouth, year_date_YYYY, displayStarNamesLabels
 			ax.set_rlabel_position(120)
 
 	# Display declination lines based on hemisphere
-	if northOrSouth == "Full":
-		displayDeclinationMarksOnAxis(declination_values, full_declination_min, full_declination_max)
 	if northOrSouth == "North":
 		displayDeclinationMarksOnAxis(declination_values, northern_declination_min, northern_declination_max)
 	if northOrSouth == "South":
@@ -197,7 +193,7 @@ def plotCircluar(star_list, northOrSouth, year_date_YYYY, displayStarNamesLabels
 						fontsize=8)
 
 	plt.show()
-	fig.savefig('star_chart.png', dpi=fig.dpi)
+	fig.savefig('star_chart_{0}.png'.format(northOrSouth.lower()), dpi=fig.dpi)
 
 if __name__ == '__main__':
 	# stars to be included: 'name', ra HH.MM.SS, declination DD.SS
@@ -330,27 +326,52 @@ if __name__ == '__main__':
 	# Chart options
 	displayStarNames = True # display chart with star names (False/True)
 	displayDeclinationNumbers = True # display declination marks (False/True)
-	northOrSouth = "North" # options: "North", "South", "Full" (changes the declination range)
+	northOrSouth = "Both" # options: "North", "South", "Full" (changes the declination range)
 	total_ruler_length = 30 # units (cut in half for each side of the ruler) (currently has to be even)
 	increment_by = 5 # increment degrees by 1, 5, 10)
 	year_of_plate_YYYY = 2022 #2022 - 100000 # B.C.E or written as: 2022 - 150 # years
 
-	# Calculate declination values
-	if northOrSouth == "North":
-		declination_min = northern_declination_min
-		declination_max = northern_declination_max
-	if northOrSouth == "South":
-		declination_min = southern_declination_min
-		declination_max = southern_declination_max
-	if northOrSouth == "Full":
-		declination_min = full_declination_min
-		declination_max = full_declination_max
+	# Verify Hemisphere within valid range
+	if northOrSouth not in ["Both", "North", "South"]:
+		print("ERROR: Hemisphere not found")
+		exit()
 
 	# Plot star chart on a circular polar coordinate system
-	plotCircluar(star_chart_list,
-				northOrSouth,
-				year_of_plate_YYYY,
-				displayStarNames,
-				displayDeclinationNumbers,
-				total_ruler_length,
-				increment_by)
+	if northOrSouth != "Both":
+		if northOrSouth == "North":
+			declination_min = northern_declination_min
+			declination_max = northern_declination_max
+		if northOrSouth == "South":
+			declination_min = southern_declination_min
+			declination_max = southern_declination_max
+		plotCircluar(star_chart_list, 
+					northOrSouth,
+					year_of_plate_YYYY,
+					displayStarNames,
+					displayDeclinationNumbers,
+					total_ruler_length,
+					increment_by)
+	if northOrSouth == "Both":
+		# Run for both North and South
+		# North:
+		declination_min = northern_declination_min
+		declination_max = northern_declination_max
+		plotCircluar(star_chart_list, 
+					"North",
+					year_of_plate_YYYY,
+					displayStarNames,
+					displayDeclinationNumbers,
+					total_ruler_length,
+					increment_by)
+		# South:
+		declination_min = southern_declination_min
+		declination_max = southern_declination_max
+		plotCircluar(star_chart_list, 
+					"South",
+					year_of_plate_YYYY,
+					displayStarNames,
+					displayDeclinationNumbers,
+					total_ruler_length,
+					increment_by)
+	
+

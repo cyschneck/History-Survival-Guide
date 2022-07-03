@@ -67,4 +67,8 @@ Reuse of this image is governed by [NASA's image use policy](https://www.nasa.go
 **Effect of Obliquity**
 
 ### [Page X: Astrolabe](https://github.com/cyschneck/History-Survival-Guide/tree/master/page_x_astrolabe)
-![star_chart+png](https://github.com/cyschneck/History-Survival-Guide/blob/master/page_x_astrolabe/star_chart.png)
+
+**North Hemisphere**
+![star_chart+png](https://github.com/cyschneck/History-Survival-Guide/blob/master/page_x_astrolabe/star_chart_north.png)
+**South Hemisphere**
+![star_chart+png](https://github.com/cyschneck/History-Survival-Guide/blob/master/page_x_astrolabe/star_chart_south.png)
