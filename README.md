@@ -68,7 +68,12 @@ Reuse of this image is governed by [NASA's image use policy](https://www.nasa.go
 
 ### [Page X: Astrolabe](https://github.com/cyschneck/History-Survival-Guide/tree/master/page_x_astrolabe)
 
-**North Hemisphere**
+Choice of Variables:
+1. North or South Hemisphere (and range of declination values, default between -30-70 N and -70-30 S)
+2. Year (Accounts for proper motion to display stars: 2022 - YYYY)
+3. Labels for Stars and Declination Values (for ease of readability)
+
+**North Hemisphere (1969)**
 ![star_chart+png](https://github.com/cyschneck/History-Survival-Guide/blob/master/page_x_astrolabe/star_chart_north.png)
-**South Hemisphere**
+**South Hemisphere (1969)**
 ![star_chart+png](https://github.com/cyschneck/History-Survival-Guide/blob/master/page_x_astrolabe/star_chart_south.png)
