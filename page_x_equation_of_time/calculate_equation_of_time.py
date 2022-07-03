@@ -10,6 +10,7 @@ planet_name = "Planet Name"
 semi_major_axis = "Semi-Major Axis (km)"
 eccentricity = "Eccentricity"
 sidereal = "Sidereal (days)"
+obliquity = "Obliquity"
 semi_minor_axis = "Semi-Minor Axis (km)"
 perhelion = "Perhelion (AU)"
 aphelion = "Aphelion (AU)"
@@ -18,7 +19,7 @@ mean_distance = "Mean Distance from Sun (AU)"
 mean_sun_area = "Mean Sun Area (AU)"
 eot_effect_of_eccentricity = "EOT-Eccentricity"
 
-def setDictionaryValues(planet_name_value, semi_major_axis_value, eccentricity_value, sidereal_length_in_days):
+def setDictionaryValues(planet_name_value, semi_major_axis_value, eccentricity_value, sidereal_length_in_days):#, obliquity_in_degrees):
 	# set a dictionary value
 	new_planet_dict = {}
 
@@ -26,6 +27,7 @@ def setDictionaryValues(planet_name_value, semi_major_axis_value, eccentricity_v
 	new_planet_dict[semi_major_axis] = semi_major_axis_value
 	new_planet_dict[eccentricity] = eccentricity_value
 	new_planet_dict[sidereal] = sidereal_length_in_days
+	#new_planet_dict[obliquity] = obliquity_in_degrees
 	#new_planet_dict[semi_minor_axis] = new_planet_dict[semi_major_axis] * math.sqrt(1 - new_planet_dict[eccentricity]**2)
 	#new_planet_dict[perhelion] = new_planet_dict[semi_major_axis] * (1 - new_planet_dict[eccentricity])
 	#new_planet_dict[aphelion] = new_planet_dict[semi_major_axis] * (1 + new_planet_dict[eccentricity])
@@ -46,11 +48,11 @@ def determineEccentricityEffectDistance(planet_dict):
 		distance_position_for_days_of_year_without_eccentricity.append(planet_dict[mean_distance])
 
 	# Plot Sidereal Year Distance
-	plotOverSideRealDistance(planet_dict[planet_name],
-							all_days_of_the_year_list,
-							distance_position_for_days_of_year_with_eccentricity,
-							planet_dict[sidereal]+1,
-							distance_position_for_days_of_year_without_eccentricity)
+	#plotOverSideRealDistance(planet_dict[planet_name],
+	#						all_days_of_the_year_list,
+	#						distance_position_for_days_of_year_with_eccentricity,
+	#						planet_dict[sidereal]+1,
+	#						distance_position_for_days_of_year_without_eccentricity)
 	return distance_position_for_days_of_year_with_eccentricity
 
 def plotOverSideRealDistance(planet_name, x, y, range_of_x, y_mean_distance):
@@ -68,11 +70,12 @@ def plotOverSideRealDistance(planet_name, x, y, range_of_x, y_mean_distance):
 	#plt.show()
 	fig.savefig('eot_graphs/eccentricity/{0}_eot_sidereal_year_distance.png'.format(planet_name.lower()), dpi=fig.dpi)
 
-def determineTrueAnomoly(planet_dictionary):
+def determineTrueAnomolyFromEccentricity(planet_dictionary):
 	# determine the time difference due to the eccentricity of a planet (True Anomoly)
 	print("{0} : Eccentricity {1} and Sidereal Length = {2}".format(planet_dictionary[planet_name],
 																	planet_dictionary[eccentricity],
 																	planet_dictionary[sidereal]))
+
 	def newtonRhaephsonsIteration(anomoly_En_radians, difference_anomoly, planet_eccentricity):
 		# E(n+1) = En - f(En) / f'(En) 
 		# where f(E) = E - esin(E) - mean_anomoly)
@@ -96,8 +99,9 @@ def determineTrueAnomoly(planet_dictionary):
 	sidereal_day_list = np.arange(0, half_of_year, 1)#np.arange(0, int(planet_dictionary[sidereal])+1, 1)
 	# Caught between values: 166, 169, 170, 234, 266
 	# Breaks at 183 when values swap to negative
-	check_value = 50000 # TESTING TESTING, to be REMOVED
+	check_value = 5000000 # TESTING TESTING, to be REMOVED
 	effect_of_eccentricity_dict = {} # {day : difference true to mean sun}
+	true_anomoly_position_dict = {} # {day: position in circle in degrees}
 
 	for day_of_year in sidereal_day_list:
 		#print("Day of the Year = {0}".format(day_of_year))
@@ -142,6 +146,7 @@ def determineTrueAnomoly(planet_dictionary):
 		if day_of_year == check_value: print("W = {0}".format(round(tan_anomoly, 8)))
 		true_anomoly_radains = 2 * math.atan(tan_anomoly)
 		true_anomoly_radains = round(true_anomoly_radains, 8)
+		true_anomoly_position_dict[day_of_year] = np.rad2deg(true_anomoly_radains)
 		if day_of_year == check_value: print("Angle = {0}".format(true_anomoly_radains))
 
 		# Calculate the Difference between the True and the Mean Sun
@@ -157,7 +162,7 @@ def determineTrueAnomoly(planet_dictionary):
 		effect_of_eccentricity_dict[day_of_year] = difference_in_minutues
 		effect_of_eccentricity_dict[half_of_year+day_of_year] = -difference_in_minutues # fill negative half: FIX BY ALLOWING NEGATIVE VALUES TO BE CALCULATED
 
-	return effect_of_eccentricity_dict
+	return effect_of_eccentricity_dict, true_anomoly_position_dict
 
 def plotEffectOfEccentricty(planet_dict, effect_of_eccentricity_dict):
 	# Plot Effect of Eccentricity Over the Year
@@ -182,7 +187,7 @@ def plotEffectOfEccentricty(planet_dict, effect_of_eccentricity_dict):
 	y_range = np.concatenate([y_range_min, y_range_max])
 	plt.yticks(y_range)
 
-	plt.scatter(effect_of_eccentricity_dict.keys(), effect_of_eccentricity_dict.values())
+	plt.scatter(x_sidereal_days, y_clock_minutes)
 	plt.title("{0}: Difference Between Dynamical Mean and True Solar Time - Effect of Eccentricity (Min: {1}, Max: {2} )".format(planet_dict[planet_name],
 																																min(y_clock_minutes),
 																																max(y_clock_minutes)))
@@ -218,11 +223,37 @@ def plotChangeInTimeBasedOnEccentricity(all_planet_dict):
 	plt.show()
 	fig.savefig('eot_graphs/eccentricity/change_in_time_due_to_eccentricity.png', dpi=fig.dpi)
 
+def determineEffectOfObliquity(planet_dictionary, half_year_sun_position_dict):
+	# Determine the Effect of Obliquity
+	print("\nEffect of Obliquity\n")
+	'''
+	position_of_mean_sun = {} # {day : position in degrees}
+	degree_movement_each_day = planet_dictionary[sidereal] / 360
+	print(degree_movement_each_day)
+	current_position = 0.0 # will iterate from 0 to 360
+	for day_of_year in half_year_sun_position_dict.keys(): # same number of days in the mean/elipitcal sun
+		position_of_mean_sun[day_of_year] = current_position
+		current_position += degree_movement_each_day
+	
+	difference_in_degrees_for_each_day = {} # {day : difference between mean and eclipitc}
+	for day_of_the_year in half_year_sun_position_dict.keys():
+		actual_position = half_year_sun_position_dict[day_of_the_year]
+		mean_position = position_of_mean_sun[day_of_the_year]
+		difference_in_degrees_for_each_day[day_of_the_year] = mean_position - actual_position
+
+	fig = plt.figure(figsize=(12,12), dpi=100)
+	plt.title("{0}: Difference between Mean and (Actual) Eclipitc Sun".format(planet_dictionary[planet_name]))
+	plt.xlabel("Days in Sidereal Year (Half Year)")
+	plt.ylabel("Difference in Degrees")
+	plt.scatter(difference_in_degrees_for_each_day.keys(), difference_in_degrees_for_each_day.values())
+	plt.show()
+	'''
+
 if __name__ == '__main__':
-	# Set dictionary values: Planet Name, Semi-Major Axis (km), Eccentricity, Sidereal
+	# Set dictionary values: Planet Name, Semi-Major Axis (km), Eccentricity, Sidereal, Obliquity
 	setDictionaryValues("Mercury", 57909050, 0.205630, 87.97)
 	setDictionaryValues("Venus", 108208000, 0.006772, 224.701)
-	setDictionaryValues("Earth", 149598923, 0.016713, 365.24219100)
+	setDictionaryValues("Earth", 149598923, 0.016713, 365.24219100)#, 23.6993)
 	setDictionaryValues("Mars", 227939366, 0.0934, 686.98)
 	setDictionaryValues("Jupiter", 778479000, 0.0489, 4332.59)
 	setDictionaryValues("Saturn", 1433536555, 0.0565, 10759.22)
@@ -231,7 +262,10 @@ if __name__ == '__main__':
 
 	for planet, single_planet_dictionary in full_planet_dict.items():
 		distance_pos_each_day_of_year = determineEccentricityEffectDistance(single_planet_dictionary)
-		effect_of_eccentricity_over_year_dict = determineTrueAnomoly(single_planet_dictionary)
+		# Effect of Eccentricity
+		effect_of_eccentricity_over_year_dict, position_of_mean_eclipitcal_sun_dict = determineTrueAnomolyFromEccentricity(single_planet_dictionary)
 		single_planet_dictionary[eot_effect_of_eccentricity] = max(effect_of_eccentricity_over_year_dict.values()) # difference in EOT
 		plotEffectOfEccentricty(single_planet_dictionary, effect_of_eccentricity_over_year_dict)
+		# Effect of Obliquity
+		effect_of_obliquity_over_year_dict = determineEffectOfObliquity(single_planet_dictionary, position_of_mean_eclipitcal_sun_dict)
 	plotChangeInTimeBasedOnEccentricity(full_planet_dict) # plot the change in minutes due to eccentricity
