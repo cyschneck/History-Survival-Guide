@@ -40,12 +40,12 @@ def calculateRAandDeclinationViaProperMotion(year_date_YYYY, star_ra, star_dec, 
 	star_pm_speed_radains = np.deg2rad(star_pm_speed_degrees) # radains/yr
 	star_movement_radains_per_year = star_pm_speed_radains * time_since_current_year
 	#print("Years: {0}, speed {1} (rad/yr) and angle of {2} ({3} radians)".format(time_since_current_year, star_pm_speed_radains, star_pm_angle, np.deg2rad(star_pm_angle)))
-	#print("Movement Over Time = {0} (rad/yr)".format(star_movement_radains_per_year))
+	#print("Movement Over Time = {0} (rad), {1} (deg)".format(star_movement_radains_per_year, np.rad2deg(star_movement_radains_per_year)))
 
 	ra_x_difference_component = star_movement_radains_per_year * math.cos(np.deg2rad(star_pm_angle))
 	dec_y_difference_component = star_movement_radains_per_year * math.sin(np.deg2rad(star_pm_angle))
-	#print("(RA) x Difference = {0} (rad/yr)".format(ra_x_difference_component))
-	#print("(DEC) y Difference = {0} rad/yr ({1} degrees/yr)".format(dec_y_difference_component, np.rad2deg(dec_y_difference_component)))
+	#print("(RA)  x Difference = {0} (rad) = {1} degrees".format(ra_x_difference_component, np.rad2deg(ra_x_difference_component)))
+	#print("(DEC) y Difference = {0} (rad) = {1} degrees".format(dec_y_difference_component, np.rad2deg(dec_y_difference_component)))
 
 	star_adjusted_ra = star_ra + ra_x_difference_component # in radians with proper motion (potentionally will be flipped 180 based on new declination)
 	#star_ra = np.deg2rad(15) # original (TEST)
@@ -159,13 +159,14 @@ def plotCircluar(star_list, northOrSouth, year_date_YYYY, displayStarNamesLabels
 	x_ra_values = []
 	y_dec_values = []
 	for star in star_list:
+		#print(star[0])
 		star_ra, star_declination = calculateRAandDeclinationViaProperMotion(year_date_YYYY, 
 																			star[1], 
 																			star[2], 
 																			star[3], 
 																			star[4])
 		#print("Adjusted: {0} RA (radians) = {1}".format(star[1], star_ra))
-		#print("Adjusted via Proper Motion: '{0}': {1} Declination (degrees) = {1} ".format(star[0], star[2], star_declination))
+		#print("Adjusted via Proper Motion: '{0}': {1} Declination (degrees) = {2} ".format(star[0], star[2], star_declination))
 
 		dec_ruler_position = declination_script.calculateLength(star_declination, radius_of_circle, northOrSouth) # convert degree to position on radius
 
@@ -207,9 +208,16 @@ def plotCircluar(star_list, northOrSouth, year_date_YYYY, displayStarNamesLabels
 		print("{0}: {1:05f} RA (degrees) and {2:05f} Declination (ruler)".format(txt, np.rad2deg(x_ra_values[i]), y_dec_values[i]))
 		print("Proper Motion for {0} Years\n".format(year_date_YYYY-2022))
 
-
 	ax.scatter(x_ra_values, y_dec_values, s=10)
-	ax.set_title("{0}ern Hemisphere: {1}° to {2}°".format(northOrSouth, declination_max, declination_min))
+	years_for_title = year_date_YYYY-2022
+	suffix = ""
+	if 1000 <  abs(years_for_title) and abs(years_for_title) < 100000:
+		years_for_title = years_for_title / 1000
+		suffix = "K"
+	if abs(years_for_title) > 100000:
+		years_for_title = years_for_title / 100000
+		suffix = "M"
+	ax.set_title("{0}ern Hemisphere [{1}{2} Years from Now]: {3}° to {4}°".format(northOrSouth, years_for_title, suffix, declination_max, declination_min))
 	plt.show()
 	fig.savefig('star_chart_{0}.png'.format(northOrSouth.lower()), dpi=fig.dpi)
 
@@ -359,7 +367,7 @@ if __name__ == '__main__':
 	northOrSouth = "Both" # options: "North", "South", "Both" (changes the declination range)
 	total_ruler_length = 30 # units (cut in half for each side of the ruler) (currently has to be even)
 	increment_by = 10 # increment degrees by 1, 5, 10)
-	year_of_plate_YYYY = 2022 - 53 # B.C.E or written as: 2022 - 150 # years
+	year_of_plate_YYYY = 2022 + 13727 # B.C.E or written as: 2022 - 150 # years
 
 	# Verify Hemisphere within valid range
 	if northOrSouth not in ["Both", "North", "South"]:
