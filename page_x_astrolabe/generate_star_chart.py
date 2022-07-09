@@ -6,11 +6,11 @@ import matplotlib.pyplot as plt
 import matplotlib.gridspec as gridspec
 import generate_declination_ruler as declination_script # import declination script to retrieve declination values
 
-# Declination ranges for North, South, Both (full)
+# Declination ranges for North and South
 northern_declination_min = -30
-northern_declination_max = 70
-southern_declination_min = -70
-southern_declination_max = 30
+northern_declination_max = 90
+southern_declination_min = 30
+southern_declination_max = -90
 
 def convertRAhrtoRadians(star_list):
 	# change first element in the list object [RA, dec]
@@ -28,29 +28,88 @@ def convertRAhrtoRadians(star_list):
 		star[1] = ra_in_radians
 	return star_list
 
+def calculateRAandDeclinationViaProperMotion(year_date_YYYY, star_ra, star_dec, star_pm_speed, star_pm_angle):
+	# Calculate the RA and Declination of a star based on changes due to Proper Motion
+	# returns calculated RA and Declination
+	current_year = 2022
+	time_since_current_year = year_date_YYYY - current_year # postive = future, negative = past
+	#print("Proper Motion for {0} Years".format(time_since_current_year))
+	#print("Date {0}, RA = {1}, Dec = {2}, PM Speed = {3}, PM Angle = {4}".format(year_date_YYYY, star_ra, star_dec, star_pm_speed, star_pm_angle))
+
+	star_pm_speed_degrees = 0.00000027777776630942 * star_pm_speed # convert mas/yr to degrees/yr
+	star_pm_speed_radains = np.deg2rad(star_pm_speed_degrees) # radains/yr
+	star_movement_radains_per_year = star_pm_speed_radains * time_since_current_year
+	#print("Years: {0}, speed {1} (rad/yr) and angle of {2} ({3} radians)".format(time_since_current_year, star_pm_speed_radains, star_pm_angle, np.deg2rad(star_pm_angle)))
+	#print("Movement Over Time = {0} (rad/yr)".format(star_movement_radains_per_year))
+
+	ra_x_difference_component = star_movement_radains_per_year * math.cos(np.deg2rad(star_pm_angle))
+	dec_y_difference_component = star_movement_radains_per_year * math.sin(np.deg2rad(star_pm_angle))
+	#print("(RA) x Difference = {0} (rad/yr)".format(ra_x_difference_component))
+	#print("(DEC) y Difference = {0} rad/yr ({1} degrees/yr)".format(dec_y_difference_component, np.rad2deg(dec_y_difference_component)))
+
+	star_adjusted_ra = star_ra + ra_x_difference_component # in radians with proper motion (potentionally will be flipped 180 based on new declination)
+	#star_ra = np.deg2rad(15) # original (TEST)
+	#star_adjusted_ra = np.deg2rad(90) # new with proper motions (TEST)
+	star_adjusted_declination = star_dec + np.rad2deg(dec_y_difference_component) # in degrees new with proper motion
+	#star_dec = 30 # orignal (TEST)
+	#star_adjusted_declination = -360 # new with proper motion (TEST)
+
+	dec_x = star_adjusted_declination
+	# remap within -90 and 90 for postive declinations
+	if star_adjusted_declination > 0: # Postive declinations
+		dec_x = star_adjusted_declination % 360
+		# map from 0 to 90 (postive declinations)
+		if dec_x > 90 and dec_x <= 180: 
+			dec_x = 90 + (90 - dec_x)
+		# map from 0 to -90 (negative declinations)
+		if dec_x <= 270 and dec_x > 180:
+			dec_x = 180 - dec_x
+		if dec_x < 360 and dec_x > 270:
+			dec_x = -90 + (dec_x - 270)
+	if star_adjusted_declination < -0: # Negative declinations
+		dec_x = star_adjusted_declination % -360
+		# map from 0 to -90 (negative declinations)
+		if dec_x < -90 and dec_x >= -180: 
+			dec_x = -90 - (90 + dec_x)
+		# map from 0 to 90 (postive declinations)
+		if dec_x >= -270 and dec_x <= -180:
+			dec_x = 180 + dec_x
+			dec_x = abs(dec_x)
+		if dec_x > -360 and dec_x < -270:
+			dec_x = 90 + (dec_x + 270)
+	#print("New mapped dec = {0}".format(dec_x))
+	#print("Original Dec = {0}, New Dec = {1}".format(star_dec, star_adjusted_declination))
+
+	# flip over RA by rotating 180
+	is_flipped_across_pole = False
+	star_over_ninety_ra = star_adjusted_declination
+	if star_over_ninety_ra >= 0: # postive declinations
+		while (star_over_ninety_ra > 90):
+			star_over_ninety_ra -= 90
+			is_flipped_across_pole = not is_flipped_across_pole # flip across the center by 180
+	if star_over_ninety_ra < 0: # negative declinations
+		while (star_over_ninety_ra < -90):
+			star_over_ninety_ra += 90
+			is_flipped_across_pole = not is_flipped_across_pole # flip across the center by 180
+	#print("Original RA = {0}, New RA = {1}, Flipped = {2} (if true +180?)".format(np.rad2deg(star_ra), np.rad2deg(star_adjusted_ra), is_flipped_across_pole))
+
+	# If declination goes over ninety, flip over by 180
+	if is_flipped_across_pole:
+		star_adjusted_ra = star_adjusted_ra + np.deg2rad(180)
+
+	star_adjusted_declination = dec_x
+	#print("Final RA: {0} degrees".format(np.rad2deg(star_adjusted_ra)))
+	#print("Final Dec: {0} degrees ".format(star_adjusted_declination))
+	return star_adjusted_ra, star_adjusted_declination
+
 def plotCircluar(star_list, northOrSouth, year_date_YYYY, displayStarNamesLabels, displayDeclinationNumbers, total_ruler_length, increment_by):
 	# plot star chart as a circular graph
 	fig = plt.figure(figsize=(12,12), dpi=100)
 	ax = fig.subplots(subplot_kw={'projection': 'polar'})
 
-	# Set Right Ascension (astronomical 'longitude') as X
-	angles_ra = np.array([330, 345, 0, 15, 30, 45, 60, 75, 90, 105, 120,
-						135, 150,  165, 180, 195, 210, 225, 240, 255,
-						270, 285, 300, 315])
-	plt.xticks(angles_ra * np.pi / 180, fontsize=8)
-	ax.set_xticklabels(['$22^h$','$23^h$','$0^h$','$1^h$','$2^h$','$3^h$',
-						'$4^h$','$5^h$','$6^h$','$7^h$', '$8^h$','$9^h$',
-						'$10^h$','$11^h$','$12^h$','$13^h$','$14^h$','$15^h$',
-						'$16^h$','$17^h$','$18^h$','$19^h$','$20^h$',
-						'$21^h$'], fontsize=10)
-
 	# Set Declination (astronomical 'latitude') as Y
 
 	# Split up chart into North/South hemisphere
-	if northOrSouth == "Full":
-		declination_values = np.arange(full_declination_min, full_declination_max+1, increment_by) # +1 to show max value in range
-		min_dec_value = full_declination_min
-		max_dec_value = full_declination_max
 	if northOrSouth == "North":
 		declination_values = np.arange(northern_declination_min, northern_declination_max+1, increment_by) # +1 to show max value in range
 		min_dec_value = northern_declination_min
@@ -62,136 +121,95 @@ def plotCircluar(star_list, northOrSouth, year_date_YYYY, displayStarNamesLabels
 
 	# Store the ruler positions based on degrees and the ratio of the ruler
 	ruler_position_dict = declination_script.triggerDeclinationCalculations(total_ruler_length,
-																			min_dec_value, max_dec_value, increment_by)
+																			min_dec_value,
+																			max_dec_value,
+																			increment_by,
+																			northOrSouth)
 
-	# display declination lines on the chart from -min to +max
-	def displayDeclinationMarksOnAxis(declination_values, dec_min, dec_max):
+	# Display declination lines on the chart from -min to +max
+	def displayDeclinationMarksOnAxis(declination_values, dec_min, dec_max, isInverted):
 		# set declination marks based on the ruler to space out lines
 		ruler_declination_position = list(ruler_position_dict.values())
 		ruler_declination_labels = list(ruler_position_dict.keys())
-		#both_label_values = [list(x) for x in zip(ruler_declination_position, ruler_declination_labels)] # for testing
+		both_label_values = [list(x) for x in zip(ruler_declination_position, ruler_declination_labels)] # for testing
 		ax.set_ylim(0, max(ruler_declination_position))
-		if displayDeclinationNumbers: # display axis
+
+		# Display Axis
+		if displayDeclinationNumbers:
+			ruler_declination_labels = ["{0}°".format(deg) for deg in ruler_declination_labels]
 			plt.yticks(ruler_declination_position, fontsize=7)
 			ax.set_yticklabels(ruler_declination_labels)
-			ax.set_rlabel_position(120)
+			ax.set_rlabel_position(120) # declination labels position
 		else:
 			plt.yticks(ruler_declination_position, fontsize=0) # do not display axis
 			ax.set_yticklabels(ruler_declination_labels)
-			ax.set_rlabel_position(120)
+			ax.set_rlabel_position(120) # declination labels position
 
 	# Display declination lines based on hemisphere
 	if northOrSouth == "North":
-		displayDeclinationMarksOnAxis(declination_values, northern_declination_min, northern_declination_max)
+		displayDeclinationMarksOnAxis(declination_values, northern_declination_min, northern_declination_max, False)
 	if northOrSouth == "South":
-		displayDeclinationMarksOnAxis(declination_values, southern_declination_min, southern_declination_max)
+		displayDeclinationMarksOnAxis(declination_values, southern_declination_min, southern_declination_max, True)
 
-	# Calculate the RA and Declination of a star based on changes due to Proper Motion
-	def calculateRAandDeclinationViaProperMotion(year_date_YYYY, star_ra, star_dec, star_pm_speed, star_pm_angle):
-		# returns calculated RA and Declination
-		current_year = 2022
-		time_since_current_year = year_date_YYYY - current_year # postive = future, negative = past
-		print("Proper Motion for {0} Years".format(time_since_current_year))
-		#print("Date {0}, RA = {1}, Dec = {2}, PM Speed = {3}, PM Angle = {4}".format(year_date_YYYY, star_ra, star_dec, star_pm_speed, star_pm_angle))
+	print("\n{0}ern Range of Declination: {1} to {2}".format(northOrSouth, min_dec_value, max_dec_value))
 
-		star_pm_speed_degrees = 0.00000027777776630942 * star_pm_speed # convert mas/yr to degrees/yr
-		star_pm_speed_radains = np.deg2rad(star_pm_speed_degrees) # radains/yr
-		star_movement_radains_per_year = star_pm_speed_radains * time_since_current_year
-		#print("Years: {0}, speed {1} (rad/yr) and angle of {2} ({3} radians)".format(time_since_current_year, star_pm_speed_radains, star_pm_angle, np.deg2rad(star_pm_angle)))
-		#print("Movement Over Time = {0} (rad/yr)".format(star_movement_radains_per_year))
-		
-		ra_x_difference_component = star_movement_radains_per_year * math.cos(np.deg2rad(star_pm_angle))
-		dec_y_difference_component = star_movement_radains_per_year * math.sin(np.deg2rad(star_pm_angle))
-		#print("(RA) x Difference = {0} (rad/yr)".format(ra_x_difference_component))
-		#print("(DEC) y Difference = {0} rad/yr ({1} degrees/yr)".format(dec_y_difference_component, np.rad2deg(dec_y_difference_component)))
-
-		star_adjusted_ra = star_ra + ra_x_difference_component # in radians with proper motion (potentionally will be flipped 180 based on new declination)
-		#star_ra = np.deg2rad(15) # original (TEST)
-		#star_adjusted_ra = np.deg2rad(90) # new with proper motions (TEST)
-		star_adjusted_declination = star_dec + np.rad2deg(dec_y_difference_component) # in degrees new with proper motion
-		#star_dec = 30 # orignal (TEST)
-		#star_adjusted_declination = -360 # new with proper motion (TEST)
-
-		dec_x = star_adjusted_declination
-		# remap within -90 and 90 for postive declinations
-		if star_adjusted_declination > 0: # Postive declinations
-			dec_x = star_adjusted_declination % 360
-			# map from 0 to 90 (postive declinations)
-			if dec_x > 90 and dec_x <= 180: 
-				dec_x = 90 + (90 - dec_x)
-			# map from 0 to -90 (negative declinations)
-			if dec_x <= 270 and dec_x > 180:
-				dec_x = 180 - dec_x
-			if dec_x < 360 and dec_x > 270:
-				dec_x = -90 + (dec_x - 270)
-		if star_adjusted_declination < -0: # Negative declinations
-			dec_x = star_adjusted_declination % -360
-			# map from 0 to -90 (negative declinations)
-			if dec_x < -90 and dec_x >= -180: 
-				dec_x = -90 - (90 + dec_x)
-			# map from 0 to 90 (postive declinations)
-			if dec_x >= -270 and dec_x <= -180:
-				dec_x = 180 + dec_x
-				dec_x = abs(dec_x)
-			if dec_x > -360 and dec_x < -270:
-				dec_x = 90 + (dec_x + 270)
-		#print("New mapped dec = {0}".format(dec_x))
-		#print("Original Dec = {0}, New Dec = {1}".format(star_dec, star_adjusted_declination))
-
-		# flip over RA by rotating 180
-		is_flipped = False
-		star_over_ninety_ra = star_adjusted_declination
-		if star_over_ninety_ra >= 0: # postive declinations
-			while (star_over_ninety_ra > 90):
-				star_over_ninety_ra -= 90
-				is_flipped = not is_flipped # flip across the center by 180
-		if star_over_ninety_ra < 0: # negative declinations
-			while (star_over_ninety_ra < -90):
-				star_over_ninety_ra += 90
-				is_flipped = not is_flipped # flip across the center by 180
-		#print("Original RA = {0}, New RA = {1}, Flipped = {2} (if true +180?)".format(np.rad2deg(star_ra), np.rad2deg(star_adjusted_ra), is_flipped))
-
-		# If declination goes over ninety, flip over by 180
-		if is_flipped:
-			star_adjusted_ra = star_adjusted_ra + np.deg2rad(180)
-
-		star_adjusted_declination = dec_x
-		#print("Final RA: {0} degrees".format(np.rad2deg(star_adjusted_ra)))
-		#print("Final Dec: {0} degrees ".format(star_adjusted_declination))
-		return star_adjusted_ra, star_adjusted_declination
-
-	print("\nRange of Declination: {0} to {1}".format(min_dec_value, max_dec_value))
-	radius_of_circle = declination_script.calculateRadiusOfCircle(declination_min, total_ruler_length)
+	radius_of_circle = declination_script.calculateRadiusOfCircle(declination_min, total_ruler_length, northOrSouth)
 	# convert to x and y values for stars
 	x_star_labels = []
 	x_ra_values = []
 	y_dec_values = []
 	for star in star_list:
-		print("{0}: {1} RA (radians) and {2} Declination (degrees)".format(star[0], star[1], star[2]))
 		star_ra, star_declination = calculateRAandDeclinationViaProperMotion(year_date_YYYY, 
 																			star[1], 
 																			star[2], 
 																			star[3], 
 																			star[4])
 		#print("Adjusted: {0} RA (radians) = {1}".format(star[1], star_ra))
-		#print("Adjusted: {0} Declination (degrees) = {1} ".format(star[2], star_declination))
-		dec_ruler_position = declination_script.calculateLength(star_declination, radius_of_circle) # convert degree to position on radius
+		#print("Adjusted via Proper Motion: '{0}': {1} Declination (degrees) = {1} ".format(star[0], star[2], star_declination))
+
+		dec_ruler_position = declination_script.calculateLength(star_declination, radius_of_circle, northOrSouth) # convert degree to position on radius
+
 		#print("{0}: {1} declination = {2:.4f} cm".format(star[0], star_declination, ruler_position))
+		in_range_value = False # Determine if within range of South/North Hemisphere
 		if star_declination > min_dec_value and star_declination < max_dec_value: # only display stars within range of declination values
+			in_range_value = True # North
+		if star_declination < min_dec_value and star_declination > max_dec_value: # only display stars within range of declination values
+			in_range_value = True # South
+
+		if in_range_value:
 			x_star_labels.append(star[0])
 			x_ra_values.append(star_ra)
 			y_dec_values.append(dec_ruler_position)
-		print("\n")
+			#print("Original: '{0}': {1} RA (degrees) and {2} Declination (degrees)".format(star[0], np.rad2deg(star[1]), star[2]))
 
-	ax.scatter(x_ra_values, y_dec_values, s=10)
+	# Set Right Ascension (astronomical 'longitude') as X
+	angles_ra = np.array([0, 15, 30, 45, 60, 75, 90, 105, 120, 135, 150,
+						165, 180, 195, 210, 225, 240, 255, 270, 285, 300,
+						315, 330, 345])
+	plt.xticks(angles_ra * np.pi / 180, fontsize=8)
+	labels_ra = np.array(['$0^h$','$1^h$','$2^h$','$3^h$', '$4^h$','$5^h$',
+						'$6^h$','$7^h$', '$8^h$','$9^h$', '$10^h$',
+						'$11^h$','$12^h$','$13^h$','$14^h$','$15^h$',
+						'$16^h$','$17^h$','$18^h$','$19^h$','$20^h$', 
+						'$21^h$', '$22^h$','$23^h$'])
+	ax.set_xticklabels(labels_ra, fontsize=10)
 
-	# label stars (optional)
+	# Plot:
+	# Label stars (optional)
 	if displayStarNamesLabels:
 		for i, txt in enumerate(x_star_labels):
 			ax.annotate(txt, (x_ra_values[i], y_dec_values[i]), 
 						horizontalalignment='center', verticalalignment='bottom', 
 						fontsize=8)
 
+	# Print for Testing:
+	for i, txt in enumerate(x_star_labels):
+		print("{0}: {1:05f} RA (degrees) and {2:05f} Declination (ruler)".format(txt, np.rad2deg(x_ra_values[i]), y_dec_values[i]))
+		print("Proper Motion for {0} Years\n".format(year_date_YYYY-2022))
+
+
+	ax.scatter(x_ra_values, y_dec_values, s=10)
+	ax.set_title("{0}ern Hemisphere: {1}° to {2}°".format(northOrSouth, declination_max, declination_min))
 	plt.show()
 	fig.savefig('star_chart_{0}.png'.format(northOrSouth.lower()), dpi=fig.dpi)
 
@@ -242,6 +260,8 @@ if __name__ == '__main__':
 	achernar_star = ["Achernar", "01.37.42", -57.14, 95.0, 113.7]
 	acrux_star = ["Acrux", "12.26.35", -63.05, 38.8, 247.5] # Southern Cross
 	alphard_star = ["Alphard", "09.27.35", -8.39, 37.6, 336.1]
+	alnilam_star = ["Alnilam", "05.36.12", -1.12, 1.6, 118.4]
+	alnitak_star = ["Alnitak", "05.40.45", -1.56, 3.8, 57.5]
 	ankaa_star = ["Ankaa", "00.26.17", -42.18, 425.7, 146.8]
 	antares_star = ["Antares", "16.29.24", -26.25, 26.3, 207.5]
 	beta_hydri_star = ["Beta Hydri", "00.25.45", -77.15, 2242.9, 81.6]
@@ -252,9 +272,12 @@ if __name__ == '__main__':
 	gacrux_star = ["Gacrux", "12.31.09", -57.06, 266.6, 173.9] # Southern Cross
 	gamma_phoenics_star = ["Gamma Phoenics", "01.28.21", -43.19, 207.6, 184.9]
 	hadar_star = ["Hadar", "14.03.49", -60.22, 40.5, 235.2]
+	meissa_star = ["Meissa", "05.35.08", -9.56, 3.0, 186.6]
+	mintaka_star = ["Mintaka", "05.32.00", -0.18, 0.9, 137.2]
 	mimosa_star = ["Mimosa", "12.47.43", -59.41, 45.9, 249.4] # Southern Cross
 	rigel_star = ["Rigel", "05.14.32", -8.12, 1.4, 69.1]
 	sadalmelik_star = ["Sadalmelik", "22.05.47", -0.19, 21.3, 119.3]
+	saiph_star = ["Saiph", "05.47.45", -9.4, 1.9, 131.2]
 	sirius_star = ["Sirius", "06.45.08", -16.42, 1339.4, 204.1]
 	theta_eridani_star = ["Acamar", "02.58.15", -40.18, 57.1, 293.8]
 	zubeneschamali_star = ["Zubeneschamali", "15.17.00", -9.22, 100.0, 258.7]
@@ -276,19 +299,21 @@ if __name__ == '__main__':
 								capella_star,
 								castor_star,
 								cor_caroli_star,
+								deneb_star,
 								denebola_star,
 								dubhe_star,
-								navi_star,
 								hamal_star,
 								megrez_star,
 								merak_star,
 								muphrid_star,
 								mizar_star,
+								navi_star,
 								pleiades_celaeno_star,
 								polaris_star,
 								pollux_star,
 								phecda_star,
 								procyon_star,
+								rasalhague_star,
 								regulus_star,
 								ruchbah_star,
 								schedar_star,
@@ -301,6 +326,8 @@ if __name__ == '__main__':
 	southern_star_chart_list = [achernar_star,
 								acrux_star,
 								alphard_star,
+								alnilam_star,
+								alnitak_star,
 								ankaa_star,
 								antares_star,
 								beta_hydri_star,
@@ -311,8 +338,11 @@ if __name__ == '__main__':
 								gacrux_star,
 								gamma_phoenics_star,
 								hadar_star,
+								meissa_star,
+								mintaka_star,
 								mimosa_star,
 								rigel_star,
+								saiph_star,
 								sirius_star,
 								theta_eridani_star,
 								zubeneschamali_star
@@ -326,9 +356,9 @@ if __name__ == '__main__':
 	# Chart options
 	displayStarNames = True # display chart with star names (False/True)
 	displayDeclinationNumbers = True # display declination marks (False/True)
-	northOrSouth = "Both" # options: "North", "South", "Full" (changes the declination range)
+	northOrSouth = "Both" # options: "North", "South", "Both" (changes the declination range)
 	total_ruler_length = 30 # units (cut in half for each side of the ruler) (currently has to be even)
-	increment_by = 5 # increment degrees by 1, 5, 10)
+	increment_by = 10 # increment degrees by 1, 5, 10)
 	year_of_plate_YYYY = 2022 - 53 # B.C.E or written as: 2022 - 150 # years
 
 	# Verify Hemisphere within valid range
@@ -373,5 +403,4 @@ if __name__ == '__main__':
 					displayDeclinationNumbers,
 					total_ruler_length,
 					increment_by)
-	
 
