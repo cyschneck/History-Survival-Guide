@@ -367,7 +367,7 @@ if __name__ == '__main__':
 	northOrSouth = "Both" # options: "North", "South", "Both" (changes the declination range)
 	total_ruler_length = 30 # units (cut in half for each side of the ruler) (currently has to be even)
 	increment_by = 10 # increment degrees by 1, 5, 10)
-	year_of_plate_YYYY = 2022 + 13727 # B.C.E or written as: 2022 - 150 # years
+	year_of_plate_YYYY = 1969 # B.C.E or written as: 2022 - 150 # years
 
 	# Verify Hemisphere within valid range
 	if northOrSouth not in ["Both", "North", "South"]:
