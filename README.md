@@ -72,9 +72,10 @@ TODO
 
 Choice of Variables:
 1. North or South Hemisphere (and range of declination values, default between -30-90 N and -90-30 S) centered on +90 or -90 pole
-2. Filter based on the Visual Magnitude of a star
-3. Year (Accounts for proper motion to display stars: 2022 - YYYY)
-4. Labels for Stars and Declination Values (that can be removed for ease of readability)
+2. Filter based on the Visual Magnitude of a star (-2 brightest, 10 dimmest)
+3. Proper Motion based on time since 2000
+4. TODO: Precession of Equinoxes based on time since 2000
+5. Optional labels for Stars and Declination Values
 
 **North Hemisphere (1969)**
 ![star_chart+png](https://github.com/cyschneck/History-Survival-Guide/blob/master/page_x_astrolabe/star_chart_north.png)
