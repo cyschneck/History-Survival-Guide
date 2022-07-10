@@ -153,12 +153,12 @@ def calculatePositionOfPolePrecession(years_since_2000, original_declination, or
 	change_in_declination = declination_change_arcseconds_per_year/3600 # degrees
 	change_in_ra = np.deg2rad(ra_change_arcseconds_per_year/3600) # degrees to radians
 
-	final_declination = original_declination + change_in_declination
-	final_ra = original_ra + change_in_ra
+	final_declination_due_to_precession = original_declination + change_in_declination
+	final_ra_due_to_precession = original_ra + change_in_ra
 
-	print("Dec: {0} + {1} = {2}".format(original_declination, change_in_declination, final_declination))
-	print("RA:  {0} + {1} = {2}".format(original_ra, change_in_ra, final_ra))
-	return final_ra, final_declination 
+	#print("Dec: {0} + {1} = {2}".format(original_declination, change_in_declination, final_declination_due_to_precession))
+	#print("RA:  {0} + {1} = {2}".format(original_ra, change_in_ra, final_ra_due_to_precession))
+	return final_ra_due_to_precession, final_declination_due_to_precession
 
 def plotCircluar(full_star_list, northOrSouth, magnitude_filter, year_since_2000, displayStarNamesLabels, displayDeclinationNumbers, total_ruler_length, increment_by):
 	# plot star chart as a circular graph
@@ -227,7 +227,7 @@ def plotCircluar(full_star_list, northOrSouth, magnitude_filter, year_since_2000
 	y_dec_values = []
 	for star in star_list:
 		#print(star[0])
-		# Calculate position of star due to PROPER MOTION
+		# Calculate position of star due to PROPER MOTION (changes RA and Declination over time)
 		star_ra, star_declination = calculateRAandDeclinationViaProperMotion(year_since_2000, 
 																			star[1], 
 																			star[2], 
@@ -236,12 +236,13 @@ def plotCircluar(full_star_list, northOrSouth, magnitude_filter, year_since_2000
 		#print("Adjusted: {0} RA (radians) = {1}".format(star[1], star_ra))
 		#print("Adjusted via Proper Motion: '{0}': {1} Declination (degrees) = {2} ".format(star[0], star[2], star_declination))
 
-		# Calculate new position of star due to PRECESSION
-		precession_change_in_ra, precession_change_in_declination = calculatePositionOfPolePrecession(year_since_2000, star_declination, star_ra)
+		# Calculate new position of star due to PRECESSION (change RA and Declination over time)
+		#star_ra, star_declination = calculatePositionOfPolePrecession(year_since_2000, star_declination, star_ra)
+		### TODO: fix precession
 
 		dec_ruler_position = declination_script.calculateLength(star_declination, radius_of_circle, northOrSouth) # convert degree to position on radius
 
-		#print("{0}: {1} declination = {2:.4f} cm".format(star[0], star_declination, ruler_position))
+		#print("{0}: {1} declination = {2:.4f} cm".format(star[0], star_declination, dec_ruler_position))
 		in_range_value = False # Determine if within range of South/North Hemisphere
 		if star_declination > min_dec_value and star_declination < max_dec_value: # only display stars within range of declination values
 			in_range_value = True # North
@@ -275,11 +276,9 @@ def plotCircluar(full_star_list, northOrSouth, magnitude_filter, year_since_2000
 						fontsize=8)
 
 	# Print for Testing:
-	'''
 	for i, txt in enumerate(x_star_labels):
 		print("{0}: {1:05f} RA (degrees) and {2:05f} Declination (ruler)".format(txt, np.rad2deg(x_ra_values[i]), y_dec_values[i]))
 		print("Proper Motion for {0} Years\n".format(year_since_2000))
-	'''
 
 	ax.scatter(x_ra_values, y_dec_values, s=10)
 	years_for_title = year_since_2000
@@ -290,7 +289,7 @@ def plotCircluar(full_star_list, northOrSouth, magnitude_filter, year_since_2000
 	if abs(years_for_title) > 100000:
 		years_for_title = years_for_title / 100000
 		suffix = "M"
-	ax.set_title("{0}ern Hemisphere [{1}{2} Years from Now]: {3}° to {4}°".format(northOrSouth, years_for_title, suffix, declination_max, declination_min))
+	ax.set_title("{0}ern Hemisphere [{1}{2} Years from 2000]: {3}° to {4}°".format(northOrSouth, years_for_title, suffix, declination_max, declination_min))
 	plt.show()
 	fig.savefig('star_chart_{0}.png'.format(northOrSouth.lower()), dpi=fig.dpi)
 
@@ -439,11 +438,11 @@ if __name__ == '__main__':
 	# Chart options
 	displayStarNames = True # display chart with star names (False/True)
 	displayDeclinationNumbers = True # display declination marks (False/True)
-	northOrSouth = "South" # options: "North", "South", "Both" (changes the declination range)
-	max_magnitude_filter = -1.0 # options: Filter by magnitude of star (magitude in Visual) (-2-10, 10 is dimmest, removes nothing)
+	northOrSouth = "Both" # options: "North", "South", "Both" (changes the declination range)
+	max_magnitude_filter = 10.0 # options: Filter by magnitude of star (magitude in Visual) (-2-10, 10 is dimmest, removes nothing)
 	total_ruler_length = 30 # units (cut in half for each side of the ruler) (currently has to be even)
 	increment_by = 10 # increment degrees by 1, 5, 10)
-	year_of_plate_YYYY =  -53 # years since since 2000 (-53 = 1969)
+	years_since_2000 = -31 # years since since 2000 (-31 = 1969)
 
 	# Verify Hemisphere within valid range
 	if northOrSouth not in ["Both", "North", "South"]:
@@ -461,7 +460,7 @@ if __name__ == '__main__':
 		plotCircluar(star_chart_list, 
 					northOrSouth,
 					max_magnitude_filter,
-					year_of_plate_YYYY,
+					years_since_2000,
 					displayStarNames,
 					displayDeclinationNumbers,
 					total_ruler_length,
@@ -474,7 +473,7 @@ if __name__ == '__main__':
 		plotCircluar(star_chart_list, 
 					"North",
 					max_magnitude_filter,
-					year_of_plate_YYYY,
+					years_since_2000,
 					displayStarNames,
 					displayDeclinationNumbers,
 					total_ruler_length,
@@ -485,7 +484,7 @@ if __name__ == '__main__':
 		plotCircluar(star_chart_list, 
 					"South",
 					max_magnitude_filter,
-					year_of_plate_YYYY,
+					years_since_2000,
 					displayStarNames,
 					displayDeclinationNumbers,
 					total_ruler_length,
