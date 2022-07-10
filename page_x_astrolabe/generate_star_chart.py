@@ -13,7 +13,7 @@ southern_declination_min = 30
 southern_declination_max = -90
 
 # Start Year (JP2000)
-jp_2000 = 2000 # start year of the star catalogue
+j2000 = 2000 # start year of the star catalogue (jan 1 2000 via IAU)
 
 def convertRAhrtoRadians(star_list):
 	# change first element in the list object [RA, dec]
@@ -105,6 +105,51 @@ def calculateRAandDeclinationViaProperMotion(year_date_YYYY, star_ra, star_dec, 
 	#print("Final Dec: {0} degrees ".format(star_adjusted_declination))
 	return star_adjusted_ra, star_adjusted_declination
 
+def calculateObliquity(year_to_calculate_YYYY):
+	# Calculate the obliquity for a given year referenced to Jan 1 2000
+	# Ranges between 22.1 to about 24.5 degrees
+
+	# Find Obliquity in Julian Centuries (via "Expressions for IAU Precession Quantities": https://www.aanda.org/articles/aa/pdf/2003/48/aa4068.pdf)
+	days_since_1_jan_2000 = (year_to_calculate_YYYY - j2000) / 36525 # assumes year to measure is jan 1 YYYY (Julian Century = 36525)
+	obliquity_2000 = 84381.448 # arcseconds or 23.439167
+	obliquity_YYYY = obliquity_2000 - (46.84024 * days_since_1_jan_2000) - (0.00059 * days_since_1_jan_2000**2) + (0.001813 * days_since_1_jan_2000**3)
+	#print("Obliquity for {0} years ago/since = {1} arcseconds = {2} degrees".format(year_to_calculate_YYYY - 2022, obliquity_YYYY, obliquity_YYYY/3600))
+
+	obliquity_YYYY_in_degrees = obliquity_YYYY/3600
+	obliquity_YYYY_in_degrees = 23.439167 ### FOR TESTING: TO BE REMOVED
+	return obliquity_YYYY_in_degrees
+
+'''
+def plotObliquity():
+	# plot obliquity to view
+	x_dates = []
+	for date_since_2000 in range(0, 10700): # Last Max 10.7K years ago
+		x_dates.append(2000 - date_since_2000)
+	for date_since_2000 in range(1, 9800): # Next Min in 9.8K year to go
+		x_dates.append(2000 + date_since_2000)
+	print(min(x_dates))
+	print(max(x_dates))
+
+	y_obliquity_degrees = []
+	for date_YYYY in x_dates:
+		y_obliquity_degrees.append(calculateObliquity(date_YYYY))
+	fig = plt.figure(figsize=(12,12), dpi=100)
+	plt.title("Obliquity Cycle")
+	plt.scatter(x_dates, y_obliquity_degrees)
+	plt.show()
+'''
+
+def calculatePositionOfPolePrecession(year_to_calculate_YYYY):
+	# Calculate change in the position of the pole due to precession
+	obliquity_for_YYYY = calculateObliquity(year_to_calculate_YYYY)
+	obliquity_for_YYYY = 23.439167 ## FOR TESTING
+	plot_obliquity = True # option to plot obliquity for testing
+	#if plot_obliquity: plotObliquity()
+
+	change_in_ra = 0
+	change_in_declination = 0
+	return change_in_ra, change_in_declination 
+
 def plotCircluar(full_star_list, northOrSouth, magnitude_filter, year_date_YYYY, displayStarNamesLabels, displayDeclinationNumbers, total_ruler_length, increment_by):
 	# plot star chart as a circular graph
 	fig = plt.figure(figsize=(12,12), dpi=100)
@@ -162,7 +207,7 @@ def plotCircluar(full_star_list, northOrSouth, magnitude_filter, year_date_YYYY,
 	if northOrSouth == "South":
 		displayDeclinationMarksOnAxis(declination_values, southern_declination_min, southern_declination_max, True)
 
-	print("\n{0}ern Range of Declination: {1} to {2}".format(northOrSouth, min_dec_value, max_dec_value))
+	#print("\n{0}ern Range of Declination: {1} to {2}".format(northOrSouth, min_dec_value, max_dec_value))
 
 	radius_of_circle = declination_script.calculateRadiusOfCircle(declination_min, total_ruler_length, northOrSouth)
 	# convert to x and y values for stars
@@ -171,6 +216,7 @@ def plotCircluar(full_star_list, northOrSouth, magnitude_filter, year_date_YYYY,
 	y_dec_values = []
 	for star in star_list:
 		#print(star[0])
+		# Calculate position of star due to PROPER MOTION
 		star_ra, star_declination = calculateRAandDeclinationViaProperMotion(year_date_YYYY, 
 																			star[1], 
 																			star[2], 
@@ -178,6 +224,9 @@ def plotCircluar(full_star_list, northOrSouth, magnitude_filter, year_date_YYYY,
 																			star[4])
 		#print("Adjusted: {0} RA (radians) = {1}".format(star[1], star_ra))
 		#print("Adjusted via Proper Motion: '{0}': {1} Declination (degrees) = {2} ".format(star[0], star[2], star_declination))
+
+		# Calculate new position of star due to PRECESSION
+		precession_change_in_ra, precession_change_in_declination = calculatePositionOfPolePrecession(year_date_YYYY)
 
 		dec_ruler_position = declination_script.calculateLength(star_declination, radius_of_circle, northOrSouth) # convert degree to position on radius
 
@@ -215,9 +264,11 @@ def plotCircluar(full_star_list, northOrSouth, magnitude_filter, year_date_YYYY,
 						fontsize=8)
 
 	# Print for Testing:
+	'''
 	for i, txt in enumerate(x_star_labels):
 		print("{0}: {1:05f} RA (degrees) and {2:05f} Declination (ruler)".format(txt, np.rad2deg(x_ra_values[i]), y_dec_values[i]))
 		print("Proper Motion for {0} Years\n".format(year_date_YYYY-2022))
+	'''
 
 	ax.scatter(x_ra_values, y_dec_values, s=10)
 	years_for_title = year_date_YYYY-2022
@@ -381,7 +432,7 @@ if __name__ == '__main__':
 	max_magnitude_filter = 10.0 # options: Filter by magnitude of star (magitude in Visual) (-2-10, 10 is dimmest, removes nothing)
 	total_ruler_length = 30 # units (cut in half for each side of the ruler) (currently has to be even)
 	increment_by = 10 # increment degrees by 1, 5, 10)
-	year_of_plate_YYYY = 1969 # B.C.E or written as: 2022 - 150 years for larger time jumps
+	year_of_plate_YYYY = 1994 # B.C.E or written as: 2022 - 150 years for larger time jumps
 
 	# Verify Hemisphere within valid range
 	if northOrSouth not in ["Both", "North", "South"]:
