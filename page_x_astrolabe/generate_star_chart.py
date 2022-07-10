@@ -12,6 +12,9 @@ northern_declination_max = 90
 southern_declination_min = 30
 southern_declination_max = -90
 
+# Start Year (JP2000)
+jp_2000 = 2000 # start year of the star catalogue
+
 def convertRAhrtoRadians(star_list):
 	# change first element in the list object [RA, dec]
 	for star in star_list:
@@ -110,7 +113,7 @@ def plotCircluar(full_star_list, northOrSouth, magnitude_filter, year_date_YYYY,
 	# Filter Stars by Magnitude (only display stars of X brightness)
 	star_list = []
 	for star in full_star_list:
-		if star[5] > magnitude_filter:
+		if star[5] < magnitude_filter: # 0 is bright, 6 is dimmest (includes negatives for very bright)
 			star_list.append(star)
 		else:
 			print("Removed Star based on Magnitude Filter: {0} ({1} V)".format(star[0], star[5]))
@@ -375,10 +378,10 @@ if __name__ == '__main__':
 	displayStarNames = True # display chart with star names (False/True)
 	displayDeclinationNumbers = True # display declination marks (False/True)
 	northOrSouth = "Both" # options: "North", "South", "Both" (changes the declination range)
-	magnitude_filter = -2.0 # options: Filter by magnitude of star (magitude in Visual)
+	max_magnitude_filter = 10.0 # options: Filter by magnitude of star (magitude in Visual) (-2-10, 10 is dimmest, removes nothing)
 	total_ruler_length = 30 # units (cut in half for each side of the ruler) (currently has to be even)
 	increment_by = 10 # increment degrees by 1, 5, 10)
-	year_of_plate_YYYY = 1969 # B.C.E or written as: 2022 - 150 # years
+	year_of_plate_YYYY = 1969 # B.C.E or written as: 2022 - 150 years for larger time jumps
 
 	# Verify Hemisphere within valid range
 	if northOrSouth not in ["Both", "North", "South"]:
@@ -395,7 +398,7 @@ if __name__ == '__main__':
 			declination_max = southern_declination_max
 		plotCircluar(star_chart_list, 
 					northOrSouth,
-					magnitude_filter,
+					max_magnitude_filter,
 					year_of_plate_YYYY,
 					displayStarNames,
 					displayDeclinationNumbers,
@@ -408,7 +411,7 @@ if __name__ == '__main__':
 		declination_max = northern_declination_max
 		plotCircluar(star_chart_list, 
 					"North",
-					magnitude_filter,
+					max_magnitude_filter,
 					year_of_plate_YYYY,
 					displayStarNames,
 					displayDeclinationNumbers,
@@ -419,7 +422,7 @@ if __name__ == '__main__':
 		declination_max = southern_declination_max
 		plotCircluar(star_chart_list, 
 					"South",
-					magnitude_filter,
+					max_magnitude_filter,
 					year_of_plate_YYYY,
 					displayStarNames,
 					displayDeclinationNumbers,
