@@ -104,51 +104,22 @@ def calculateRAandDeclinationViaProperMotion(years_since_2000, star_ra, star_dec
 	#print("Final Dec: {0} degrees ".format(star_adjusted_declination))
 	return star_adjusted_ra, star_adjusted_declination
 
-def calculateObliquity(year_to_calculate_YYYY):
-	# Calculate the obliquity for a given year referenced to Jan 1 2000
-	# Ranges between 22.1 to about 24.5 degrees
-
-	# Find Obliquity in Julian Centuries (via "Expressions for IAU Precession Quantities": https://www.aanda.org/articles/aa/pdf/2003/48/aa4068.pdf)
-	days_since_1_jan_2000 = (year_to_calculate_YYYY - j2000) / 36525 # assumes year to measure is jan 1 YYYY (Julian Century = 36525)
-	obliquity_2000 = 84381.448 # arcseconds or 23.439167
-	obliquity_YYYY = obliquity_2000 - (46.84024 * days_since_1_jan_2000) - (0.00059 * days_since_1_jan_2000**2) + (0.001813 * days_since_1_jan_2000**3)
-	#print("Obliquity for {0} years ago/since = {1} arcseconds = {2} degrees".format(year_to_calculate_YYYY - 2022, obliquity_YYYY, obliquity_YYYY/3600))
-
-	obliquity_YYYY_in_degrees = obliquity_YYYY/3600
-	obliquity_YYYY_in_degrees = 23.439167 ### FOR TESTING: TO BE REMOVED
-	return obliquity_YYYY_in_degrees
-
-'''
-def plotObliquity():
-	# plot obliquity to view
-	x_dates = []
-	for date_since_2000 in range(0, 10700): # Last Max 10.7K years ago
-		x_dates.append(2000 - date_since_2000)
-	for date_since_2000 in range(1, 9800): # Next Min in 9.8K year to go
-		x_dates.append(2000 + date_since_2000)
-	print(min(x_dates))
-	print(max(x_dates))
-
-	y_obliquity_degrees = []
-	for date_YYYY in x_dates:
-		y_obliquity_degrees.append(calculateObliquity(date_YYYY))
-	fig = plt.figure(figsize=(12,12), dpi=100)
-	plt.title("Obliquity Cycle")
-	plt.scatter(x_dates, y_obliquity_degrees)
-	plt.show()
-'''
-
 def calculatePositionOfPolePrecession(years_since_2000, original_declination, original_ra):
 	# Calculate change in the position of the pole due to precession
-	obliquity_for_YYYY = calculateObliquity(years_since_2000) # currently 23.439167 for testing
+	obliquity_for_YYYY = 23.439167
 	print("Years Since 2000 = {0}".format(years_since_2000))
+
+	#years_since_2000 = -50 # TESTING = 1950 for Arcturus
+	#original_ra = convertRAhrtoRadians([["Arcturus", "14.15.8", 19.26, 2279.4, 208.7, 0.16]])[0][1] #TESTING for Arcturus
+	#print(original_ra)
+	#original_declination = 19 + 26/60 #TESTING for Arcturus
 
 	#plot_obliquity = True # option to plot obliquity for testing
 	#if plot_obliquity: plotObliquity()
 
 	# Rate of change of right ascension and declination of a star due to precession
 	declination_change_arcseconds_per_year = (19.9 * math.cos(original_ra)) * years_since_2000
-	ra_change_arcseconds_per_year = (46.1 + 19.9 * math.sin(original_ra) * math.tan(original_declination)) * years_since_2000
+	ra_change_arcseconds_per_year = (46.1 * (19.9 * math.sin(original_ra) * math.tan(np.deg2rad(original_declination)))) * years_since_2000
 
 	change_in_declination = declination_change_arcseconds_per_year/3600 # degrees
 	change_in_ra = np.deg2rad(ra_change_arcseconds_per_year/3600) # degrees to radians
@@ -156,11 +127,11 @@ def calculatePositionOfPolePrecession(years_since_2000, original_declination, or
 	final_declination_due_to_precession = original_declination + change_in_declination
 	final_ra_due_to_precession = original_ra + change_in_ra
 
-	#print("Dec: {0} + {1} = {2}".format(original_declination, change_in_declination, final_declination_due_to_precession))
-	#print("RA:  {0} + {1} = {2}".format(original_ra, change_in_ra, final_ra_due_to_precession))
+	print("Dec: {0} + {1} = {2}".format(original_declination, change_in_declination, final_declination_due_to_precession))
+	print("RA:  {0} + {1} = {2}".format(original_ra, change_in_ra, final_ra_due_to_precession))
 	return final_ra_due_to_precession, final_declination_due_to_precession
 
-def plotCircluar(full_star_list, northOrSouth, magnitude_filter, year_since_2000, displayStarNamesLabels, displayDeclinationNumbers, total_ruler_length, increment_by):
+def plotCircluar(full_star_list, northOrSouth, magnitude_filter, year_since_2000, displayStarNamesLabels, displayDeclinationNumbers, shouldIncludePrecession, total_ruler_length, increment_by):
 	# plot star chart as a circular graph
 	fig = plt.figure(figsize=(12,12), dpi=100)
 	ax = fig.subplots(subplot_kw={'projection': 'polar'})
@@ -221,13 +192,16 @@ def plotCircluar(full_star_list, northOrSouth, magnitude_filter, year_since_2000
 	#print("\n{0}ern Range of Declination: {1} to {2}".format(northOrSouth, min_dec_value, max_dec_value))
 
 	radius_of_circle = declination_script.calculateRadiusOfCircle(declination_min, total_ruler_length, northOrSouth)
+
 	# convert to x and y values for stars
 	x_star_labels = []
 	x_ra_values = []
 	y_dec_values = []
 	for star in star_list:
 		#print(star[0])
+
 		# Calculate position of star due to PROPER MOTION (changes RA and Declination over time)
+		#print("'{0}' original RA = {1} and Declination = {2}".format(star[0], np.rad2deg(star[1]), star[2]))
 		star_ra, star_declination = calculateRAandDeclinationViaProperMotion(year_since_2000, 
 																			star[1], 
 																			star[2], 
@@ -237,8 +211,10 @@ def plotCircluar(full_star_list, northOrSouth, magnitude_filter, year_since_2000
 		#print("Adjusted via Proper Motion: '{0}': {1} Declination (degrees) = {2} ".format(star[0], star[2], star_declination))
 
 		# Calculate new position of star due to PRECESSION (change RA and Declination over time)
-		#star_ra, star_declination = calculatePositionOfPolePrecession(year_since_2000, star_declination, star_ra)
-		### TODO: fix precession
+		# Optional since inaccurate over periods larger than a few centuries
+		if shouldIncludePrecession:
+			# CURRENTLY INACCURATE FOR LARGE PERIODS OF TIME (RECOMMENDED TO BE FALSE)
+ 			star_ra, star_declination = calculatePositionOfPolePrecession(year_since_2000, star_declination, star_ra)
 
 		dec_ruler_position = declination_script.calculateLength(star_declination, radius_of_circle, northOrSouth) # convert degree to position on radius
 
@@ -278,7 +254,9 @@ def plotCircluar(full_star_list, northOrSouth, magnitude_filter, year_since_2000
 	# Print for Testing:
 	for i, txt in enumerate(x_star_labels):
 		print("{0}: {1:05f} RA (degrees) and {2:05f} Declination (ruler)".format(txt, np.rad2deg(x_ra_values[i]), y_dec_values[i]))
-		print("Proper Motion for {0} Years\n".format(year_since_2000))
+		print(shouldIncludePrecession)
+		precession_text = " and Precession " if shouldIncludePrecession else " "
+		print("Proper Motion{0}for {1} Years\n".format(precession_text, year_since_2000))
 
 	ax.scatter(x_ra_values, y_dec_values, s=10)
 	years_for_title = year_since_2000
@@ -289,7 +267,7 @@ def plotCircluar(full_star_list, northOrSouth, magnitude_filter, year_since_2000
 	if abs(years_for_title) > 100000:
 		years_for_title = years_for_title / 100000
 		suffix = "M"
-	ax.set_title("{0}ern Hemisphere [{1}{2} Years from 2000]: {3}° to {4}°".format(northOrSouth, years_for_title, suffix, declination_max, declination_min))
+	ax.set_title("{0}ern Hemisphere [{1}{2} Years Since 2000]: {3}° to {4}°".format(northOrSouth, years_for_title, suffix, declination_max, declination_min))
 	plt.show()
 	fig.savefig('star_chart_{0}.png'.format(northOrSouth.lower()), dpi=fig.dpi)
 
@@ -441,8 +419,9 @@ if __name__ == '__main__':
 	northOrSouth = "Both" # options: "North", "South", "Both" (changes the declination range)
 	max_magnitude_filter = 10.0 # options: Filter by magnitude of star (magitude in Visual) (-2-10, 10 is dimmest, removes nothing)
 	total_ruler_length = 30 # units (cut in half for each side of the ruler) (currently has to be even)
-	increment_by = 10 # increment degrees by 1, 5, 10)
-	years_since_2000 = -31 # years since since 2000 (-31 = 1969)
+	increment_by = 5 # increment degrees by 1, 5, 10)
+	years_since_2000 = -450 # years since since 2000 (-31 = 1969)
+	include_precession = False # option to include the precession of the pole, but inaccurate for large periods of time
 
 	# Verify Hemisphere within valid range
 	if northOrSouth not in ["Both", "North", "South"]:
@@ -463,6 +442,7 @@ if __name__ == '__main__':
 					years_since_2000,
 					displayStarNames,
 					displayDeclinationNumbers,
+					include_precession,
 					total_ruler_length,
 					increment_by)
 	if northOrSouth == "Both":
@@ -476,6 +456,7 @@ if __name__ == '__main__':
 					years_since_2000,
 					displayStarNames,
 					displayDeclinationNumbers,
+					include_precession,
 					total_ruler_length,
 					increment_by)
 		# South:
@@ -487,6 +468,7 @@ if __name__ == '__main__':
 					years_since_2000,
 					displayStarNames,
 					displayDeclinationNumbers,
+					include_precession,
 					total_ruler_length,
 					increment_by)
 
