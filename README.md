@@ -74,11 +74,13 @@ TODO
 
 **Constructing a Star Chart**
 
-Choice of Variables:
+Currently includes 62 stars in both the North and South Hemisphere
+
+Optional Variables:
 1. North or South Hemisphere (and range of declination values, default between -30-90 N and -90-30 S) centered on +90 or -90 pole
 2. Filter based on the Visual Magnitude of a star (-2 brightest, 10 dimmest)
 3. Proper Motion based on time since 2000
-4. TODO: Precession of Equinoxes based on time since 2000
+4. Precession of Equinoxes based on time since 2000 (inaccurate over periods of time larger than a few centuries)
 5. Optional labels for Stars and Declination Values
 
 **North Hemisphere (1969)**
