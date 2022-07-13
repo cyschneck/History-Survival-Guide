@@ -5,11 +5,13 @@
 
 **About This Project**
 
-This is a science and history blog that explores scientific concepts coupled with practical information about how to recreate and use the techniques described by hand.  The History Survival Guide (or,  A Time Traveler’s Guide to Surviving History) has been updating since July 2019. Each page is the accumulation of research for a particular topic, synthesized and summarized in a useful ‘survival guide’ format. So far, topics covered included using the proper motion of stars to determine what time period a time traveler could have found themselves in, deciphering ‘Hobo Symbols’ of the 1800’s, and how to read the Pioneer Plaque. All pages are done in a pulp science fiction aesthetic.
+This is a science and history blog that explores scientific concepts coupled with practical information about how to recreate and use the techniques described by hand.  The History Survival Guide (or,  A Time Traveler’s Guide to Surviving History) has been updating since July 2019. Each page is the accumulation of research for a particular topic, synthesized and summarized in a useful ‘survival guide’ format. So far, topics covered included using the proper motion of stars to determine what time period a time traveler could have found themselves in, deciphering ‘Hobo Symbols’ from the 1800’s, reading the Pioneer Plaque, and constructing an astrolabe from scratch. All pages are done in a pulp science fiction aesthetic.
 
 This github repo includes all relevant code and images used in a given guidebook page
 
 [historysurvivalguide.com](http://historysurvivalguide.com/)
+
+[Behind the Scenes - Tumblr](https://historysurvivalguide.tumblr.com/)
 
 ### [Page 1: Proper Motion](https://github.com/cyschneck/History-Survival-Guide/tree/master/page_1_proper_motion)
 Determine Angular Motion Between Two Given Stars
@@ -69,6 +71,8 @@ Reuse of this image is governed by [NASA's image use policy](https://www.nasa.go
 TODO
 
 ### [Page X: Astrolabe](https://github.com/cyschneck/History-Survival-Guide/tree/master/page_x_astrolabe)
+
+**Constructing a Star Chart**
 
 Choice of Variables:
 1. North or South Hemisphere (and range of declination values, default between -30-90 N and -90-30 S) centered on +90 or -90 pole
