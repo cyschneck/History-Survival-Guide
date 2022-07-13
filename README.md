@@ -84,6 +84,8 @@ Optional Variables:
 5. Optional labels for Stars and Declination Values
 
 **North Hemisphere (1969)**
-![star_chart+png](https://github.com/cyschneck/History-Survival-Guide/blob/master/page_x_astrolabe/star_chart_north.png)
+![star_chart_with_labels+png](https://github.com/cyschneck/History-Survival-Guide/blob/master/page_x_astrolabe/star_chart_north_with_labels.png)
+![star_chart_without_labels+png](https://github.com/cyschneck/History-Survival-Guide/blob/master/page_x_astrolabe/star_chart_north_without_labels.png)
 **South Hemisphere (1969)**
-![star_chart+png](https://github.com/cyschneck/History-Survival-Guide/blob/master/page_x_astrolabe/star_chart_south.png)
+![star_chart_with_labels+png](https://github.com/cyschneck/History-Survival-Guide/blob/master/page_x_astrolabe/star_chart_south_with_labels.png)
+![star_chart_without_labels+png](https://github.com/cyschneck/History-Survival-Guide/blob/master/page_x_astrolabe/star_chart_south_without_labels.png)

@@ -254,7 +254,6 @@ def plotCircluar(full_star_list, northOrSouth, magnitude_filter, year_since_2000
 	# Print for Testing:
 	for i, txt in enumerate(x_star_labels):
 		print("{0}: {1:05f} RA (degrees) and {2:05f} Declination (ruler)".format(txt, np.rad2deg(x_ra_values[i]), y_dec_values[i]))
-		print(shouldIncludePrecession)
 		precession_text = " and Precession " if shouldIncludePrecession else " "
 		print("Proper Motion{0}for {1} Years\n".format(precession_text, year_since_2000))
 
@@ -269,7 +268,9 @@ def plotCircluar(full_star_list, northOrSouth, magnitude_filter, year_since_2000
 		suffix = "M"
 	ax.set_title("{0}ern Hemisphere [{1}{2} Years Since 2000]: {3}° to {4}°".format(northOrSouth, years_for_title, suffix, declination_max, declination_min))
 	plt.show()
-	fig.savefig('star_chart_{0}.png'.format(northOrSouth.lower()), dpi=fig.dpi)
+	displayStarNamesLabels, displayDeclinationNumbers
+	with_without_label = "" if displayStarNamesLabels or displayDeclinationNumbers else "out" # saves as either "with" or "without" in label type
+	fig.savefig('star_chart_{0}_with{1}_labels.png'.format(northOrSouth.lower(), with_without_label), dpi=fig.dpi)
 
 if __name__ == '__main__':
 	# stars to be included: 'name', ra HH.MM.SS, declination DD.SS
@@ -454,9 +455,18 @@ if __name__ == '__main__':
 					"North",
 					max_magnitude_filter,
 					years_since_2000,
-					displayStarNames,
-					displayDeclinationNumbers,
-					include_precession,
+					True,
+					True,
+					False,
+					total_ruler_length,
+					increment_by)
+		plotCircluar(star_chart_list, 
+					"North",
+					max_magnitude_filter,
+					years_since_2000,
+					False,
+					False,
+					False,
 					total_ruler_length,
 					increment_by)
 		# South:
@@ -466,9 +476,18 @@ if __name__ == '__main__':
 					"South",
 					max_magnitude_filter,
 					years_since_2000,
-					displayStarNames,
-					displayDeclinationNumbers,
-					include_precession,
+					True,
+					True,
+					False,
+					total_ruler_length,
+					increment_by)
+		plotCircluar(star_chart_list, 
+					"South",
+					max_magnitude_filter,
+					years_since_2000,
+					False,
+					False,
+					False,
 					total_ruler_length,
 					increment_by)
 
