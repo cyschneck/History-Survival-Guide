@@ -420,7 +420,7 @@ if __name__ == '__main__':
 	northOrSouth = "Both" # options: "North", "South", "Both" (changes the declination range)
 	max_magnitude_filter = 10.0 # options: Filter by magnitude of star (magitude in Visual) (-2-10, 10 is dimmest, removes nothing)
 	total_ruler_length = 30 # units (cut in half for each side of the ruler) (currently has to be even)
-	increment_by = 5 # increment degrees by 1, 5, 10)
+	increment_by = 10 # increment degrees by 1, 5, 10)
 	years_since_2000 = -31 # years since since 2000 (-31 = 1969)
 	include_precession = False # option to include the precession of the pole, but inaccurate for large periods of time
 
