@@ -44,7 +44,7 @@ def plotYearToOffset():
 	fig = plt.figure(figsize=(10,10), dpi=100)
 	ax = fig.subplots()
 	offset_year = 1000 # (+/-) x years
-	x_year_range = np.arange(2000-offset_year, 2000+offset_year+1, 10)
+	x_year_range = np.arange(2000-offset_year, 2000+offset_year+1, 100)
 
 	y_offset_x = []
 	y_offset_y = []
@@ -57,14 +57,15 @@ def plotYearToOffset():
 		y_offset_x.append(x_offset)
 		y_offset_y.append(y_offset)
 
-	plt.xticks(x_year_range)
-	plt.title("Offset vs. Year")
-	plt.xlabel("Year")
-	plt.ylabel("Offset for fixed longitude (0°) for radius 1")
+	plt.xticks(x_year_range, rotation=90)
+	plt.title("Change in Year vs. Offset (X, Y) from Center of Plate")
+	plt.xlabel("Year (CE)")
+	plt.ylabel("Offset with Fixed longitude (0°) and Radius (1)")
 	plt.scatter(x_year_range, y_offset_x)
 	plt.scatter(x_year_range, y_offset_y)
 	plt.legend(["X Offset", "Y Offset"])
 	plt.show()
+	fig.savefig('eccentric_calendar_change_in_year_verus_offset.png', dpi=fig.dpi)
 
 def plotLongitudeToAngularDistance():
 	# plot Year vs. Longitude for fixed year (2022) for radius 1
@@ -80,16 +81,18 @@ def plotLongitudeToAngularDistance():
 		vernal_equinox_angle = determineAngularDistanceEquinox(julianTime, longitude, aphelion)
 		y_angular_distance_apside.append(vernal_equinox_angle)
 
-	plt.xticks(x_longitude)
-	plt.title("Longitude vs. Angluar Distance to Vernal Equinox")
-	plt.xlabel("Longitude")
-	plt.ylabel("Vernal Equinox Angle (Apside) for fixed year (2022) for radius 1")
+	plt.xticks(x_longitude, rotation=90)
+	plt.title("Change in Longitude vs. Angluar Distance to Vernal Equinox")
+	plt.xlabel("Longitude (°)")
+	plt.ylabel("Vernal Equinox Angle (Apside) with Fixed Year (2022) and Radius (1)")
 	plt.scatter(x_longitude, y_angular_distance_apside)
 	plt.show()
+	fig.savefig('eccentric_calendar_change_in_longitude_verus_angular_distance.png', dpi=fig.dpi)
+
 
 if __name__ == '__main__':
-	yearToCalculate = 2022
-	longitude = 105.2705 # 105.2705° for Boulder
+	yearToCalculate = 2022 # Year (YYYY) in CE
+	longitude = 105.2705 # longitude of observation (105.2705° for Boulder, 0° for Greenwich)
 	radius_of_plate = 1
 	plotGraphs = True
 
@@ -99,6 +102,7 @@ if __name__ == '__main__':
 	vernal_equinox_angle = determineAngularDistanceEquinox(julianTime, longitude, aphelion)
 	x_offset, y_offset = offsetfromCenterOfPlate(radius_of_plate, perihelion)
 
+	# Plot how the Longitude and Year change the Offset and Apside
 	if plotGraphs:
 		plotYearToOffset()
 		plotLongitudeToAngularDistance()
