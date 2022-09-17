@@ -1,6 +1,6 @@
 # Calculate the Offset and Angular Distance of the Eccentric Calendar for the Back of the Astrolabe
 # python3 calculate_eccentric_calendar_offset.py
-# Based on James Morrison's 'Astrolabe'
+# Based on James Morrison's 'Astrolabe' pg. 116
 import math
 import numpy as np
 import matplotlib.pyplot as plt
@@ -9,7 +9,7 @@ def determineApside(julianTime):
 	# Define the line of apsides (longitude of aphelion and perihelion)
 	perihelion = 102.937348 + (1.7195269*julianTime) + (0.00045962 * (julianTime**2)) + (0.000000499 * (julianTime**3))
 	aphelion = perihelion + 180
-	print("\nPerihelion = {0:3f}°".format(perihelion))
+	print("Perihelion = {0:3f}°".format(perihelion))
 	print("Aphelion   = {0:3f}°".format(aphelion))
 
 	return perihelion, aphelion
@@ -35,7 +35,7 @@ def offsetfromCenterOfPlate(radiusOfPlate, perihelion):
 	x_delta = offset_eccentricity * math.cos(np.deg2rad(perihelion))
 	y_delta = offset_eccentricity * math.sin(np.deg2rad(perihelion))
 	print("\nX offset with radius of {0} = {1:4f}".format(radius_of_plate, x_delta))
-	print("Y offset with radius of {0} = {1:4f}".format(radius_of_plate, y_delta))
+	print("Y offset with radius of {0} = {1:4f}\n".format(radius_of_plate, y_delta))
 
 	return x_delta, y_delta
 
@@ -92,9 +92,9 @@ def plotLongitudeToAngularDistance():
 
 if __name__ == '__main__':
 	yearToCalculate = 2022 # Year (YYYY) in CE
-	longitude = 105.2705 # longitude of observation (105.2705° for Boulder, 0° for Greenwich)
+	longitude = -105.2705 # longitude of observation (-105.2705° for Boulder, 0° for Greenwich)
 	radius_of_plate = 1
-	plotGraphs = True
+	plotGraphs = False
 
 	# Calculate the time in Julian centuries from J2000.0
 	julianTime = (yearToCalculate - 2000) / 100
