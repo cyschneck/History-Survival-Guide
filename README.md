@@ -66,7 +66,7 @@ Reuse of this image is governed by [NASA's image use policy](https://www.nasa.go
 
 Currently includes 62 stars in both the North and South Hemisphere
 
-`python3 generate_star_chart.py`
+```python3 generate_star_chart.py```
 
 Optional Variables:
 1. North or South Hemisphere (and range of declination values, default between -30-90 N and -90-30 S) centered on +90 or -90 pole
@@ -88,12 +88,25 @@ An eccentric calendar assumes the sun moves at a constant speed throughout the y
 
 Code will generate both the angular distance from the Vernal Equinox to the January 0 (midnight of December 31) at the beginning of the year as well as the offset (x, y) from the center of the back plate
 
-`python3 calculate_eccentric_calendar_offset.py`
+```python3 calculate_eccentric_calendar_offset.py```
 
 Variables:
 1. Year to calculate (for example: 2022)
 2. The longitude of the observer (-71.05° for Boston, -105.27° for Boulder, 0° for Greenwich, 13.74° for Dresden)
 3. Radius of the back plate
+
+For the Year 2022 at longitude -105.2705 for a plate with a radius of 1
+
+```
+Perihelion = 103.315666°
+Aphelion   = 283.315666°
+Mean Anomaly of Jan 0 = 357.320158°
+
+Line of Apside relative to Vernal Equinox for Longitude -105.2705° = -79.65258771051492°
+
+X offset with radius of 1 = -0.007679
+Y offset with radius of 1 = 0.032445
+```
 
 _How Changing the Year Changes the Offset (X, Y)_
 ![change_in_year_offset+png](https://github.com/cyschneck/History-Survival-Guide/blob/master/page_x_astrolabe/eccentric_calendar_change_in_year_verus_offset.png)
