@@ -60,21 +60,13 @@ Reuse of this image is governed by [NASA's image use policy](https://www.nasa.go
 
 [Page 12: Pioneer Plaque](http://historysurvivalguide.com/page/pioneer-plaque-part-3/)
 
-### [Page X: Equation of Time](https://github.com/cyschneck/History-Survival-Guide/tree/master/page_x_equation_of_time)
-
-**Effect of Eccentricity**
-![earth_effect_of_eccentricity+png](https://github.com/cyschneck/History-Survival-Guide/blob/master/page_x_equation_of_time/eot_graphs/eccentricity/earth_eot_effect_of_eccentricity.png)
-![eccentricity_change_in_time_EOT+png](https://github.com/cyschneck/History-Survival-Guide/blob/master/page_x_equation_of_time/eot_graphs/eccentricity/change_in_time_due_to_eccentricity.png)
-
-**Effect of Obliquity**
-
-TODO
-
 ### [Page X: Astrolabe](https://github.com/cyschneck/History-Survival-Guide/tree/master/page_x_astrolabe)
 
 **Constructing a Star Chart**
 
 Currently includes 62 stars in both the North and South Hemisphere
+
+`python3 generate_star_chart.py`
 
 Optional Variables:
 1. North or South Hemisphere (and range of declination values, default between -30-90 N and -90-30 S) centered on +90 or -90 pole
@@ -89,3 +81,32 @@ Optional Variables:
 **South Hemisphere (1969)**
 ![star_chart_with_labels+png](https://github.com/cyschneck/History-Survival-Guide/blob/master/page_x_astrolabe/star_chart_south_with_labels.png)
 ![star_chart_without_labels+png](https://github.com/cyschneck/History-Survival-Guide/blob/master/page_x_astrolabe/star_chart_south_without_labels.png)
+
+**Constructing Eccentric Calendar for Back Plate**
+
+An eccentric calendar assumes the sun moves at a constant speed throughout the year and accounts for the Sun's true anomaly as an offset from the Vernal Equinox. Due to both *longitude* and the *year since 2000*, the center of the calendar will be placed at an offset from the center of the back plate of the astrolabe on the line of apsides (the line connecting the perihelion and aphelion)
+
+Code will generate both the angular distance from the Vernal Equinox to the January 0 (midnight of December 31) at the beginning of the year as well as the offset (x, y) from the center of the back plate
+
+`python3 calculate_eccentric_calendar_offset.py`
+
+Variables:
+1. Year to calculate (for example: 2022)
+2. The longitude of the observer (-71.05° for Boston, -105.27° for Boulder, 0° for Greenwich, 13.74° for Dresden)
+3. Radius of the back plate
+
+_How Changing the Year Changes the Offset (X, Y)_
+![change_in_year_offset+png](https://github.com/cyschneck/History-Survival-Guide/blob/master/page_x_astrolabe/eccentric_calendar_change_in_year_verus_offset.png)
+_How Changing the Longitude Changes the Angular Distance to the Vernal Equinox_
+![change_in_longitude_angular_distance+png](https://github.com/cyschneck/History-Survival-Guide/blob/master/page_x_astrolabe/eccentric_calendar_change_in_longitude_verus_angular_distance.png)
+
+### [Page X: Equation of Time](https://github.com/cyschneck/History-Survival-Guide/tree/master/page_x_equation_of_time)
+
+**Effect of Eccentricity**
+![earth_effect_of_eccentricity+png](https://github.com/cyschneck/History-Survival-Guide/blob/master/page_x_equation_of_time/eot_graphs/eccentricity/earth_eot_effect_of_eccentricity.png)
+![eccentricity_change_in_time_EOT+png](https://github.com/cyschneck/History-Survival-Guide/blob/master/page_x_equation_of_time/eot_graphs/eccentricity/change_in_time_due_to_eccentricity.png)
+
+**Effect of Obliquity**
+
+**TODO**
+
