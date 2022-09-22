@@ -107,7 +107,8 @@ Line of Apside relative to Vernal Equinox for Longitude -105.2705° = -79.652587
 X offset with radius of 1 = -0.007679
 Y offset with radius of 1 = 0.032445
 ```
-
+_How Changing the Year Changes Eccentricity_
+![change_in_year_eccentricity+png](https://github.com/cyschneck/History-Survival-Guide/blob/master/page_x_astrolabe/eccentric_calendar_change_in_year_verus_eccentricity.png)
 _How Changing the Year Changes the Offset (X, Y)_
 ![change_in_year_offset+png](https://github.com/cyschneck/History-Survival-Guide/blob/master/page_x_astrolabe/eccentric_calendar_change_in_year_verus_offset.png)
 _How Changing the Longitude Changes the Angular Distance to the Vernal Equinox_

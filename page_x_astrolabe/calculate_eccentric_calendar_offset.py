@@ -7,12 +7,16 @@ import matplotlib.pyplot as plt
 
 def determineApside(julianTime):
 	# Define the line of apsides (longitude of aphelion and perihelion)
-	perihelion = 102.937348 + (1.7195269*julianTime) + (0.00045962 * (julianTime**2)) + (0.000000499 * (julianTime**3))
+	perihelion = 102.937348 + (1.7195269 * julianTime) + (0.00045962 * (julianTime**2)) + (0.000000499 * (julianTime**3))
 	aphelion = perihelion + 180
 	print("Perihelion = {0:3f}°".format(perihelion))
 	print("Aphelion   = {0:3f}°".format(aphelion))
-
 	return perihelion, aphelion
+
+def determineEccentrictiyOverTime(julianTime):
+	# Determine the change in eccentricity over time
+	eccentricityAtJulianYear = 0.01670862 - (0.000042037 * julianTime) - (0.0000001236 * (julianTime**2)) + (0.00000000004 * (julianTime**3))
+	return eccentricityAtJulianYear
 
 def determineAngularDistanceEquinox(julianTime, longitude, aphelion):
 	# Mean Anomaly of January 0
@@ -30,20 +34,39 @@ def determineAngularDistanceEquinox(julianTime, longitude, aphelion):
 
 def offsetfromCenterOfPlate(radiusOfPlate, perihelion):
 	# offset from the center of the plate
-	eccentricty = 0.01667061
+	eccentricty = determineEccentrictiyOverTime(julianTime) # 0.01667061
 	offset_eccentricity = 2 *  eccentricty * radiusOfPlate
 	x_delta = offset_eccentricity * math.cos(np.deg2rad(perihelion))
 	y_delta = offset_eccentricity * math.sin(np.deg2rad(perihelion))
-	print("\nX offset with radius of {0} = {1:4f}".format(radius_of_plate, x_delta))
+	print("Offset due to Eccentricity with radius of {0} = {1:4f}".format(radius_of_plate, offset_eccentricity))
+	print("X offset with radius of {0} = {1:4f}".format(radius_of_plate, x_delta))
 	print("Y offset with radius of {0} = {1:4f}\n".format(radius_of_plate, y_delta))
-
 	return x_delta, y_delta
 
-def plotYearToOffset():
+def plotEccentricityOverTime(offset_year):
+	# change in eccentricity over time (time vs. eccentricity)
+	fig = plt.figure(figsize=(10,10), dpi=100)
+	ax = fig.subplots()
+	x_year_range = np.arange(2000-offset_year, 2000+offset_year+1, 100)
+
+	y_eccentricity = []
+	for year in x_year_range:
+		julianTime = (year - 2000) / 100 # Calculate the time in Julian centuries from J2000.0
+		e = determineEccentrictiyOverTime(julianTime)
+		y_eccentricity.append(e)
+
+	plt.xticks(x_year_range, rotation=90)
+	plt.title("Change in Year vs. Eccentricity")
+	plt.xlabel("Year (CE)")
+	plt.ylabel("Eccentricity")
+	plt.scatter(x_year_range, y_eccentricity)
+	plt.show()
+	fig.savefig('eccentric_calendar_change_in_year_verus_eccentricity.png', dpi=fig.dpi)
+
+def plotYearToOffset(offset_year):
 	# plot Year vs. Offset for fixed longitude (0°) for radius 1
 	fig = plt.figure(figsize=(10,10), dpi=100)
 	ax = fig.subplots()
-	offset_year = 1000 # (+/-) x years
 	x_year_range = np.arange(2000-offset_year, 2000+offset_year+1, 100)
 
 	y_offset_x = []
@@ -94,7 +117,7 @@ if __name__ == '__main__':
 	yearToCalculate = 2022 # Year (YYYY) in CE
 	longitude = -105.2705 # longitude of observation (-105.2705° for Boulder, 0° for Greenwich)
 	radius_of_plate = 1
-	plotGraphs = False
+	plotGraphs = True
 
 	# Calculate the time in Julian centuries from J2000.0
 	julianTime = (yearToCalculate - 2000) / 100
@@ -104,5 +127,7 @@ if __name__ == '__main__':
 
 	# Plot how the Longitude and Year change the Offset and Apside
 	if plotGraphs:
-		plotYearToOffset()
+		offset_year = 1000 # (+/-) x years
+		plotEccentricityOverTime(offset_year)
+		plotYearToOffset(offset_year)
 		plotLongitudeToAngularDistance()
