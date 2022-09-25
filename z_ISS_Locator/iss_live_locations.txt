@@ -1,0 +1,14 @@
+TIMESTAMP  | ERR_MSG | Latitude: XXXXXXX, Longitude: XXXXXXXXX
+1664087314 | SUCCESS | Latitude: 23.4626, Longitude: -100.5723
+1664087317 | SUCCESS | Latitude: 23.3195, Longitude: -100.4419
+1664087320 | SUCCESS | Latitude: 23.1763, Longitude: -100.3117
+1664087323 | SUCCESS | Latitude: 23.0329, Longitude: -100.1818
+1664087326 | SUCCESS | Latitude: 22.8894, Longitude: -100.0523
+1664087329 | SUCCESS | Latitude: 22.7457, Longitude: -99.9230
+1664087332 | SUCCESS | Latitude: 22.5779, Longitude: -99.7725
+1664087335 | SUCCESS | Latitude: 22.4340, Longitude: -99.6438
+1664087338 | SUCCESS | Latitude: 22.2900, Longitude: -99.5155
+1664087341 | SUCCESS | Latitude: 22.1459, Longitude: -99.3875
+1664087344 | SUCCESS | Latitude: 22.0016, Longitude: -99.2597
+1664087347 | SUCCESS | Latitude: 21.8572, Longitude: -99.1322
+1664087350 | SUCCESS | Latitude: 21.7127, Longitude: -99.0050
