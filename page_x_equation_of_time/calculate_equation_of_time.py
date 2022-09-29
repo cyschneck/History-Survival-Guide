@@ -1,5 +1,5 @@
 # Calculate the Equation of Time
-# python3 calculate_equation_of_time.py
+# python3 calculate_equation_of_time.py: Python 3.7.3
 import math
 import numpy as np
 import matplotlib.pyplot as plt

@@ -1,5 +1,5 @@
 # Generate a star chart for astrolabe
-# python3 generate_star_chart.py
+# python3 generate_star_chart.py: Python 3.7.3
 import math
 import numpy as np
 import matplotlib.pyplot as plt

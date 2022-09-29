@@ -1,5 +1,5 @@
 # Precession: http://slittlefair.staff.shef.ac.uk/teaching/phy115/session2/moreCel/moreCel.html
-# python3 test_prcession.py
+# python3 test_prcession.py: Python 3.7.3
 import math
 import numpy as np
 

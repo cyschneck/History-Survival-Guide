@@ -1,6 +1,5 @@
 # Generate a declination ruler for astrolabe star chart
 # Triggered within generate_star_chart.py
-
 import numpy as np
 import matplotlib.pyplot as plt
 import math

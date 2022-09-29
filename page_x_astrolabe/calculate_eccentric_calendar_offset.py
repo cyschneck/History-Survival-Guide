@@ -1,5 +1,5 @@
 # Calculate the Offset and Angular Distance of the Eccentric Calendar for the Back of the Astrolabe
-# python3 calculate_eccentric_calendar_offset.py
+# python3 calculate_eccentric_calendar_offset.py: Python 3.7.3
 # Based on James Morrison's 'Astrolabe' pg. 116
 import math
 import numpy as np
