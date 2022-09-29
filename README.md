@@ -68,12 +68,16 @@ Currently includes 62 stars in both the North and South Hemisphere
 
 ```python3 generate_star_chart.py```
 
+Currently uses: Python 3.7.3
+
 Optional Variables:
 1. North or South Hemisphere (and range of declination values, default between -30-90 N and -90-30 S) centered on +90 or -90 pole
 2. Filter based on the Visual Magnitude of a star (-2 brightest, 10 dimmest)
 3. Proper Motion based on time since 2000
-4. Precession of Equinoxes based on time since 2000 (inaccurate over periods of time larger than a few centuries)
 5. Optional labels for Stars and Declination Values
+
+TODO: Precession of Equinoxes based on time since 2000 (currently, inaccurate over periods of time larger than a few centuries)
+
 
 **North Hemisphere (1969)**
 ![star_chart_with_labels+png](https://github.com/cyschneck/History-Survival-Guide/blob/master/page_x_astrolabe/star_chart_north_with_labels.png)
