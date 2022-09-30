@@ -66,8 +66,7 @@ Reuse of this image is governed by [NASA's image use policy](https://www.nasa.go
 
 Base plate includes the position of the Tropic of Cancer, Tropic of Capricorn, and the Equator in three concentric circles. The position of each circle is due to the obliquity of the planet
 
-For obliquities between 0-89.99 (undefined at 90) when radius of base plate is 1
-
+Corrected for obliquities between 0°-89.99° (undefined at 90°) when radius of base plate is 1
 ![change_in_obliquity_radius+png](https://github.com/cyschneck/History-Survival-Guide/blob/master/page_x_astrolabe/base_plate_change_due_to_obliquity.png)
 
 **Constructing a Star Chart**
@@ -79,7 +78,7 @@ Currently includes 62 stars in both the North and South Hemisphere
 Currently uses: Python 3.7.3
 
 Optional Variables:
-1. North or South Hemisphere (and range of declination values, default between -30-90 N and -90-30 S) centered on +90 or -90 pole
+1. North or South Hemisphere (and range of declination values, default between -30°-90° N and -90°-30° S) centered on +90° or -90° pole
 2. Filter based on the Visual Magnitude of a star (-2 brightest, 10 dimmest)
 3. Proper Motion based on time since 2000
 5. Optional labels for Stars and Declination Values
