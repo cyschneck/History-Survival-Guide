@@ -112,11 +112,11 @@ X offset with radius of 1 = -0.007679
 Y offset with radius of 1 = 0.032445
 ```
 _How Changing the Year Changes Eccentricity_
-![change_in_year_eccentricity+png](https://github.com/cyschneck/History-Survival-Guide/blob/master/page_x_astrolabe/eccentric_calendar_change_in_year_verus_eccentricity.png)
+![change_in_year_eccentricity+png](https://github.com/cyschneck/History-Survival-Guide/blob/master/page_x_astrolabe/eccentric_calendar_change_in_year_versus_eccentricity.png)
 _How Changing the Year Changes the Offset (X, Y)_
-![change_in_year_offset+png](https://github.com/cyschneck/History-Survival-Guide/blob/master/page_x_astrolabe/eccentric_calendar_change_in_year_verus_offset.png)
+![change_in_year_offset+png](https://github.com/cyschneck/History-Survival-Guide/blob/master/page_x_astrolabe/eccentric_calendar_change_in_year_versus_offset.png)
 _How Changing the Longitude Changes the Angular Distance to the Vernal Equinox_
-![change_in_longitude_angular_distance+png](https://github.com/cyschneck/History-Survival-Guide/blob/master/page_x_astrolabe/eccentric_calendar_change_in_longitude_verus_angular_distance.png)
+![change_in_longitude_angular_distance+png](https://github.com/cyschneck/History-Survival-Guide/blob/master/page_x_astrolabe/eccentric_calendar_change_in_longitude_versus_angular_distance.png)
 
 ### [Page X: Equation of Time](https://github.com/cyschneck/History-Survival-Guide/tree/master/page_x_equation_of_time)
 
