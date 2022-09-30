@@ -62,6 +62,12 @@ Reuse of this image is governed by [NASA's image use policy](https://www.nasa.go
 
 ### [Page X: Astrolabe](https://github.com/cyschneck/History-Survival-Guide/tree/master/page_x_astrolabe)
 
+**Constructing a Base Plate**
+
+Base plate includes the position of the Tropic of Cancer, Tropic of Capricorn, and the Equator in three concentric circles. The position of each circle is due to the obliquity of the planet
+
+![change_in_obliquity_radius+png](https://github.com/cyschneck/History-Survival-Guide/blob/master/page_x_astrolabe/base_plate_change_due_to_obliquity.png)
+
 **Constructing a Star Chart**
 
 Currently includes 62 stars in both the North and South Hemisphere
@@ -77,7 +83,6 @@ Optional Variables:
 5. Optional labels for Stars and Declination Values
 
 TODO: Precession of Equinoxes based on time since 2000 (currently, inaccurate over periods of time larger than a few centuries)
-
 
 **North Hemisphere (1969)**
 ![star_chart_with_labels+png](https://github.com/cyschneck/History-Survival-Guide/blob/master/page_x_astrolabe/star_chart_north_with_labels.png)
