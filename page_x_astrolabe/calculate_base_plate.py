@@ -22,7 +22,7 @@ def radiusOfTropicsAndEquator(base_plate_radius, obliquity_of_planet):
 	inner_tropic_radius = equator_radius * math.tan(np.deg2rad(45 - (obliquity_of_planet/2)))
 	return outer_tropic_radius, equator_radius, inner_tropic_radius
 
-def plotEffectOfObliquityOnRadius():
+def plotEffectOfObliquityOnRadius(radius_of_base_plate):
 	"""#EARTH TESTING:
 	earth_obliquity = 23.4
 	radius_of_base_plate = 15
@@ -77,9 +77,44 @@ def plotEffectOfObliquityOnRadius():
 	plt.show()
 	fig.savefig('base_plate_change_due_to_obliquity.png', dpi=fig.dpi)
 
+def constructBasePlate(radius_plate, obliquity_planet, planet_name):
+	# Construct base plate with concentric circles
+	fig = plt.figure(figsize=(12,12), dpi=100)
+	ax = fig.subplots(subplot_kw={'projection': 'polar'})
+	ax.set_ylim([0,radius_plate]) # set outer limit
+	ax.set_xticklabels([])# remove x labels for degrees
+	ax.set_yticklabels([])
+	ax.set_rticks(np.arange(0, radius_of_base_plate, radius_of_base_plate/10))
+	ax.grid(True)
+
+	outer_radius, equator_radius, inner_radius = radiusOfTropicsAndEquator(radius_plate, obliquity_planet)
+	plt.plot(np.linspace(0, 2*np.pi, 100), np.ones(100)*outer_radius, linewidth=3.5, color='black')
+	plt.plot(np.linspace(0, 2*np.pi, 100), np.ones(100)*equator_radius, linewidth=3.5, color='black')
+	plt.plot(np.linspace(0, 2*np.pi, 100), np.ones(100)*inner_radius, linewidth=3.5, color='black')
+
+	plt.title("Base Plate for {0} with Obliquity {1}°".format(planet_name, obliquity_planet))
+	plt.show()
+	fig.savefig('base_plate_for_{0}_at_{1}_degrees.png'.format(planet_name.lower(), obliquity_planet), dpi=fig.dpi)
 
 if __name__ == '__main__':
 	# Find Ratio between concentric circles for base plate based on obliquity
-	plotEffectOfObliquityOnRadius()
+	radius_of_base_plate = 15
+	#plotEffectOfObliquityOnRadius(radius_of_base_plate)
+
+	obliquity_of_planet = 23.4 # obliquity of Earth
+	constructBasePlate(radius_of_base_plate, obliquity_of_planet, "Earth")
+
+	'''
+	planet_8_obliquities = {"Mercury": 0.1,
+							"Venus": 177.4,
+							"Earth": 23.4,
+							"Mars": 25.19,
+							"Jupiter": 3.12,
+							"Saturn": 26.73,
+							"Uranus": 97.86,
+							"Neptune": 29.56}
+	for planet_name, planet_ob in planet_8_obliquities.items():
+		constructBasePlate(radius_of_base_plate, planet_ob, planet_name)
+	'''
 
 
