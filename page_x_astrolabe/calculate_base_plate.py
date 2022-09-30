@@ -35,10 +35,11 @@ if __name__ == '__main__':
 	# Plot
 	fig = plt.figure(figsize=(10,10), dpi=100)
 	ax = fig.subplots()
-
-	plt.xticks(obliquity_range, rotation=90)
+	plot_every_x = np.arange(0, 89, 5) # plot every five increments for ease of readability
+	plot_every_x = np.append(plot_every_x, 89) # include last point at 89 degrees
+	plt.xticks(plot_every_x, fontsize=8)
 	plt.title("Change in Obliquity vs. Base Plate Radius")
-	plt.xlabel("Obliquity (Degrees)")
+	plt.xlabel("Obliquity (°)")
 	plt.ylabel("Radius")
 	plt.scatter(obliquity_range, outer_radius_lst, label="Outer Radius")
 	plt.scatter(obliquity_range, equator_radius_lst, label="Equator Radius")
