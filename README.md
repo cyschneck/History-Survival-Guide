@@ -66,6 +66,8 @@ Reuse of this image is governed by [NASA's image use policy](https://www.nasa.go
 
 Base plate includes the position of the Tropic of Cancer, Tropic of Capricorn, and the Equator in three concentric circles. The position of each circle is due to the obliquity of the planet
 
+For obliquities between 0-89.99 (undefined at 90) when radius of base plate is 1
+
 ![change_in_obliquity_radius+png](https://github.com/cyschneck/History-Survival-Guide/blob/master/page_x_astrolabe/base_plate_change_due_to_obliquity.png)
 
 **Constructing a Star Chart**
@@ -131,5 +133,5 @@ _How Changing the Longitude Changes the Angular Distance to the Vernal Equinox_
 
 **Effect of Obliquity**
 
-**TODO**
+**TODO: Graph Effect of Obliquity**
 

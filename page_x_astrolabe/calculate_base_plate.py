@@ -50,7 +50,7 @@ def plotEffectOfObliquityOnRadius():
 	plot_every_x = np.append(plot_every_x, 89) # include last point at 89 degrees
 
 	plt.xticks(plot_every_x, fontsize=8)
-	plt.title("Change in Obliquity vs. Base Plate Radius")
+	plt.title("Change in Obliquity vs. Base Plate Radius (where r=1)")
 	plt.xlabel("Obliquity (°)")
 	plt.ylabel("Radius")
 
