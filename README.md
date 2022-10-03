@@ -84,14 +84,23 @@ Optional Variables:
 3. Proper Motion based on time since 2000
 5. Optional labels for Stars and Declination Values
 
-TODO: Precession of Equinoxes based on time since 2000 (currently, inaccurate over periods of time larger than a few centuries)
-
 **North Hemisphere (1969)**
 ![star_chart_with_labels+png](https://github.com/cyschneck/History-Survival-Guide/blob/master/page_x_astrolabe/star_chart_north_with_labels.png)
 ![star_chart_without_labels+png](https://github.com/cyschneck/History-Survival-Guide/blob/master/page_x_astrolabe/star_chart_north_without_labels.png)
 **South Hemisphere (1969)**
 ![star_chart_with_labels+png](https://github.com/cyschneck/History-Survival-Guide/blob/master/page_x_astrolabe/star_chart_south_with_labels.png)
 ![star_chart_without_labels+png](https://github.com/cyschneck/History-Survival-Guide/blob/master/page_x_astrolabe/star_chart_south_without_labels.png)
+
+__In Progress: Precession of Equinoxes based on Time since 2000__
+
+Implementation of "New precession expressions, valid for long time intervals" (J. Vondrak, N. Capitaine, and P. Wallace) (2011)
+
+Currently, [vondrak plugin](https://github.com/digitalvapor/vondrak) can only run on python2.7 (using Python 2.7.12)
+
+```python2.7 test_precession.py```
+![test_prcession_star+png](https://github.com/cyschneck/History-Survival-Guide/blob/master/page_x_astrolabe/test_precession_vondrak_example.png)
+
+Has not been implemented in star chart code yet
 
 **Constructing Eccentric Calendar for Back Plate**
 
