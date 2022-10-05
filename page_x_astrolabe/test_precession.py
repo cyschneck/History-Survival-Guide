@@ -5,6 +5,10 @@
 # Python Implementation of "New precession expressions, valid for long time intervals" (J. Vondrak, N. Capitaine, and P. Wallace) (2011)
 # python2.7 test_prcession.py
 
+#### 
+# TO BE REMOVED
+####
+
 import math
 import numpy as np
 import vondrak as v
@@ -124,6 +128,6 @@ def graphOverTime(star_name):
 	fig.savefig('test_precession_vondrak_example.png', dpi=fig.dpi)
 
 if __name__ == '__main__':
-	star_name = "Vega"
+	star_name = "Polaris"
 	testingStar(star_name)
 	graphOverTime(star_name)
