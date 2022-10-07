@@ -495,7 +495,7 @@ if __name__ == '__main__':
 	max_magnitude_filter = 10.0 # options: Filter by magnitude of star (magitude in Visual) (-2-10, 10 is dimmest, removes nothing)
 	total_ruler_length = 30 # units (cut in half for each side of the ruler) (currently has to be even)
 	increment_by = 10 # increment degrees by 1, 5, 10)
-	years_since_2000 = -31 # years since since 2000 (-31 = 1969)
+	years_since_2000 = 11000 # years since since 2000 (-31 = 1969)
 
 	# Verify Hemisphere within valid range
 	if northOrSouth not in ["Both", "North", "South"]:
