@@ -475,7 +475,7 @@ def plotCircluar(full_star_list, northOrSouth, magnitude_filter, year_since_2000
 	plt.show()
 	displayStarNamesLabels, displayDeclinationNumbers
 	with_without_label = "" if displayStarNamesLabels or displayDeclinationNumbers else "out" # saves as either "with" or "without" in label type
-	with_without_precession = "with_precssion" if isPrecessionIncluded else "without_prcession"
+	with_without_precession = "with_precession" if isPrecessionIncluded else "without_prcession"
 	fig.savefig('star_chart_{0}_{1}_with{2}_labels.png'.format(northOrSouth.lower(),
 															with_without_precession,
 															with_without_label), 
