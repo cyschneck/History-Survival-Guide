@@ -88,12 +88,14 @@ def constructBasePlate(radius_plate, obliquity_planet, planet_name):
 	ax.grid(True)
 
 	outer_radius, equator_radius, inner_radius = radiusOfTropicsAndEquator(radius_plate, obliquity_planet)
-	plt.plot(np.linspace(0, 2*np.pi, 100), np.ones(100)*outer_radius, linewidth=3.5, color='black')
-	ax.text(45, outer_radius, s="{0:.02f}".format(outer_radius)) # label on figure
-	plt.plot(np.linspace(0, 2*np.pi, 100), np.ones(100)*equator_radius, linewidth=3.5, color='black')
-	ax.text(45, equator_radius, s="{0:.02f}".format(equator_radius)) # label on figure
-	plt.plot(np.linspace(0, 2*np.pi, 100), np.ones(100)*inner_radius, linewidth=3.5, color='black')
-	ax.text(45, inner_radius, s="{0:.02f}".format(inner_radius)) # label on figure
+	plt.plot(np.linspace(0, 2*np.pi, 100), np.ones(100)*outer_radius, linewidth=3.5, color='black', label="Outer Radius = {0:.02f}".format(outer_radius))
+	plt.plot(np.linspace(0, 2*np.pi, 100), np.ones(100)*equator_radius, linewidth=3.5, color='black', label="Equator Radius = {0:.02f}".format(equator_radius))
+	plt.plot(np.linspace(0, 2*np.pi, 100), np.ones(100)*inner_radius, linewidth=3.5, color='black', label="Inner Radius = {0:.02f}".format(inner_radius))
+
+	# place legend outside of plot
+	figure_size = ax.get_position()
+	ax.set_position([figure_size.x0, figure_size.y0, figure_size.width * 0.8, figure_size.height]) # shrink horizontally by 20%
+	ax.legend(loc="center left", bbox_to_anchor=(1, 0.5)) # show labels for radius
 
 	plt.title("Base Plate for {0} with Obliquity {1}° for radius = {2}".format(planet_name, obliquity_planet, radius_plate))
 	plt.show()
@@ -104,10 +106,10 @@ if __name__ == '__main__':
 	radius_of_base_plate = 15
 	plotEffectOfObliquityOnRadius(radius_of_base_plate)
 
-	obliquity_of_planet = 23.4 # obliquity of Earth
-	constructBasePlate(radius_of_base_plate, obliquity_of_planet, "Earth")
+	## Testing on Earth's obliquity
+	#obliquity_of_planet = 23.4 # obliquity of Earth
+	#constructBasePlate(radius_of_base_plate, obliquity_of_planet, "Earth")
 
-	'''
 	planet_8_obliquities = {"Mercury": 0.1,
 							"Venus": 177.4,
 							"Earth": 23.4,
@@ -118,6 +120,3 @@ if __name__ == '__main__':
 							"Neptune": 29.56}
 	for planet_name, planet_ob in planet_8_obliquities.items():
 		constructBasePlate(radius_of_base_plate, planet_ob, planet_name)
-	'''
-
-
