@@ -83,15 +83,20 @@ Optional Variables:
 2. Filter based on the Visual Magnitude of a star (-2 brightest, 10 dimmest)
 3. Proper Motion based on time since 2000
 5. Optional labels for Stars and Declination Values
+6. Precession of the Equinoxes
 
-**North Hemisphere (1969)**
-![star_chart_with_labels+png](https://github.com/cyschneck/History-Survival-Guide/blob/master/page_x_astrolabe/star_chart_north_with_labels.png)
-![star_chart_without_labels+png](https://github.com/cyschneck/History-Survival-Guide/blob/master/page_x_astrolabe/star_chart_north_without_labels.png)
-**South Hemisphere (1969)**
-![star_chart_with_labels+png](https://github.com/cyschneck/History-Survival-Guide/blob/master/page_x_astrolabe/star_chart_south_with_labels.png)
-![star_chart_without_labels+png](https://github.com/cyschneck/History-Survival-Guide/blob/master/page_x_astrolabe/star_chart_south_without_labels.png)
+**North Hemisphere**
+![north_star_chart_without_precession_with_labels+png](https://github.com/cyschneck/History-Survival-Guide/blob/master/page_x_astrolabe/star_chart_north_without_precession_with_labels.png)
+![north_star_chart_without_precession_without_labels+png](https://github.com/cyschneck/History-Survival-Guide/blob/master/page_x_astrolabe/star_chart_north_without_precession_without_labels.png)
+![north_star_chart_with_precession_with_labels+png](https://github.com/cyschneck/History-Survival-Guide/blob/master/page_x_astrolabe/star_chart_north_with_precession_with_labels.png)
+![north_star_chart_with_precession_without_labels+png](https://github.com/cyschneck/History-Survival-Guide/blob/master/page_x_astrolabe/star_chart_north_with_precession_without_labels.png)
+**South Hemisphere**
+![south_star_chart_without_precession_with_labels+png](https://github.com/cyschneck/History-Survival-Guide/blob/master/page_x_astrolabe/star_chart_south_without_precession_with_labels.png)
+![south_star_chart_without_precession_without_labels+png](https://github.com/cyschneck/History-Survival-Guide/blob/master/page_x_astrolabe/star_chart_south_without_precession_without_labels.png)
+![south_star_chart_with_precession_with_labels+png](https://github.com/cyschneck/History-Survival-Guide/blob/master/page_x_astrolabe/star_chart_south_with_precession_with_labels.png)
+![south_star_chart_with_precession_without_labels+png](https://github.com/cyschneck/History-Survival-Guide/blob/master/page_x_astrolabe/star_chart_south_with_precession_without_labels.png)
 
-__In Progress: Precession of Equinoxes based on Time since 2000__
+Precession of Equinoxes based on Time since 2000
 
 Implementation of "New precession expressions, valid for long time intervals" (J. Vondrak, N. Capitaine, and P. Wallace) (2011)
 
@@ -99,8 +104,6 @@ Currently, [vondrak plugin](https://github.com/digitalvapor/vondrak) can only ru
 
 ```python2.7 test_precession.py```
 ![test_prcession_star+png](https://github.com/cyschneck/History-Survival-Guide/blob/master/page_x_astrolabe/test_precession_vondrak_example.png)
-
-Has not been implemented in star chart code yet
 
 **Constructing Eccentric Calendar for Back Plate**
 
