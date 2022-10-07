@@ -102,7 +102,7 @@ def testingStar(star_name):
 	print(str(hrs(ra1)),str(deg(dec1)))
 
 def graphOverTime(star_name):
-	range_year = 13500 # full cycle = 26,000 
+	range_year = 14000 # full cycle = 26,000 
 	years = np.arange(-range_year, range_year+1, 10)
 	dec_list = []
 	for year in years:
@@ -128,6 +128,6 @@ def graphOverTime(star_name):
 	fig.savefig('test_precession_vondrak_example.png', dpi=fig.dpi)
 
 if __name__ == '__main__':
-	star_name = "Polaris"
+	star_name = "Vega"
 	testingStar(star_name)
 	graphOverTime(star_name)
