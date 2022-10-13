@@ -379,7 +379,7 @@ def plotCircluar(full_star_list, northOrSouth, magnitude_filter, year_since_2000
 
 		# Calculate new position of star due to PRECESSION (change RA and Declination over time)
 		# Vondrak accurate up  +/- 200K years around 2000
-		################ REMOVEABLE (top)
+		################ REMOVEABLE (top) for vondrak python2.7 plugin
 		if isPrecessionIncluded:
 			star_found = True # TEMP CAN BE REMOVED
 			star_found, star_declination, star_ra = tempPython27PrecessionVondrak(star[0], year_since_2000)
@@ -422,7 +422,7 @@ def plotCircluar(full_star_list, northOrSouth, magnitude_filter, year_since_2000
 				y_dec_values.append(dec_ruler_position)
 				#print("Original: '{0}': {1} RA (degrees) and {2} Declination (degrees)".format(star[0], np.rad2deg(star[1]), star[2]))
 
-	######################### REMOVEABLE (top)
+	######################### REMOVEABLE (top) for vondrak python2.7 plugin
 	if isPrecessionIncluded: 
 		print("STARS REMOVED: {0}\n".format(star_not_found_lst)) #TODO: remove with Vondrak 2.7 fix
 	######################### REMOVEABLE (bottom)
@@ -464,7 +464,7 @@ def plotCircluar(full_star_list, northOrSouth, magnitude_filter, year_since_2000
 		suffix = "M"
 	if year_since_2000 >= 0: year_bce_ce = "{0} C.E".format(year_since_2000 + 2000) # postive years for C.E
 	if year_since_2000 < 0: year_bce_ce = "{0} B.C.E".format(abs(year_since_2000 + 2000)) # negative years for B.C.E
-	figure_has_precession_extra_string = "with Precession" if isPrecessionIncluded else ""
+	figure_has_precession_extra_string = "with Precession" if isPrecessionIncluded else "without Precession"
 	ax.set_title("{0}ern Hemisphere [{1}{2} Years Since 2000 ({3})]: {4}° to {5}° {6}".format(northOrSouth,
 																							years_for_title,
 																							suffix,
@@ -504,6 +504,7 @@ if __name__ == '__main__':
 
 	# Plot star chart on a circular polar coordinate system
 	if northOrSouth != "Both":
+		# If not charting all variations of the graph: Optional flags (with and without precession)
 		if northOrSouth == "North":
 			declination_min = northern_declination_min
 			declination_max = northern_declination_max
