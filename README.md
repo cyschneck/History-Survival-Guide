@@ -67,6 +67,13 @@ Reuse of this image is governed by [NASA's image use policy](https://www.nasa.go
 Base plate includes the position of the Tropic of Cancer, Tropic of Capricorn, and the Equator in three concentric circles. The position of each circle is due to the obliquity of the planet
 
 Corrected for obliquities between 0°-89.99° (undefined at 90°) when radius of base plate is 1
+
+```
+outer_tropic_radius = base_plate_radius
+equator_radius = base_plate_radius / (tan(45° + (obliquity / 2))
+inner_tropic_radius = base_plate_radius / (tan(45° - (obliquity / 2))
+```
+
 ![change_in_obliquity_radius+png](https://github.com/cyschneck/History-Survival-Guide/blob/master/page_x_astrolabe/base_plate_change_due_to_obliquity.png)
 ![earth_base_plate+png](https://github.com/cyschneck/History-Survival-Guide/blob/master/page_x_astrolabe/base_plate_for_earth_at_23.4_degrees.png)
 
