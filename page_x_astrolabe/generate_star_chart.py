@@ -476,10 +476,11 @@ def plotCircluar(full_star_list, northOrSouth, magnitude_filter, year_since_2000
 	displayStarNamesLabels, displayDeclinationNumbers
 	with_without_label = "" if displayStarNamesLabels or displayDeclinationNumbers else "out" # saves as either "with" or "without" in label type
 	with_without_precession = "with_precession" if isPrecessionIncluded else "without_precession"
-	fig.savefig('star_chart_{0}_{1}_with{2}_labels.png'.format(northOrSouth.lower(),
-															with_without_precession,
-															with_without_label), 
-															dpi=fig.dpi)
+	fig.savefig('{0}/star_chart_{1}_{2}_with{3}_labels.png'.format("generate_star_chart_outputs",
+																	northOrSouth.lower(),
+																	with_without_precession,
+																	with_without_label), 
+																	dpi=fig.dpi)
 
 if __name__ == '__main__':
 	# Get List of Stars with data

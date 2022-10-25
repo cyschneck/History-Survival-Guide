@@ -93,15 +93,15 @@ Optional Variables:
 6. Precession of the Equinoxes
 
 **North Hemisphere**
-![north_star_chart_without_precession_with_labels+png](https://github.com/cyschneck/History-Survival-Guide/blob/master/page_x_astrolabe/star_chart_north_without_precession_with_labels.png)
-![north_star_chart_without_precession_without_labels+png](https://github.com/cyschneck/History-Survival-Guide/blob/master/page_x_astrolabe/star_chart_north_without_precession_without_labels.png)
-![north_star_chart_with_precession_with_labels+png](https://github.com/cyschneck/History-Survival-Guide/blob/master/page_x_astrolabe/star_chart_north_with_precession_with_labels.png)
-![north_star_chart_with_precession_without_labels+png](https://github.com/cyschneck/History-Survival-Guide/blob/master/page_x_astrolabe/star_chart_north_with_precession_without_labels.png)
+![north_star_chart_without_precession_with_labels+png](https://github.com/cyschneck/History-Survival-Guide/blob/master/page_x_astrolabe/generate_star_chart_outputs/star_chart_north_without_precession_with_labels.png)
+![north_star_chart_without_precession_without_labels+png](https://github.com/cyschneck/History-Survival-Guide/blob/master/page_x_astrolabe/generate_star_chart_outputs/star_chart_north_without_precession_without_labels.png)
+![north_star_chart_with_precession_with_labels+png](https://github.com/cyschneck/History-Survival-Guide/blob/master/page_x_astrolabe/generate_star_chart_outputs/star_chart_north_with_precession_with_labels.png)
+![north_star_chart_with_precession_without_labels+png](https://github.com/cyschneck/History-Survival-Guide/blob/master/page_x_astrolabe/generate_star_chart_outputs/star_chart_north_with_precession_without_labels.png)
 **South Hemisphere**
-![south_star_chart_without_precession_with_labels+png](https://github.com/cyschneck/History-Survival-Guide/blob/master/page_x_astrolabe/star_chart_south_without_precession_with_labels.png)
-![south_star_chart_without_precession_without_labels+png](https://github.com/cyschneck/History-Survival-Guide/blob/master/page_x_astrolabe/star_chart_south_without_precession_without_labels.png)
-![south_star_chart_with_precession_with_labels+png](https://github.com/cyschneck/History-Survival-Guide/blob/master/page_x_astrolabe/star_chart_south_with_precession_with_labels.png)
-![south_star_chart_with_precession_without_labels+png](https://github.com/cyschneck/History-Survival-Guide/blob/master/page_x_astrolabe/star_chart_south_with_precession_without_labels.png)
+![south_star_chart_without_precession_with_labels+png](https://github.com/cyschneck/History-Survival-Guide/blob/master/page_x_astrolabe/generate_star_chart_outputs/star_chart_south_without_precession_with_labels.png)
+![south_star_chart_without_precession_without_labels+png](https://github.com/cyschneck/History-Survival-Guide/blob/master/page_x_astrolabe/generate_star_chart_outputs/star_chart_south_without_precession_without_labels.png)
+![south_star_chart_with_precession_with_labels+png](https://github.com/cyschneck/History-Survival-Guide/blob/master/page_x_astrolabe/generate_star_chart_outputs/star_chart_south_with_precession_with_labels.png)
+![south_star_chart_with_precession_without_labels+png](https://github.com/cyschneck/History-Survival-Guide/blob/master/page_x_astrolabe/generate_star_chart_outputs/star_chart_south_with_precession_without_labels.png)
 
 Precession of Equinoxes based on Time since 2000
 
