@@ -75,7 +75,7 @@ def plotEffectOfObliquityOnRadius(radius_of_base_plate):
 
 	plt.legend()
 	plt.show()
-	fig.savefig('base_plate_change_due_to_obliquity.png', dpi=fig.dpi)
+	fig.savefig('{0}/base_plate_change_due_to_obliquity.png'.format("generate_base_plate_outputs"), dpi=fig.dpi)
 
 def constructBasePlate(radius_plate, obliquity_planet, planet_name):
 	# Construct base plate with concentric circles
@@ -99,7 +99,7 @@ def constructBasePlate(radius_plate, obliquity_planet, planet_name):
 
 	plt.title("Base Plate for {0} with Obliquity {1}° for radius = {2}".format(planet_name, obliquity_planet, radius_plate))
 	plt.show()
-	fig.savefig('base_plate_for_{0}_at_{1}_degrees.png'.format(planet_name.lower(), obliquity_planet), dpi=fig.dpi)
+	fig.savefig('{0}/base_plate_for_{1}_at_{2}_degrees.png'.format("generate_base_plate_outputs", planet_name.lower(), obliquity_planet), dpi=fig.dpi)
 
 if __name__ == '__main__':
 	# Find Ratio between concentric circles for base plate based on obliquity
