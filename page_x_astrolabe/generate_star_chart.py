@@ -456,11 +456,11 @@ def plotCircluar(full_star_list, northOrSouth, magnitude_filter, year_since_2000
 	ax.scatter(x_ra_values, y_dec_values, s=10)
 	years_for_title = year_since_2000
 	suffix = ""
-	if 1000 <  abs(years_for_title) and abs(years_for_title) < 100000:
+	if 1000 <  abs(years_for_title) and abs(years_for_title) < 1000000:
 		years_for_title = years_for_title / 1000
 		suffix = "K"
-	if abs(years_for_title) > 100000:
-		years_for_title = years_for_title / 100000
+	if abs(years_for_title) > 1000000:
+		years_for_title = years_for_title / 1000000
 		suffix = "M"
 	if year_since_2000 >= 0: year_bce_ce = "{0} C.E".format(year_since_2000 + 2000) # postive years for C.E
 	if year_since_2000 < 0: year_bce_ce = "{0} B.C.E".format(abs(year_since_2000 + 2000)) # negative years for B.C.E

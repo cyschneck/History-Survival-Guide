@@ -27,8 +27,8 @@ def compute_star(year, star_name):
 	return position_matrix(ra=ra,dec=dec)
 
 if __name__ == '__main__':
-	# file run: python2.7 return_ra_dec_precession_python27.py -S star_name
-	parser = argparse.ArgumentParser(description="flag format given as: -S star_name")
+	# file run: python2.7 ra_dec_precession_python27.py -S star_name -Y year_YYYY
+	parser = argparse.ArgumentParser(description="takes in star name and year to calculate")
 	parser.add_argument('-S', '-star-name', help="star name to find precession movement")
 	parser.add_argument('-Y', '-year-to-calculate', type=int, help="year to calculate for star's position")
 	args = parser.parse_args()
