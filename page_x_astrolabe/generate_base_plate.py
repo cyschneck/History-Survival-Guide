@@ -22,7 +22,7 @@ def radiusOfTropicsAndEquator(base_plate_radius, obliquity_of_planet):
 	inner_tropic_radius = equator_radius * math.tan(np.deg2rad(45 - (obliquity_of_planet/2)))
 	return outer_tropic_radius, equator_radius, inner_tropic_radius
 
-def plotEffectOfObliquityOnRadius(radius_of_base_plate):
+def plotEffectOfObliquityOnRadius(radius_of_base_plate, save_local_image):
 	"""#EARTH TESTING:
 	earth_obliquity = 23.4
 	radius_of_base_plate = 15
@@ -75,16 +75,16 @@ def plotEffectOfObliquityOnRadius(radius_of_base_plate):
 
 	plt.legend()
 	plt.show()
-	fig.savefig('{0}/base_plate_change_due_to_obliquity.png'.format("generate_base_plate_outputs"), dpi=fig.dpi)
+	if save_local_image: fig.savefig('{0}/base_plate_change_due_to_obliquity.png'.format("generate_base_plate_outputs"), dpi=fig.dpi)
 
-def constructBasePlate(radius_plate, obliquity_planet, planet_name):
+def constructBasePlate(radius_plate, obliquity_planet, planet_name, save_local_image):
 	# Construct base plate with concentric circles
 	fig = plt.figure(figsize=(12,12), dpi=100)
 	ax = fig.subplots(subplot_kw={'projection': 'polar'})
 	ax.set_ylim([0,radius_plate]) # set outer limit
 	ax.set_xticklabels([])# remove x labels for degrees
 	ax.set_yticklabels([])
-	ax.set_rticks(np.arange(0, radius_of_base_plate, radius_of_base_plate/10))
+	ax.set_rticks(np.arange(0, radius_plate, radius_plate/10))
 	ax.grid(True)
 
 	outer_radius, equator_radius, inner_radius = radiusOfTropicsAndEquator(radius_plate, obliquity_planet)
@@ -99,12 +99,13 @@ def constructBasePlate(radius_plate, obliquity_planet, planet_name):
 
 	plt.title("Base Plate for {0} with Obliquity {1}° for radius = {2}".format(planet_name, obliquity_planet, radius_plate))
 	plt.show()
-	fig.savefig('{0}/base_plate_for_{1}_at_{2}_degrees.png'.format("generate_base_plate_outputs", planet_name.lower(), obliquity_planet), dpi=fig.dpi)
+	if save_local_image: fig.savefig('{0}/base_plate_for_{1}_at_{2}_degrees.png'.format("generate_base_plate_outputs", planet_name.lower(), obliquity_planet), dpi=fig.dpi)
 
 if __name__ == '__main__':
 	# Find Ratio between concentric circles for base plate based on obliquity
+	save_image_locally = True # set up for interactive jupyter (defaults to True when running as a python script)
 	radius_of_base_plate = 15
-	plotEffectOfObliquityOnRadius(radius_of_base_plate)
+	plotEffectOfObliquityOnRadius(radius_of_base_plate, save_image_locally)
 
 	## Testing on Earth's obliquity
 	#obliquity_of_planet = 23.4 # obliquity of Earth
@@ -119,4 +120,4 @@ if __name__ == '__main__':
 							"Uranus": 97.86,
 							"Neptune": 29.56}
 	for planet_name, planet_ob in planet_8_obliquities.items():
-		constructBasePlate(radius_of_base_plate, planet_ob, planet_name)
+		constructBasePlate(radius_of_base_plate, planet_ob, planet_name, save_image_locally)

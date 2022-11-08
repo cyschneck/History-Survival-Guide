@@ -16,7 +16,7 @@ southern_declination_max = -90
 j2000 = 2000 # start year of the star catalogue (jan 1 2000 via IAU)
 
 def getStarList():
-		# stars to be included: 'name', ra HH.MM.SS, declination DD.SS
+	# stars to be included: 'name', ra HH.MM.SS, declination DD.SS
 	# stars: ["name", "RA: HH.MM.SS", Declination DD.SS, Proper Motion Speed (mas/yr), Proper Motion Angle (DD.SS), Magnitude (V, Visual)]
 	# Northern stars (+ declination)
 	aldebaran_star = ["Aldebaran", "04.35.55", 16.30, 199.3, 161.4, 0.99]
@@ -298,7 +298,7 @@ def tempPython27PrecessionVondrak(star_name, years_since_2000):
 	#print("Star Found = {0}, Declination = {1}, RA = {2}".format(star_found, vondrak_dec, vondrak_ra))
 	return star_found, vondrak_dec, vondrak_ra
 
-def plotCircluar(full_star_list, northOrSouth, magnitude_filter, year_since_2000, displayStarNamesLabels, displayDeclinationNumbers, isPrecessionIncluded, total_ruler_length, increment_by):
+def plotCircluar(full_star_list, northOrSouth, declination_min, declination_max, magnitude_filter, year_since_2000, displayStarNamesLabels, displayDeclinationNumbers, isPrecessionIncluded, total_ruler_length, increment_by, save_local_image):
 	# plot star chart as a circular graph
 	fig = plt.figure(figsize=(12,12), dpi=100)
 	ax = fig.subplots(subplot_kw={'projection': 'polar'})
@@ -476,13 +476,15 @@ def plotCircluar(full_star_list, northOrSouth, magnitude_filter, year_since_2000
 	displayStarNamesLabels, displayDeclinationNumbers
 	with_without_label = "" if displayStarNamesLabels or displayDeclinationNumbers else "out" # saves as either "with" or "without" in label type
 	with_without_precession = "with_precession" if isPrecessionIncluded else "without_precession"
-	fig.savefig('{0}/star_chart_{1}_{2}_with{3}_labels.png'.format("generate_star_chart_outputs",
-																	northOrSouth.lower(),
-																	with_without_precession,
-																	with_without_label), 
-																	dpi=fig.dpi)
+	if save_local_image: fig.savefig('{0}/star_chart_{1}_{2}_with{3}_labels.png'.format("generate_star_chart_outputs",
+																						northOrSouth.lower(),
+																						with_without_precession,
+																						with_without_label), 
+																						dpi=fig.dpi)
 
 if __name__ == '__main__':
+	save_image_locally = True # set up for interactive jupyter (defaults to True when running as a python script)
+
 	# Get List of Stars with data
 	star_chart_list = getStarList()
 
@@ -495,7 +497,7 @@ if __name__ == '__main__':
 	northOrSouth = "Both" # options: "North", "South", "Both" (changes the declination range)
 	max_magnitude_filter = 10.0 # options: Filter by magnitude of star (magitude in Visual) (-2-10, 10 is dimmest, removes nothing)
 	total_ruler_length = 30 # units (cut in half for each side of the ruler) (currently has to be even)
-	increment_by = 10 # increment degrees by 1, 5, 10)
+	increment_by = 10 # increment degrees by 1, 5, 10
 	years_since_2000 = 11000 # years since since 2000 (-31 = 1969)
 
 	# Verify Hemisphere within valid range
@@ -514,22 +516,28 @@ if __name__ == '__main__':
 			declination_max = southern_declination_max
 		plotCircluar(star_chart_list, 
 					northOrSouth,
+					declination_min,
+					declination_max,
 					max_magnitude_filter,
 					years_since_2000,
 					displayStarNames,
 					displayDeclinationNumbers,
 					False,
 					total_ruler_length,
-					increment_by) # without precession
+					increment_by,
+					save_image_locally) # without precession
 		plotCircluar(star_chart_list, 
 					northOrSouth,
+					declination_min,
+					declination_max,
 					max_magnitude_filter,
 					years_since_2000,
 					displayStarNames,
 					displayDeclinationNumbers,
 					True,
 					total_ruler_length,
-					increment_by) # with precession
+					increment_by,
+					save_image_locally) # with precession
 	if northOrSouth == "Both":
 		# Run for both North and South without/with Precession
 		# North: without Precession
@@ -537,76 +545,100 @@ if __name__ == '__main__':
 		declination_max = northern_declination_max
 		plotCircluar(star_chart_list, 
 					"North",
+					declination_min,
+					declination_max,
 					max_magnitude_filter,
 					years_since_2000,
 					True,
 					True,
 					False,
 					total_ruler_length,
-					increment_by) # without precession with labels
+					increment_by,
+					save_image_locally) # without precession with labels
 		plotCircluar(star_chart_list, 
 					"North",
+					declination_min,
+					declination_max,
 					max_magnitude_filter,
 					years_since_2000,
 					False,
 					False,
 					False,
 					total_ruler_length,
-					increment_by) # without precession without labels
+					increment_by,
+					save_image_locally) # without precession without labels
 		plotCircluar(star_chart_list, 
 					"North",
+					declination_min,
+					declination_max,
 					max_magnitude_filter,
 					years_since_2000,
 					True,
 					True,
 					True,
 					total_ruler_length,
-					increment_by) # with precession with labels
+					increment_by,
+					save_image_locally) # with precession with labels
 		plotCircluar(star_chart_list, 
 					"North",
+					declination_min,
+					declination_max,
 					max_magnitude_filter,
 					years_since_2000,
 					False,
 					False,
 					True,
 					total_ruler_length,
-					increment_by) # with precession without labels
+					increment_by,
+					save_image_locally) # with precession without labels
 		# South:
 		declination_min = southern_declination_min
 		declination_max = southern_declination_max
 		plotCircluar(star_chart_list, 
 					"South",
+					declination_min,
+					declination_max,
 					max_magnitude_filter,
 					years_since_2000,
 					True,
 					True,
 					False,
 					total_ruler_length,
-					increment_by) # without precession with labels
+					increment_by,
+					save_image_locally) # without precession with labels
 		plotCircluar(star_chart_list, 
 					"South",
+					declination_min,
+					declination_max,
 					max_magnitude_filter,
 					years_since_2000,
 					False,
 					False,
 					False,
 					total_ruler_length,
-					increment_by) # without precession without labels
+					increment_by,
+					save_image_locally) # without precession without labels
 		plotCircluar(star_chart_list, 
 					"South",
+					declination_min,
+					declination_max,
 					max_magnitude_filter,
 					years_since_2000,
 					True,
 					True,
 					True,
 					total_ruler_length,
-					increment_by) # with precession with labels
+					increment_by,
+					save_image_locally) # with precession with labels
 		plotCircluar(star_chart_list, 
 					"South",
+					declination_min,
+					declination_max,
 					max_magnitude_filter,
 					years_since_2000,
 					False,
 					False,
 					True,
 					total_ruler_length,
-					increment_by) # with precession without labels
+					increment_by,
+					save_image_locally) # with precession without labels
