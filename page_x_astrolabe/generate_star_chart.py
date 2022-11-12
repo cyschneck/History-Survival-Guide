@@ -3,6 +3,7 @@
 import math
 import numpy as np
 import configparser
+import logging
 import matplotlib.pyplot as plt
 import matplotlib.gridspec as gridspec
 import generate_declination_ruler as declination_script # import declination script to retrieve declination values
@@ -176,19 +177,19 @@ def calculateRAandDeclinationViaProperMotion(years_since_2000, star_ra, star_dec
 	# Calculate the RA and Declination of a star based on changes due to Proper Motion
 	# returns calculated RA and Declination
 
-	#print("Proper Motion for {0} Years".format(years_since_2000))
-	#print("Date {0}, RA = {1}, Dec = {2}, PM Speed = {3}, PM Angle = {4}".format(years_since_2000, star_ra, star_dec, star_pm_speed, star_pm_angle))
+	logger.debug("Proper Motion for {0} Years".format(years_since_2000))
+	logger.debug("Date {0}, RA = {1}, Dec = {2}, PM Speed = {3}, PM Angle = {4}".format(years_since_2000, star_ra, star_dec, star_pm_speed, star_pm_angle))
 
 	star_pm_speed_degrees = 0.00000027777776630942 * star_pm_speed # convert mas/yr to degrees/yr
 	star_pm_speed_radains = np.deg2rad(star_pm_speed_degrees) # radains/yr
 	star_movement_radains_per_year = star_pm_speed_radains * years_since_2000
-	#print("Years: {0}, speed {1} (rad/yr) and angle of {2} ({3} radians)".format(time_since_current_year, star_pm_speed_radains, star_pm_angle, np.deg2rad(star_pm_angle)))
-	#print("Movement Over Time = {0} (rad), {1} (deg)".format(star_movement_radains_per_year, np.rad2deg(star_movement_radains_per_year)))
+	#logger.debug("Years: {0}, speed {1} (rad/yr) and angle of {2} ({3} radians)".format(time_since_current_year, star_pm_speed_radains, star_pm_angle, np.deg2rad(star_pm_angle)))
+	logger.debug("Movement Over Time = {0} (rad), {1} (deg)".format(star_movement_radains_per_year, np.rad2deg(star_movement_radains_per_year)))
 
 	ra_x_difference_component = star_movement_radains_per_year * math.cos(np.deg2rad(star_pm_angle))
 	dec_y_difference_component = star_movement_radains_per_year * math.sin(np.deg2rad(star_pm_angle))
-	#print("(RA)  x Difference = {0} (rad) = {1} degrees".format(ra_x_difference_component, np.rad2deg(ra_x_difference_component)))
-	#print("(DEC) y Difference = {0} (rad) = {1} degrees".format(dec_y_difference_component, np.rad2deg(dec_y_difference_component)))
+	logger.debug("(RA)  x Difference = {0} (rad) = {1} degrees".format(ra_x_difference_component, np.rad2deg(ra_x_difference_component)))
+	logger.debug("(DEC) y Difference = {0} (rad) = {1} degrees".format(dec_y_difference_component, np.rad2deg(dec_y_difference_component)))
 
 	star_adjusted_ra = star_ra + ra_x_difference_component # in radians with proper motion (potentionally will be flipped 180 based on new declination)
 	#star_ra = np.deg2rad(15) # original (TEST)
@@ -220,8 +221,8 @@ def calculateRAandDeclinationViaProperMotion(years_since_2000, star_ra, star_dec
 			dec_x = abs(dec_x)
 		if dec_x > -360 and dec_x < -270:
 			dec_x = 90 + (dec_x + 270)
-	#print("New mapped dec = {0}".format(dec_x))
-	#print("Original Dec = {0}, New Dec = {1}".format(star_dec, star_adjusted_declination))
+	logger.debug("New mapped dec = {0}".format(dec_x))
+	logger.debug("Original Dec = {0}, New Dec = {1}".format(star_dec, star_adjusted_declination))
 
 	# flip over RA by rotating 180
 	is_flipped_across_pole = False
@@ -234,25 +235,25 @@ def calculateRAandDeclinationViaProperMotion(years_since_2000, star_ra, star_dec
 		while (star_over_ninety_ra < -90):
 			star_over_ninety_ra += 90
 			is_flipped_across_pole = not is_flipped_across_pole # flip across the center by 180
-	#print("Original RA = {0}, New RA = {1}, Flipped = {2} (if true +180?)".format(np.rad2deg(star_ra), np.rad2deg(star_adjusted_ra), is_flipped_across_pole))
+	logger.debug("Original RA = {0}, New RA = {1}, Flipped = {2} (if true +180?)".format(np.rad2deg(star_ra), np.rad2deg(star_adjusted_ra), is_flipped_across_pole))
 
 	# If declination goes over ninety, flip over by 180
 	if is_flipped_across_pole:
 		star_adjusted_ra = star_adjusted_ra + np.deg2rad(180)
 
 	star_adjusted_declination = dec_x
-	#print("Final RA: {0} degrees".format(np.rad2deg(star_adjusted_ra)))
-	#print("Final Dec: {0} degrees ".format(star_adjusted_declination))
+	logger.debug("Final RA: {0} degrees".format(np.rad2deg(star_adjusted_ra)))
+	logger.debug("Final Dec: {0} degrees ".format(star_adjusted_declination))
 	return star_adjusted_ra, star_adjusted_declination
 
 def calculatePositionOfPolePrecession(years_since_2000, original_declination, original_ra):
 	# Calculate change in the position of the pole due to precession
 	obliquity_for_YYYY = 23.439167
-	print("Years Since 2000 = {0}".format(years_since_2000))
+	logger.info("Years Since 2000 = {0}".format(years_since_2000))
 
 	#years_since_2000 = -50 # TESTING = 1950 for Arcturus
 	#original_ra = convertRAhrtoRadians([["Arcturus", "14.15.8", 19.26, 2279.4, 208.7, 0.16]])[0][1] #TESTING for Arcturus
-	#print(original_ra)
+	logger.debug(original_ra)
 	#original_declination = 19 + 26/60 #TESTING for Arcturus
 
 	#plot_obliquity = True # option to plot obliquity for testing
@@ -268,23 +269,23 @@ def calculatePositionOfPolePrecession(years_since_2000, original_declination, or
 	final_declination_due_to_precession = original_declination + change_in_declination
 	final_ra_due_to_precession = original_ra + change_in_ra
 
-	print("Dec: {0} + {1} = {2}".format(original_declination, change_in_declination, final_declination_due_to_precession))
-	print("RA:  {0} + {1} = {2}".format(original_ra, change_in_ra, final_ra_due_to_precession))
+	logger.info("Dec: {0} + {1} = {2}".format(original_declination, change_in_declination, final_declination_due_to_precession))
+	logger.info("RA:  {0} + {1} = {2}".format(original_ra, change_in_ra, final_ra_due_to_precession))
 	return final_ra_due_to_precession, final_declination_due_to_precession
 
 def tempPython27PrecessionVondrak(star_name, years_since_2000):
 	# Temporary fix for vondrak plugin (will only find a smaller subsections of the stars)
-	#print("INCLUDING PRECESSION VIA VONDRAK")
+	logger.debug("INCLUDING PRECESSION VIA VONDRAK")
 	import subprocess
 	if len(star_name.split(" ")) > 1: star_name = "-".join(star_name.split(" "))
-	print("running: python2.7 ra_dec_precession_python27.py -S {0} -Y {1}".format(star_name, 2000 + years_since_2000))
+	logger.info("running: python2.7 ra_dec_precession_python27.py -S {0} -Y {1}".format(star_name, 2000 + years_since_2000))
 
 	# Run in python2.7
 	call_python2_script = "python2.7 ra_dec_precession_python27.py -S {0} -Y {1}".format(star_name, 2000 + years_since_2000)
 	process = subprocess.Popen(call_python2_script, shell=True, stdout=subprocess.PIPE)
 	output, error = process.communicate()
 	output_string = output.decode('UTF-8').rstrip()
-	#print("OUTPUT = {0}".format(output_string))
+	logger.debug("OUTPUT = {0}".format(output_string))
 
 	if "not found" in output_string: # star not found
 		star_found = False
@@ -296,7 +297,7 @@ def tempPython27PrecessionVondrak(star_name, years_since_2000):
 		vondrak_dec = float(vondrak_dec)
 		vondrak_ra = convertRAhrtoRadians([[star_name, vondrak_ra]])[0][1]
 
-	#print("Star Found = {0}, Declination = {1}, RA = {2}".format(star_found, vondrak_dec, vondrak_ra))
+	logger.debug("Star Found = {0}, Declination = {1}, RA = {2}".format(star_found, vondrak_dec, vondrak_ra))
 	return star_found, vondrak_dec, vondrak_ra
 
 def plotCircluar(full_star_list, northOrSouth, declination_min, declination_max, magnitude_filter, year_since_2000, displayStarNamesLabels, displayDeclinationNumbers, isPrecessionIncluded, total_ruler_length, increment_by, save_local_image):
@@ -310,7 +311,7 @@ def plotCircluar(full_star_list, northOrSouth, declination_min, declination_max,
 		if star[5] < magnitude_filter: # 0 is bright, 6 is dimmest (includes negatives for very bright)
 			star_list.append(star)
 		else:
-			#print("Removed Star based on Magnitude Filter: {0} ({1} V)".format(star[0], star[5]))
+			#logger.debug("Removed Star based on Magnitude Filter: {0} ({1} V)".format(star[0], star[5]))
 			pass
 
 	# Set Declination (astronomical 'latitude') as Y
@@ -357,7 +358,7 @@ def plotCircluar(full_star_list, northOrSouth, declination_min, declination_max,
 	if northOrSouth == "South":
 		displayDeclinationMarksOnAxis(declination_values, southern_declination_min, southern_declination_max, True)
 
-	#print("\n{0}ern Range of Declination: {1} to {2}".format(northOrSouth, min_dec_value, max_dec_value))
+	logger.debug("\n{0}ern Range of Declination: {1} to {2}".format(northOrSouth, min_dec_value, max_dec_value))
 
 	radius_of_circle = declination_script.calculateRadiusOfCircle(declination_min, total_ruler_length, northOrSouth)
 
@@ -366,17 +367,17 @@ def plotCircluar(full_star_list, northOrSouth, declination_min, declination_max,
 	x_ra_values = []
 	y_dec_values = []
 	for star in star_list:
-		#print(star[0])
+		logger.debug(star[0])
 
 		# Calculate position of star due to PROPER MOTION (changes RA and Declination over time)
-		#print("'{0}' original RA = {1} and Declination = {2}".format(star[0], np.rad2deg(star[1]), star[2]))
+		logger.debug("'{0}' original RA = {1} and Declination = {2}".format(star[0], np.rad2deg(star[1]), star[2]))
 		star_ra, star_declination = calculateRAandDeclinationViaProperMotion(year_since_2000, 
 																			star[1], 
 																			star[2], 
 																			star[3], 
 																			star[4])
-		#print("Adjusted: {0} RA (radians) = {1}".format(star[1], star_ra))
-		#print("Adjusted via Proper Motion: '{0}': {1} Declination (degrees) = {2} ".format(star[0], star[2], star_declination))
+		logger.debug("Adjusted: {0} RA (radians) = {1}".format(star[1], star_ra))
+		logger.debug("Adjusted via Proper Motion: '{0}': {1} Declination (degrees) = {2} ".format(star[0], star[2], star_declination))
 
 		# Calculate new position of star due to PRECESSION (change RA and Declination over time)
 		# Vondrak accurate up  +/- 200K years around 2000
@@ -384,14 +385,14 @@ def plotCircluar(full_star_list, northOrSouth, declination_min, declination_max,
 		if isPrecessionIncluded:
 			star_found = True # TEMP CAN BE REMOVED
 			star_found, star_declination, star_ra = tempPython27PrecessionVondrak(star[0], year_since_2000)
-			#print("Precession: {0} RA (radians)\nPrecession: Declination (degrees) = {1}".format(star_ra, star_declination))
+			logger.debug("Precession: {0} RA (radians)\nPrecession: Declination (degrees) = {1}".format(star_ra, star_declination))
 			star_found_lst = []
 			star_not_found_lst = []
 			if star_found: 
 				star_found_lst.append(star[0])
 				dec_ruler_position = declination_script.calculateLength(star_declination, radius_of_circle, northOrSouth) # convert degree to position on radius
 
-				#print("{0}: {1} declination = {2:.4f} cm".format(star[0], star_declination, dec_ruler_position))
+				logger.debug("{0}: {1} declination = {2:.4f} cm".format(star[0], star_declination, dec_ruler_position))
 				in_range_value = False # Determine if within range of South/North Hemisphere
 				if star_declination > min_dec_value and star_declination < max_dec_value: # only display stars within range of declination values
 					in_range_value = True # North
@@ -402,7 +403,7 @@ def plotCircluar(full_star_list, northOrSouth, declination_min, declination_max,
 					x_star_labels.append(star[0])
 					x_ra_values.append(star_ra)
 					y_dec_values.append(dec_ruler_position)
-					#print("Original: '{0}': {1} RA (degrees) and {2} Declination (degrees)".format(star[0], np.rad2deg(star[1]), star[2]))
+					logger.debug("Original: '{0}': {1} RA (degrees) and {2} Declination (degrees)".format(star[0], np.rad2deg(star[1]), star[2]))
 			else:
 				star_not_found_lst.append(star[0])
 		######################### REMOVEABLE (bottom)
@@ -410,7 +411,7 @@ def plotCircluar(full_star_list, northOrSouth, declination_min, declination_max,
 		if not isPrecessionIncluded: # fix for precession, this if statement can be removed
 			dec_ruler_position = declination_script.calculateLength(star_declination, radius_of_circle, northOrSouth) # convert degree to position on radius
 
-			#print("{0}: {1} declination = {2:.4f} cm".format(star[0], star_declination, dec_ruler_position))
+			logger.debug("{0}: {1} declination = {2:.4f} cm".format(star[0], star_declination, dec_ruler_position))
 			in_range_value = False # Determine if within range of South/North Hemisphere
 			if star_declination > min_dec_value and star_declination < max_dec_value: # only display stars within range of declination values
 				in_range_value = True # North
@@ -421,11 +422,11 @@ def plotCircluar(full_star_list, northOrSouth, declination_min, declination_max,
 				x_star_labels.append(star[0])
 				x_ra_values.append(star_ra)
 				y_dec_values.append(dec_ruler_position)
-				#print("Original: '{0}': {1} RA (degrees) and {2} Declination (degrees)".format(star[0], np.rad2deg(star[1]), star[2]))
+				logger.debug("Original: '{0}': {1} RA (degrees) and {2} Declination (degrees)".format(star[0], np.rad2deg(star[1]), star[2]))
 
 	######################### REMOVEABLE (top) for vondrak python2.7 plugin
 	if isPrecessionIncluded: 
-		print("STARS REMOVED: {0}\n".format(star_not_found_lst)) #TODO: remove with Vondrak 2.7 fix
+		logger.info("STARS REMOVED: {0}\n".format(star_not_found_lst)) #TODO: remove with Vondrak 2.7 fix
 	######################### REMOVEABLE (bottom)
 
 	# Set Right Ascension (astronomical 'longitude') as X
@@ -450,9 +451,9 @@ def plotCircluar(full_star_list, northOrSouth, declination_min, declination_max,
 
 	# Print for Testing:
 	for i, txt in enumerate(x_star_labels):
-		print("{0}: {1:05f} RA (degrees) and {2:05f} Declination (ruler)".format(txt, np.rad2deg(x_ra_values[i]), y_dec_values[i]))
+		logger.info("{0}: {1:05f} RA (degrees) and {2:05f} Declination (ruler)".format(txt, np.rad2deg(x_ra_values[i]), y_dec_values[i]))
 		output_string = "Proper Motion" if not isPrecessionIncluded else "Precession"
-		print("{0} for {1} Years\n".format(output_string, year_since_2000))
+		logger.info("{0} for {1} Years\n".format(output_string, year_since_2000))
 
 	ax.scatter(x_ra_values, y_dec_values, s=10)
 	years_for_title = year_since_2000
@@ -486,6 +487,11 @@ def plotCircluar(full_star_list, northOrSouth, declination_min, declination_max,
 if __name__ == '__main__':
 	save_image_locally = True # set up for interactive jupyter (defaults to True when running as a python script)
 
+	logger = logging.getLogger(__name__)
+	logger.setLevel(logging.INFO)
+	stream_handler = logging.StreamHandler()
+	logger.addHandler(stream_handler)
+
 	# Get List of Stars with data
 	star_chart_list = getStarList()
 
@@ -505,7 +511,7 @@ if __name__ == '__main__':
 
 	# Verify Hemisphere within valid range
 	if northOrSouth not in ["Both", "North", "South"]:
-		print("ERROR: Hemisphere not found")
+		logger.critical("ERROR: Hemisphere not found")
 		exit()
 
 	# Plot star chart on a circular polar coordinate system

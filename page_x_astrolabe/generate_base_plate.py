@@ -2,7 +2,17 @@
 import numpy as np
 import math
 import configparser
+import logging
 import matplotlib.pyplot as plt
+
+planet_8_obliquities = {"Mercury": 0.1,
+						"Venus": 177.4,
+						"Earth": 23.4,
+						"Mars": 25.19,
+						"Jupiter": 3.12,
+						"Saturn": 26.73,
+						"Uranus": 97.86,
+						"Neptune": 29.56}
 
 def convertObliquityWithin90(ob_planet):
 	# obliquity converted to be within 0-89.99
@@ -29,7 +39,7 @@ def plotEffectOfObliquityOnRadius(radius_of_base_plate, save_local_image):
 	radius_of_base_plate = 15
 	
 	capricorn_radius, equator_radius, cancer_radius = radiusOfTropicsAndEquator(radius_of_base_plate, earth_obliquity)
-	print("Radius of Cirlces on Base Plate: \nCapricorn = {0}\nEquator = {1:04f}\nCancer = {2:04f}".format(capricorn_radius,
+	logging.info("Radius of Cirlces on Base Plate: \nCapricorn = {0}\nEquator = {1:04f}\nCancer = {2:04f}".format(capricorn_radius,
 																										equator_radius,
 																										cancer_radius))
 	"""
@@ -43,6 +53,9 @@ def plotEffectOfObliquityOnRadius(radius_of_base_plate, save_local_image):
 		outer_radius_lst.append(outer_radius)
 		equator_radius_lst.append(equator_radius)
 		inner_radius_lst.append(inner_radius)
+		logger.debug("Radius of Cirlces on Base Plate: Outer = {0}, Equator = {1:04f}, Inner = {2:04f}".format(outer_radius,
+																												equator_radius,
+																												inner_radius))
 
 	# Plot
 	fig = plt.figure(figsize=(10,10), dpi=100)
@@ -58,15 +71,6 @@ def plotEffectOfObliquityOnRadius(radius_of_base_plate, save_local_image):
 	plt.scatter(obliquity_range, outer_radius_lst, label="Outer Radius")
 	plt.scatter(obliquity_range, equator_radius_lst, label="Equator Radius")
 	plt.scatter(obliquity_range, inner_radius_lst, label="Inner Radius")
-	
-	planet_8_obliquities = {"Mercury": 0.1,
-							"Venus": 177.4,
-							"Earth": 23.4,
-							"Mars": 25.19,
-							"Jupiter": 3.12,
-							"Saturn": 26.73,
-							"Uranus": 97.86,
-							"Neptune": 29.56}
 
 	for planet_given_name, planet_given_obliquity in planet_8_obliquities.items(): 
 		# vertical dash line at the positions of planet's obliquities
@@ -75,7 +79,7 @@ def plotEffectOfObliquityOnRadius(radius_of_base_plate, save_local_image):
 		plt.text(x=planet_given_obliquity, y=0.1, s=planet_given_name, fontsize=8, rotation=90) # add label on figure
 
 	plt.legend()
-	plt.show()
+	#plt.show()
 	if save_local_image: fig.savefig('{0}/base_plate_change_due_to_obliquity.png'.format("generate_base_plate_outputs"), dpi=fig.dpi)
 
 def constructBasePlate(radius_plate, given_obliquity_planet, given_planet_name, save_local_image):
@@ -99,10 +103,14 @@ def constructBasePlate(radius_plate, given_obliquity_planet, given_planet_name, 
 	ax.legend(loc="center left", bbox_to_anchor=(1, 0.5)) # show labels for radius
 
 	plt.title("Base Plate for {0} with Obliquity {1}° for radius = {2}".format(given_planet_name, given_obliquity_planet, radius_plate))
-	plt.show()
+	#plt.show()
 	if save_local_image: fig.savefig('{0}/base_plate_for_{1}_at_{2}_degrees.png'.format("generate_base_plate_outputs", given_planet_name.lower(), given_obliquity_planet), dpi=fig.dpi)
 
 if __name__ == '__main__':
+	logger = logging.getLogger(__name__)
+	logger.setLevel(logging.INFO)
+	stream_handler = logging.StreamHandler()
+	logger.addHandler(stream_handler)
 	# Find Ratio between concentric circles for base plate based on obliquity
 	config = configparser.ConfigParser()
 	config.read("config.ini")
@@ -115,13 +123,6 @@ if __name__ == '__main__':
 	#obliquity_of_planet = 23.4 # obliquity of Earth
 	#constructBasePlate(radius_of_base_plate, obliquity_of_planet, "Earth")
 
-	planet_8_obliquities = {"Mercury": 0.1,
-							"Venus": 177.4,
-							"Earth": 23.4,
-							"Mars": 25.19,
-							"Jupiter": 3.12,
-							"Saturn": 26.73,
-							"Uranus": 97.86,
-							"Neptune": 29.56}
 	for planet_name, planet_ob in planet_8_obliquities.items():
+		logger.info("Generating Base Plate: {0} with an obliquity of {1}".format(planet_name, planet_ob))
 		constructBasePlate(radiusOfBasePlate, planet_ob, planet_name, save_image_locally)
