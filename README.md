@@ -126,17 +126,18 @@ Variables:
 2. The longitude of the observer (-71.05° for Boston, -105.27° for Boulder, 0° for Greenwich, 13.74° for Dresden)
 3. Radius of the back plate
 
-For the Year 2022 at longitude -105.2705 for a plate with a radius of 1
+For the Year 2022 at longitude -105.2705° for a plate with a radius of 1.0
 
 ```
 Perihelion = 103.315666°
 Aphelion   = 283.315666°
 Mean Anomaly of Jan 0 = 357.320158°
-
 Line of Apside relative to Vernal Equinox for Longitude -105.2705° = -79.65258771051492°
 
-X offset with radius of 1 = -0.007679
-Y offset with radius of 1 = 0.032445
+Offset due to Eccentricity with radius of 1.0 = 0.033399
+X offset with radius of 1.0 = -0.007692
+Y offset with radius of 1.0 = 0.032501
+
 ```
 _How Changing the Year Changes Eccentricity_
 ![change_in_year_eccentricity+png](https://github.com/cyschneck/History-Survival-Guide/blob/master/page_x_astrolabe/calculate_eccentric_calendar_offset_outputs/eccentric_calendar_change_in_year_versus_eccentricity.png)
