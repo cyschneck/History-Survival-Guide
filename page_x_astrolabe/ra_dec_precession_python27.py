@@ -19,7 +19,6 @@ def position_matrix(ra=None, dec=None, x=None, y=None, z=None):
 	return np.array([[x], [y], [z]])
 
 def compute_star(year, star_name):
-	import ephem
 	given_star = ephem.star(star_name)
 	given_star.compute(str(year),epoch='2000')
 	ra = given_star.a_ra
