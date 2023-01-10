@@ -80,34 +80,6 @@ inner_tropic_radius = base_plate_radius / (tan(45° - (obliquity / 2))
 ![change_in_obliquity_radius+png](https://github.com/cyschneck/History-Survival-Guide/blob/master/page_x_astrolabe/generate_base_plate_outputs/base_plate_change_due_to_obliquity.png)
 ![earth_base_plate+png](https://github.com/cyschneck/History-Survival-Guide/blob/master/page_x_astrolabe/generate_base_plate_outputs/base_plate_for_earth_at_23.4_degrees.png)
 
-**Constructing a Star Chart**
-
-Currently includes 62 stars in both the North and South Hemisphere
-
-```python3 generate_star_chart.py```
-
-Optional Variables:
-1. North or South Hemisphere (and range of declination values, default between -30°-90° N and -90°-30° S) centered on +90° or -90° pole
-2. Filter based on the Visual Magnitude of a star (-2 brightest, 10 dimmest)
-3. Proper Motion based on time since 2000
-5. Optional labels for Stars and Declination Values
-6. Precession of the Equinoxes
-
-**North Hemisphere**
-![north_star_chart_without_precession_with_labels+png](https://github.com/cyschneck/History-Survival-Guide/blob/master/page_x_astrolabe/generate_star_chart_outputs/star_chart_north_without_precession_with_labels.png)
-![north_star_chart_without_precession_without_labels+png](https://github.com/cyschneck/History-Survival-Guide/blob/master/page_x_astrolabe/generate_star_chart_outputs/star_chart_north_without_precession_without_labels.png)
-![north_star_chart_with_precession_with_labels+png](https://github.com/cyschneck/History-Survival-Guide/blob/master/page_x_astrolabe/generate_star_chart_outputs/star_chart_north_with_precession_with_labels.png)
-![north_star_chart_with_precession_without_labels+png](https://github.com/cyschneck/History-Survival-Guide/blob/master/page_x_astrolabe/generate_star_chart_outputs/star_chart_north_with_precession_without_labels.png)
-**South Hemisphere**
-![south_star_chart_without_precession_with_labels+png](https://github.com/cyschneck/History-Survival-Guide/blob/master/page_x_astrolabe/generate_star_chart_outputs/star_chart_south_without_precession_with_labels.png)
-![south_star_chart_without_precession_without_labels+png](https://github.com/cyschneck/History-Survival-Guide/blob/master/page_x_astrolabe/generate_star_chart_outputs/star_chart_south_without_precession_without_labels.png)
-![south_star_chart_with_precession_with_labels+png](https://github.com/cyschneck/History-Survival-Guide/blob/master/page_x_astrolabe/generate_star_chart_outputs/star_chart_south_with_precession_with_labels.png)
-![south_star_chart_with_precession_without_labels+png](https://github.com/cyschneck/History-Survival-Guide/blob/master/page_x_astrolabe/generate_star_chart_outputs/star_chart_south_with_precession_without_labels.png)
-
-Precession of Equinoxes based on Time since 2000
-
-Implementation of "New precession expressions, valid for long time intervals" (J. Vondrak, N. Capitaine, and P. Wallace) (2011)
-
 Currently, [vondrak plugin](https://github.com/digitalvapor/vondrak) can only run on python2.7 (using Python 2.7.12)
 
 ```python2.7 test_precession.py```
@@ -122,22 +94,21 @@ Code will generate both the angular distance from the Vernal Equinox to the Janu
 ```python3 calculate_eccentric_calendar_offset.py```
 
 Variables:
-1. Year to calculate (for example: 2022)
+1. Year to calculate (for example: 2023)
 2. The longitude of the observer (-71.05° for Boston, -105.27° for Boulder, 0° for Greenwich, 13.74° for Dresden)
 3. Radius of the back plate
 
-For the Year 2022 at longitude -105.2705° for a plate with a radius of 1.0
-
 ```
-Perihelion = 103.315666°
-Aphelion   = 283.315666°
-Mean Anomaly of Jan 0 = 357.320158°
-Line of Apside relative to Vernal Equinox for Longitude -105.2705° = -79.65258771051492°
+For the Year 2023 at longitude -105.2705° for a plate with a radius of 1.0
 
-Offset due to Eccentricity with radius of 1.0 = 0.033399
-X offset with radius of 1.0 = -0.007692
-Y offset with radius of 1.0 = 0.032501
+Perihelion = 103.332864°
+Aphelion   = 283.332864°
+Mean Anomaly of Jan 0 = 357.310661°
+Line of Apside relative to Vernal Equinox for Longitude -105.2705° = -79.64488807474879°
 
+Offset due to Eccentricity with radius of 1.0 = 0.033398
+X offset with radius of 1.0 = -0.007702
+Y offset with radius of 1.0 = 0.032498
 ```
 _How Changing the Year Changes Eccentricity_
 ![change_in_year_eccentricity+png](https://github.com/cyschneck/History-Survival-Guide/blob/master/page_x_astrolabe/calculate_eccentric_calendar_offset_outputs/eccentric_calendar_change_in_year_versus_eccentricity.png)

@@ -130,7 +130,7 @@ if __name__ == '__main__':
 
 	# Calculate the time in Julian centuries from J2000.0 (example)
 	julianTime = (yearToCalculate - 2000) / 100
-	logger.info("EXAMPLE: For the Year {0} at longitude {1}° for a plate with a radius of {2}\n".format(yearToCalculate, longitude, radiusOfPlate))
+	logger.info("EXAMPLE:\nFor the Year {0} at longitude {1}° for a plate with a radius of {2}\n".format(yearToCalculate, longitude, radiusOfPlate))
 	perihelion, aphelion = determineApside(julianTime)
 	vernal_equinox_angle = determineAngularDistanceEquinox(julianTime, longitude, aphelion)
 	x_offset, y_offset = offsetfromCenterOfPlate(julianTime, radiusOfPlate, perihelion)
