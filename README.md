@@ -145,14 +145,3 @@ _How Changing the Year Changes the Offset (X, Y)_
 ![change_in_year_offset+png](https://github.com/cyschneck/History-Survival-Guide/blob/master/page_x_astrolabe/calculate_eccentric_calendar_offset_outputs/eccentric_calendar_change_in_year_versus_offset.png)
 _How Changing the Longitude Changes the Angular Distance to the Vernal Equinox_
 ![change_in_longitude_angular_distance+png](https://github.com/cyschneck/History-Survival-Guide/blob/master/page_x_astrolabe/calculate_eccentric_calendar_offset_outputs/eccentric_calendar_change_in_longitude_versus_angular_distance.png)
-
-### [Page X: Equation of Time](https://github.com/cyschneck/History-Survival-Guide/tree/master/page_x_equation_of_time)
-
-**Effect of Eccentricity**
-![earth_effect_of_eccentricity+png](https://github.com/cyschneck/History-Survival-Guide/blob/master/page_x_equation_of_time/eot_graphs/eccentricity/earth_eot_effect_of_eccentricity.png)
-![eccentricity_change_in_time_EOT+png](https://github.com/cyschneck/History-Survival-Guide/blob/master/page_x_equation_of_time/eot_graphs/eccentricity/change_in_time_due_to_eccentricity.png)
-
-**Effect of Obliquity**
-
-**TODO: Graph Effect of Obliquity**
-
