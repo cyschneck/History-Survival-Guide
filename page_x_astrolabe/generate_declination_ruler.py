@@ -3,12 +3,6 @@
 import numpy as np
 import matplotlib.pyplot as plt
 import math
-import logging
-
-logger = logging.getLogger(__name__)
-logger.setLevel(logging.INFO)
-stream_handler = logging.StreamHandler()
-logger.addHandler(stream_handler)
 
 def triggerDeclinationCalculations(ruler_length, dec_min, dec_max, increment, northOrSouth):
 	# access via script in generate_star_chart
@@ -24,7 +18,7 @@ def calculateLength(angle_of_inclination, radius_of_circle, northOrSouth):
 	if northOrSouth == "South":
 		angle_in_radians = np.deg2rad(45 +  angle_of_inclination/2) # - angle for southern projection
 	equation_of_length = radius_of_circle * math.tan(angle_in_radians) # calculated
-	logger.debug("Angle {0} = Projected Length = {1: 0.4f} of {2} = {3: 0.4f}".format(angle_of_inclination, np.rad2deg(angle_in_radians), radius_of_circle, equation_of_length))
+	#print("Angle {0} = Projected Length = {1: 0.4f} of {2} = {3: 0.4f}".format(angle_of_inclination, np.rad2deg(angle_in_radians), radius_of_circle, equation_of_length))
 	return equation_of_length
 
 def calculateRadiusOfCircle(min_dec, total_ruler_len, northOrSouth):
@@ -33,7 +27,7 @@ def calculateRadiusOfCircle(min_dec, total_ruler_len, northOrSouth):
 		radius_of_circle_at_min_dec = (total_ruler_len/2) / math.tan(np.deg2rad(45 - min_dec/2))
 	if northOrSouth == "South":
 		radius_of_circle_at_min_dec = (total_ruler_len/2) / math.tan(np.deg2rad(45 + min_dec/2))
-	logger.debug("Min declination = {0} for ruler length [{1} cm] = radius of {2:.4f}".format(min_dec, total_ruler_len/2, radius_of_circle_at_min_dec))
+	#print("Min declination = {0} for ruler length [{1} cm] = radius of {2:.4f}".format(min_dec, total_ruler_len/2, radius_of_circle_at_min_dec))
 	return radius_of_circle_at_min_dec
 
 def calculateRuler(graphPlotSegments, total_ruler_length, declination_min, declination_max, increment, northOrSouth):
@@ -43,7 +37,7 @@ def calculateRuler(graphPlotSegments, total_ruler_length, declination_min, decli
 	y_lengthSegments = []
 
 	declination_angles_ruler = np.arange(-90, 90+1, increment) # declination max range from -90 to 90
-	logger.debug("\nDeclination Range of Angles: {0}".format(declination_angles_ruler))
+	#print("\nDeclination Range of Angles: {0}".format(declination_angles_ruler))
 
 	# calculate full size of circle to find declination for smaller range
 	radius_of_circle = calculateRadiusOfCircle(declination_min, total_ruler_length, northOrSouth)
@@ -55,13 +49,13 @@ def calculateRuler(graphPlotSegments, total_ruler_length, declination_min, decli
 			ruler_position = calculateLength(n_angle, radius_of_circle, "North")
 			y_lengthSegments.append(ruler_position)
 			if n_angle >= declination_min and n_angle <= declination_max: # North
-				logger.debug("North Angle: {0} = {1} cm".format(n_angle, ruler_position))
+				#print("North Angle: {0} = {1} cm".format(n_angle, ruler_position))
 				ruler_position_dict[n_angle] = round(ruler_position, 4)
 		if northOrSouth == "South":
 			ruler_position = calculateLength(n_angle, radius_of_circle, "South")
 			y_lengthSegments.append(ruler_position)
 			if n_angle <= declination_min and n_angle >= declination_max: # South
-				logger.debug("South Angle: {0} = {1} cm".format(n_angle, ruler_position))
+				#print("South Angle: {0} = {1} cm".format(n_angle, ruler_position))
 				ruler_position_dict[n_angle] = round(ruler_position, 4)
 
 	# optional graph of segments

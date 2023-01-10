@@ -314,7 +314,7 @@ def plotCircluar(full_star_list, northOrSouth, declination_min, declination_max,
 			#logger.debug("Removed Star based on Magnitude Filter: {0} ({1} V)".format(star[0], star[5]))
 			pass
 
-	# Set Declination (astronomical 'latitude') as Y
+	# Set Declination (astronomical 'latitude') as Y (radius of polar plot)
 
 	# Split up chart into North/South hemisphere
 	if northOrSouth == "North":
@@ -429,7 +429,7 @@ def plotCircluar(full_star_list, northOrSouth, declination_min, declination_max,
 		logger.info("STARS REMOVED: {0}\n".format(star_not_found_lst)) #TODO: remove with Vondrak 2.7 fix
 	######################### REMOVEABLE (bottom)
 
-	# Set Right Ascension (astronomical 'longitude') as X
+	# Set Right Ascension (astronomical 'longitude') as X (theta of polar plot)
 	angles_ra = np.array([0, 15, 30, 45, 60, 75, 90, 105, 120, 135, 150,
 						165, 180, 195, 210, 225, 240, 255, 270, 285, 300,
 						315, 330, 345])
@@ -475,7 +475,7 @@ def plotCircluar(full_star_list, northOrSouth, declination_min, declination_max,
 																							declination_min,
 																							figure_has_precession_extra_string))
 	plt.show()
-	displayStarNamesLabels, displayDeclinationNumbers
+
 	with_without_label = "" if displayStarNamesLabels or displayDeclinationNumbers else "out" # saves as either "with" or "without" in label type
 	with_without_precession = "with_precession" if isPrecessionIncluded else "without_precession"
 	if save_local_image: fig.savefig('{0}/star_chart_{1}_{2}_with{3}_labels.png'.format("generate_star_chart_outputs",
