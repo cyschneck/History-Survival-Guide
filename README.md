@@ -79,7 +79,7 @@ inner_tropic_radius = base_plate_radius / (tan(45° - (obliquity / 2))
 ```
 ![change_in_obliquity_radius+png](https://github.com/cyschneck/History-Survival-Guide/blob/master/page_x_astrolabe/generate_base_plate_outputs/base_plate_change_due_to_obliquity.png)
 ![earth_base_plate+png](https://github.com/cyschneck/History-Survival-Guide/blob/master/page_x_astrolabe/generate_base_plate_outputs/base_plate_for_earth_at_23.4_degrees.png)
-
+__TO BE MOVED IN PYPY__
 Currently, [vondrak plugin](https://github.com/digitalvapor/vondrak) can only run on python2.7 (using Python 2.7.12)
 
 ```python2.7 test_precession.py```
