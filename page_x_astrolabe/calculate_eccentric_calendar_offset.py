@@ -93,14 +93,14 @@ def plotYearToOffset(offset_year, year_to_calculate, radius_of_plate, given_long
 	fig.savefig('{0}/eccentric_calendar_change_in_year_versus_offset.png'.format("calculate_eccentric_calendar_offset_outputs"), dpi=fig.dpi)
 
 def plotLongitudeToAngularDistance(year_to_calculate):
-	# plot Year vs. Longitude for fixed year (2022) for radius 1
+	# plot Year vs. Longitude for fixed year (2023) for radius 1
 	fig = plt.figure(figsize=(10,10), dpi=100)
 	ax = fig.subplots()
 	x_range_longitude = np.arange(-180, 180+1, 10)
 
 	y_angular_distance_apside = []
 	for x_longitude in x_range_longitude:
-		julian_time = (2022 - 2000) / 100 # Calculate the time in Julian centuries from J2000.0
+		julian_time = (2023 - 2000) / 100 # Calculate the time in Julian centuries from J2000.0
 		logger.info("Julian Time in Centuries for the Year {0} = {1}".format(year_to_calculate, julian_time))
 		x_perihelion, x_aphelion = determineApside(julian_time)
 		vernal_equinox_angle = determineAngularDistanceEquinox(julian_time, x_longitude, x_aphelion)
@@ -109,7 +109,7 @@ def plotLongitudeToAngularDistance(year_to_calculate):
 	plt.xticks(x_range_longitude, rotation=90)
 	plt.title("Change in Longitude vs. Angluar Distance to Vernal Equinox")
 	plt.xlabel("Longitude (°)")
-	plt.ylabel("Vernal Equinox Angle (Apside) with Fixed Year (2022) and Radius (1)")
+	plt.ylabel("Vernal Equinox Angle (Apside) with Fixed Year (2023) and Radius (1)")
 	plt.scatter(x_range_longitude, y_angular_distance_apside)
 	plt.show()
 	fig.savefig('{0}/eccentric_calendar_change_in_longitude_versus_angular_distance.png'.format("calculate_eccentric_calendar_offset_outputs"), dpi=fig.dpi)

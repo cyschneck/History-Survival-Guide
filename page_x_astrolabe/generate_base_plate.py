@@ -111,6 +111,7 @@ if __name__ == '__main__':
 	logger.setLevel(logging.INFO)
 	stream_handler = logging.StreamHandler()
 	logger.addHandler(stream_handler)
+
 	# Find Ratio between concentric circles for base plate based on obliquity
 	config = configparser.ConfigParser()
 	config.read("config.ini")
