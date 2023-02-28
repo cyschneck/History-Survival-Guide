@@ -1,7 +1,10 @@
 # History Survival Guide
 ### A Time Traveler’s Guide to Surviving History
 
-![Banner_Light](https://user-images.githubusercontent.com/22159116/64215868-b84b1500-ce73-11e9-98fc-4cac0c190fc4.jpg)
+<picture>
+  <source srcset="https://raw.githubusercontent.com/cyschneck/History-Survival-Guide/master/assets/Banner_Dark.jpg" media="(prefers-color-scheme: dark)">
+  <img src="https://raw.githubusercontent.com/cyschneck/History-Survival-Guide/master/assets/Banner_Light.jpg">
+</picture>
 
 **About This Project**
 
