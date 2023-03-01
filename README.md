@@ -10,14 +10,17 @@
 
 This is a science and history blog that explores scientific concepts coupled with practical information about how to recreate and use the techniques described by hand.  The History Survival Guide (or,  A Time Traveler’s Guide to Surviving History) has been updating since July 2019. Each page is the accumulation of research for a particular topic, synthesized and summarized in a useful ‘survival guide’ format. So far, topics covered included using the proper motion of stars to determine what time period a time traveler could have found themselves in, deciphering ‘Hobo Symbols’ from the 1800’s, reading the Pioneer Plaque, and constructing an astrolabe from scratch. All pages are done in a pulp science fiction aesthetic.
 
-This github repo includes all relevant code and images used in a given guidebook page
+This github repo includes all relevant code and images used in a given guidebook page for public use
 
 [historysurvivalguide.com](http://historysurvivalguide.com/)
 
 [Behind the Scenes - Tumblr](https://historysurvivalguide.tumblr.com/)
 
+[3D Models - Printables](https://www.printables.com/social/328713-cyschneck/about)
+
+
 ### [Page 1: Proper Motion](https://github.com/cyschneck/History-Survival-Guide/tree/master/page_1_proper_motion)
-Determine Angular Motion Between Two Given Stars
+Determine angular distance between two given stars
 
 Included:
 * Python code to determine the angular distance between two Stars
@@ -30,7 +33,7 @@ Guidebook page:
 Hobo Signs and Symbols with definitions
 
 Included:
-* Each individual Hobo symbols (png), 248 x 248 pixels that is formatted for Slack
+* Each individual Hobo symbols (png) with 248 x 248 pixels dimensions (that is formatted for Slack)
 * [Zip file with all symbols](https://github.com/cyschneck/History-Survival-Guide/blob/master/page_3_hobo_symbols/all_hobo_signs_and_symbols.zip)
 
 | ![good_dog](https://github.com/cyschneck/History-Survival-Guide/blob/master/page_3_hobo_symbols/good_dog.png) | ![bad_dog](https://github.com/cyschneck/History-Survival-Guide/blob/master/page_3_hobo_symbols/bad_dog.png) |
@@ -69,7 +72,7 @@ Currently uses: Python 3.7.3
 
 **Constructing a Base Plate**
 
-Base plate includes the position of the Tropic of Cancer, Tropic of Capricorn, and the Equator in three concentric circles. The position of each circle is due to the obliquity of the planet
+Base plate includes the position of the Tropic of Cancer, Tropic of Capricorn, and the Equator in three concentric circles. The position of each circle is due to the obliquity of the planet and over time the obliquity of Earth can shift
 
 Corrected for obliquities between 0°-89.99° (undefined at 90°) when radius of base plate is 1
 
@@ -90,7 +93,7 @@ Currently, [vondrak plugin](https://github.com/digitalvapor/vondrak) can only ru
 
 **Constructing Eccentric Calendar for Back Plate**
 
-An eccentric calendar assumes the sun moves at a constant speed throughout the year and accounts for the Sun's true anomaly as an offset from the Vernal Equinox. Due to both *longitude* and the *year since 2000*, the center of the calendar will be placed at an offset from the center of the back plate of the astrolabe on the line of apsides (the line connecting the perihelion and aphelion)
+An eccentric calendar assumes the sun moves at a constant speed throughout the year but accounts for the Sun's true anomaly as an offset from the Vernal Equinox. Due to both *longitude* and the *year since 2000*, the center of the calendar will be placed at an offset from the center of the back plate of the astrolabe on the line of apsides (the line connecting the perihelion and aphelion)
 
 Code will generate both the angular distance from the Vernal Equinox to the January 0 (midnight of December 31) at the beginning of the year as well as the offset (x, y) from the center of the back plate
 
