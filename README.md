@@ -85,7 +85,9 @@ inner_tropic_radius = base_plate_radius / (tan(45° - (obliquity / 2))
 ```
 ![change_in_obliquity_radius+png](https://github.com/cyschneck/History-Survival-Guide/blob/master/page_x_astrolabe/generate_base_plate_outputs/base_plate_change_due_to_obliquity.png)
 ![earth_base_plate+png](https://github.com/cyschneck/History-Survival-Guide/blob/master/page_x_astrolabe/generate_base_plate_outputs/base_plate_for_earth_at_23.4_degrees.png)
+
 __TO BE MOVED IN PYPY__
+
 Currently, [vondrak plugin](https://github.com/digitalvapor/vondrak) can only run on python2.7 (using Python 2.7.12)
 
 ```python2.7 test_precession.py```
@@ -122,3 +124,22 @@ _How Changing the Year Changes the Offset (X, Y)_
 ![change_in_year_offset+png](https://github.com/cyschneck/History-Survival-Guide/blob/master/page_x_astrolabe/calculate_eccentric_calendar_offset_outputs/eccentric_calendar_change_in_year_versus_offset.png)
 _How Changing the Longitude Changes the Angular Distance to the Vernal Equinox_
 ![change_in_longitude_angular_distance+png](https://github.com/cyschneck/History-Survival-Guide/blob/master/page_x_astrolabe/calculate_eccentric_calendar_offset_outputs/eccentric_calendar_change_in_longitude_versus_angular_distance.png)
+
+**Generate Star Chart**
+
+ Generate a star chart with spherical projection for the rete at [cyschneck.pythonanywhere.com](http://cyschneck.pythonanywhere.com/) based on [Star-Chart-Spherical-Projection](https://github.com/cyschneck/Star-Chart-Spherical-Projection)
+ 
+ 
+_Example outputs:_
+
+__Star Chart in the Northern Hemisphere (centered on 90°) without Precession__
+![north_star_chart_without_labels_without_precession+png](https://raw.githubusercontent.com/cyschneck/Star-Chart-Spherical-Projection/main/examples/north_without_labels_without_precession.png) 
+![north_star_chart_with_labels_without_precession+png](https://raw.githubusercontent.com/cyschneck/Star-Chart-Spherical-Projection/main/examples/north_with_labels_without_precession.png) 
+![north_star_chart_without_labels_with_precession+png](https://raw.githubusercontent.com/cyschneck/Star-Chart-Spherical-Projection/main/examples/north_without_labels_with_precession.png) 
+![north_star_chart_with_labels_with_precession+png](https://raw.githubusercontent.com/cyschneck/Star-Chart-Spherical-Projection/main/examples/north_with_labels_with_precession.png) 
+
+__Star Chart in the Southern Hemisphere (centered on -90°) without Precession__
+![south_star_chart_without_labels_without_precession+png](https://raw.githubusercontent.com/cyschneck/Star-Chart-Spherical-Projection/main/examples/south_without_labels_without_precession.png) 
+![south_star_chart_with_labels_without_precession+png](https://raw.githubusercontent.com/cyschneck/Star-Chart-Spherical-Projection/main/examples/south_with_labels_without_precession.png) 
+![south_star_chart_without_labels_with_precession+png](https://raw.githubusercontent.com/cyschneck/Star-Chart-Spherical-Projection/main/examples/south_without_labels_with_precession.png) 
+![south_star_chart_with_labels_with_precession+png](https://raw.githubusercontent.com/cyschneck/Star-Chart-Spherical-Projection/main/examples/south_with_labels_with_precession.png) 
