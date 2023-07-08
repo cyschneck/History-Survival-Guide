@@ -61,7 +61,7 @@ Clean PNG of the Pioneer Plaque
 Reuse of this image is governed by [NASA's image use policy](https://www.nasa.gov/multimedia/guidelines/index.html).
 
  <p align="center">
-  <img src="https://github.com/cyschneck/History-Survival-Guide/blob/master/page_10_pioneer_plaque/full_scale_diagram.jpg" />
+  <img src="https://github.com/cyschneck/History-Survival-Guide/blob/master/page_10_pioneer_plaque/full_scale_diagram.jpg" width="50%" height="50%"/>
 </p>
 
 [Page 10: Pioneer Plaque](http://historysurvivalguide.com/page/pioneer-plaque-part-1/)
