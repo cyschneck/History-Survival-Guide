@@ -1,0 +1,13 @@
+\begin{align*}
+
+\text{Outer Tropic Radius} = \text{Plate Radius}
+
+\\
+
+\text{Equator Radius} = \frac { \text{Plate Radius} }{\text {tan(45}\degree + \frac {\text{23.4}\degree}{\text{2}} )}
+
+\\
+
+\text{Inner Tropic Radius} = \frac { \text{Plate Radius} }{\text {tan(45}\degree - \frac {\text{23.4}\degree}{\text{2}} )}
+
+\end{align*}
