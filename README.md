@@ -72,7 +72,7 @@ Reuse of this image is governed by [NASA's image use policy](https://www.nasa.go
 
 ### [Page X: Astrolabe](https://github.com/cyschneck/History-Survival-Guide/tree/master/page_x_astrolabe)
 
-Currently uses: Python 3.7.3
+Currently uses: Python 3.12 (`pip install requirements.txt`)
 
 **Constructing a Base Plate**
 
@@ -80,7 +80,7 @@ Base plate includes the position of the Tropic of Cancer, Tropic of Capricorn, a
 
 Corrected for obliquities between 0°-89.99° (undefined at 90°) when radius of base plate is 1
 
-```python3 generate_base_plate.py```
+```python generate_base_plate.py```
 
 ```
 outer_tropic_radius = base_plate_radius
@@ -101,24 +101,24 @@ An eccentric calendar assumes the sun moves at a constant speed throughout the y
 
 Code will generate both the angular distance from the Vernal Equinox to the January 0 (midnight of December 31) at the beginning of the year as well as the offset (x, y) from the center of the back plate
 
-```python3 calculate_eccentric_calendar_offset.py```
+```python calculate_eccentric_calendar_offset.py```
 
 Variables:
-1. Year to calculate (for example: 2023)
+1. Year to calculate (for example: 2024)
 2. The longitude of the observer (-71.05° for Boston, -105.27° for Boulder, 0° for Greenwich, 13.74° for Dresden)
 3. Radius of the back plate
 
 ```
-For the Year 2023 at longitude -105.2705° for a plate with a radius of 1.0
+For the Year 2024 at longitude -105.2705° for a plate with a radius of 1.0
 
-Perihelion = 103.332864°
-Aphelion   = 283.332864°
-Mean Anomaly of Jan 0 = 357.310661°
-Line of Apside relative to Vernal Equinox for Longitude -105.2705° = -79.64488807474879°
+Perihelion = 103.350061°
+Aphelion   = 283.350061°
+Mean Anomaly of Jan 0 = 357.301163°
+Line of Apside relative to Vernal Equinox for Longitude -105.2705° = -79.63718837823262°
 
-Offset due to Eccentricity with radius of 1.0 = 0.033398
-X offset with radius of 1.0 = -0.007702
-Y offset with radius of 1.0 = 0.032498
+Offset due to Eccentricity with radius of 1.0 = 0.033397
+X offset with radius of 1.0 = -0.007711
+Y offset with radius of 1.0 = 0.032495
 ```
 _How Changing the Year Changes Eccentricity_
 ![change_in_year_eccentricity+png](https://github.com/cyschneck/History-Survival-Guide/blob/master/page_x_astrolabe/calculate_eccentric_calendar_offset_outputs/eccentric_calendar_change_in_year_versus_eccentricity.png)
@@ -127,23 +127,4 @@ _How Changing the Year Changes the Offset (X, Y)_
 _How Changing the Longitude Changes the Angular Distance to the Vernal Equinox_
 ![change_in_longitude_angular_distance+png](https://github.com/cyschneck/History-Survival-Guide/blob/master/page_x_astrolabe/calculate_eccentric_calendar_offset_outputs/eccentric_calendar_change_in_longitude_versus_angular_distance.png)
 
-**Generate Star Chart**
-
- Generate a star chart with spherical projection for the rete at [cyschneck.pythonanywhere.com](http://cyschneck.pythonanywhere.com/) based on [Star-Chart-Spherical-Projection](https://github.com/cyschneck/Star-Chart-Spherical-Projection)
- 
- 
-_Example outputs:_
-
-__Star Chart in the Northern Hemisphere (centered on 90°) without Precession__
-![north_star_chart_without_labels_without_precession+png](https://raw.githubusercontent.com/cyschneck/Star-Chart-Spherical-Projection/main/examples/north_without_labels_without_precession.png) 
-![north_star_chart_with_labels_without_precession+png](https://raw.githubusercontent.com/cyschneck/Star-Chart-Spherical-Projection/main/examples/north_with_labels_without_precession.png) 
-__Star Chart in the Northern Hemisphere (centered on 90°) with Precession__
-![north_star_chart_without_labels_with_precession+png](https://raw.githubusercontent.com/cyschneck/Star-Chart-Spherical-Projection/main/examples/north_without_labels_with_precession.png) 
-![north_star_chart_with_labels_with_precession+png](https://raw.githubusercontent.com/cyschneck/Star-Chart-Spherical-Projection/main/examples/north_with_labels_with_precession.png) 
-
-__Star Chart in the Southern Hemisphere (centered on -90°) without Precession__
-![south_star_chart_without_labels_without_precession+png](https://raw.githubusercontent.com/cyschneck/Star-Chart-Spherical-Projection/main/examples/south_without_labels_without_precession.png) 
-![south_star_chart_with_labels_without_precession+png](https://raw.githubusercontent.com/cyschneck/Star-Chart-Spherical-Projection/main/examples/south_with_labels_without_precession.png) 
-__Star Chart in the Southern Hemisphere (centered on -90°) without Precession__
-![south_star_chart_without_labels_with_precession+png](https://raw.githubusercontent.com/cyschneck/Star-Chart-Spherical-Projection/main/examples/south_without_labels_with_precession.png) 
-![south_star_chart_with_labels_with_precession+png](https://raw.githubusercontent.com/cyschneck/Star-Chart-Spherical-Projection/main/examples/south_with_labels_with_precession.png) 
+**Constructing a Star Chart**
