@@ -72,7 +72,7 @@ Reuse of this image is governed by [NASA's image use policy](https://www.nasa.go
 
 ### [Page X: Astrolabe](https://github.com/cyschneck/History-Survival-Guide/tree/master/page_21_astrolabe)
 
-Currently uses: Python 3.12 (`pip install requirements.txt`)
+Currently uses: Python 3.12 (`pip install -r requirements.txt`)
 
 **Constructing a Base Plate**
 
@@ -90,9 +90,19 @@ inner_tropic_radius = base_plate_radius / (tan(45° - (obliquity / 2))
 ![change_in_obliquity_radius+png](https://github.com/cyschneck/History-Survival-Guide/blob/master/page_21_astrolabe/generate_base_plate_outputs/base_plate_change_due_to_obliquity.png)
 ![earth_base_plate+png](https://github.com/cyschneck/History-Survival-Guide/blob/master/page_21_astrolabe/generate_base_plate_outputs/base_plate_for_earth_at_23.4_degrees.png)
 
-Currently, [vondrak plugin](https://github.com/digitalvapor/vondrak) can only run on python2.7 (using Python 2.7.12)
+Currently, uses [star-chart-spherical-projection package](https://github.com/cyschneck/Star-Chart-Spherical-Projection)
 
-```python2.7 test_precession.py```
+```
+import star_chart_spherical_projection
+
+star_chart_spherical_projection.plotStarPositionOverTime(builtInStarName="Vega",
+							newStar=None,
+							startYearSince2000=-15000,
+							endYearSince2000=15000,
+							isPrecessionIncluded=True,
+							incrementYear=5,
+							DecOrRA="D")
+```
 ![test_prcession_star+png](https://github.com/cyschneck/History-Survival-Guide/blob/master/page_21_astrolabe/test_precession_vondrak_example.png)
 
 **Constructing Eccentric Calendar for Back Plate**

@@ -1,2 +1,3 @@
 numpy
 matplotlib
+star_chart_spherical_projection
