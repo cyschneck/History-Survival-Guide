@@ -70,7 +70,7 @@ Reuse of this image is governed by [NASA's image use policy](https://www.nasa.go
 
 [Page 12: Pioneer Plaque](http://historysurvivalguide.com/page/pioneer-plaque-part-3/)
 
-### [Page X: Astrolabe](https://github.com/cyschneck/History-Survival-Guide/tree/master/page_x_astrolabe)
+### [Page X: Astrolabe](https://github.com/cyschneck/History-Survival-Guide/tree/master/page_21_astrolabe)
 
 Currently uses: Python 3.12 (`pip install requirements.txt`)
 
@@ -87,13 +87,13 @@ outer_tropic_radius = base_plate_radius
 equator_radius = base_plate_radius / (tan(45° + (obliquity / 2))
 inner_tropic_radius = base_plate_radius / (tan(45° - (obliquity / 2))
 ```
-![change_in_obliquity_radius+png](https://github.com/cyschneck/History-Survival-Guide/blob/master/page_x_astrolabe/generate_base_plate_outputs/base_plate_change_due_to_obliquity.png)
-![earth_base_plate+png](https://github.com/cyschneck/History-Survival-Guide/blob/master/page_x_astrolabe/generate_base_plate_outputs/base_plate_for_earth_at_23.4_degrees.png)
+![change_in_obliquity_radius+png](https://github.com/cyschneck/History-Survival-Guide/blob/master/page_21_astrolabe/generate_base_plate_outputs/base_plate_change_due_to_obliquity.png)
+![earth_base_plate+png](https://github.com/cyschneck/History-Survival-Guide/blob/master/page_21_astrolabe/generate_base_plate_outputs/base_plate_for_earth_at_23.4_degrees.png)
 
 Currently, [vondrak plugin](https://github.com/digitalvapor/vondrak) can only run on python2.7 (using Python 2.7.12)
 
 ```python2.7 test_precession.py```
-![test_prcession_star+png](https://github.com/cyschneck/History-Survival-Guide/blob/master/page_x_astrolabe/test_precession_vondrak_example.png)
+![test_prcession_star+png](https://github.com/cyschneck/History-Survival-Guide/blob/master/page_21_astrolabe/test_precession_vondrak_example.png)
 
 **Constructing Eccentric Calendar for Back Plate**
 
@@ -121,10 +121,10 @@ X offset with radius of 1.0 = -0.007711
 Y offset with radius of 1.0 = 0.032495
 ```
 _How Changing the Year Changes Eccentricity_
-![change_in_year_eccentricity+png](https://github.com/cyschneck/History-Survival-Guide/blob/master/page_x_astrolabe/calculate_eccentric_calendar_offset_outputs/eccentric_calendar_change_in_year_versus_eccentricity.png)
+![change_in_year_eccentricity+png](https://github.com/cyschneck/History-Survival-Guide/blob/master/page_21_astrolabe/calculate_eccentric_calendar_offset_outputs/eccentric_calendar_change_in_year_versus_eccentricity.png)
 _How Changing the Year Changes the Offset (X, Y)_
-![change_in_year_offset+png](https://github.com/cyschneck/History-Survival-Guide/blob/master/page_x_astrolabe/calculate_eccentric_calendar_offset_outputs/eccentric_calendar_change_in_year_versus_offset.png)
+![change_in_year_offset+png](https://github.com/cyschneck/History-Survival-Guide/blob/master/page_21_astrolabe/calculate_eccentric_calendar_offset_outputs/eccentric_calendar_change_in_year_versus_offset.png)
 _How Changing the Longitude Changes the Angular Distance to the Vernal Equinox_
-![change_in_longitude_angular_distance+png](https://github.com/cyschneck/History-Survival-Guide/blob/master/page_x_astrolabe/calculate_eccentric_calendar_offset_outputs/eccentric_calendar_change_in_longitude_versus_angular_distance.png)
+![change_in_longitude_angular_distance+png](https://github.com/cyschneck/History-Survival-Guide/blob/master/page_21_astrolabe/calculate_eccentric_calendar_offset_outputs/eccentric_calendar_change_in_longitude_versus_angular_distance.png)
 
 **Constructing a Star Chart**
