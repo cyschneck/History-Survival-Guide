@@ -70,7 +70,7 @@ Reuse of this image is governed by [NASA's image use policy](https://www.nasa.go
 
 [Page 12: Pioneer Plaque](http://historysurvivalguide.com/page/pioneer-plaque-part-3/)
 
-### [Page X: Astrolabe](https://github.com/cyschneck/History-Survival-Guide/tree/master/page_21_astrolabe)
+### [Page 21: Astrolabe](https://github.com/cyschneck/History-Survival-Guide/tree/master/page_21_astrolabe)
 
 Currently uses: Python 3.12 (`pip install -r requirements.txt`)
 
