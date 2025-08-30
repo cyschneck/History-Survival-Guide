@@ -6,7 +6,7 @@
   <img src="https://raw.githubusercontent.com/cyschneck/History-Survival-Guide/master/assets/Banner_Light.jpg">
 </picture>
 
-**About This Project**
+#### About This Project
 
 The **History Survival Guide** (or, A Time Traveler’s Guide to Surviving History) started in July 2019. History Survival Guide is pulp-era inspired STEM and history blog that explores  different engineer and scientific concepts with practical information about how to recreate by hand
 
@@ -18,10 +18,7 @@ This github repo includes all relevant code and images used in a given guidebook
 
 [Behind the Scenes - Tumblr](https://historysurvivalguide.tumblr.com/)
 
-[3D Models - Printables](https://www.printables.com/social/328713-cyschneck/about)
-
-
-### [Page 1: Proper Motion](https://github.com/cyschneck/History-Survival-Guide/tree/master/page_1_proper_motion)
+### [Proper Motion](https://github.com/cyschneck/History-Survival-Guide/tree/master/page_1_proper_motion)
 Determine angular distance between two given stars
 
 Included:
@@ -29,9 +26,9 @@ Included:
 
 Guidebook page:
 
-[Page 1: Proper Motion](http://historysurvivalguide.com/page/determine-eon-proper-motion/)
+[Proper Motion](http://historysurvivalguide.com/page/determine-eon-proper-motion/)
 
-### [Page 3-6: Hobo Symbols](https://github.com/cyschneck/History-Survival-Guide/tree/master/page_3_hobo_symbols)
+### [Hobo Symbols](https://github.com/cyschneck/History-Survival-Guide/tree/master/page_3_hobo_symbols)
 Hobo Signs and Symbols with definitions
 
 Included:
@@ -54,7 +51,7 @@ Guidebook pages:
 
 [Page 6: Hobo Signs](http://historysurvivalguide.com/page/hobo-signs-and-symbols-part-four/)
 
-### [Page 10-12: Pioneer Plaque](https://github.com/cyschneck/History-Survival-Guide/tree/master/page_10_pioneer_plaque)
+### [Pioneer Plaque](https://github.com/cyschneck/History-Survival-Guide/tree/master/page_10_pioneer_plaque)
 
 Clean PNG of the Pioneer Plaque
 
@@ -66,13 +63,13 @@ Reuse of this image is governed by [NASA's image use policy](https://www.nasa.go
   <img src="https://github.com/cyschneck/History-Survival-Guide/blob/master/page_10_pioneer_plaque/full_scale_diagram.jpg" width="50%" height="50%"/>
 </p>
 
-[Page 10: Pioneer Plaque](http://historysurvivalguide.com/page/pioneer-plaque-part-1/)
+[Pioneer Plaque - Part 1](http://historysurvivalguide.com/page/pioneer-plaque-part-1/)
 
-[Page 11: Pioneer Plaque](http://historysurvivalguide.com/page/pioneer-plaque-part-2/)
+[Pioneer Plaque - Part 2](http://historysurvivalguide.com/page/pioneer-plaque-part-2/)
 
-[Page 12: Pioneer Plaque](http://historysurvivalguide.com/page/pioneer-plaque-part-3/)
+[Pioneer Plaque - Part 3](http://historysurvivalguide.com/page/pioneer-plaque-part-3/)
 
-### [Page 21: Astrolabe](https://github.com/cyschneck/History-Survival-Guide/tree/master/page_21_astrolabe)
+### [Astrolabe](https://github.com/cyschneck/History-Survival-Guide/tree/master/page_21_astrolabe)
 
 Currently uses: Python 3.12 (`pip install -r requirements.txt`)
 
@@ -140,4 +137,5 @@ _How Changing the Longitude Changes the Angular Distance to the Vernal Equinox_
 ![change_in_longitude_angular_distance+png](https://github.com/cyschneck/History-Survival-Guide/blob/master/page_21_astrolabe/calculate_eccentric_calendar_offset_outputs/eccentric_calendar_change_in_longitude_versus_angular_distance.png)
 
 **Constructing a Star Chart**
+
 
