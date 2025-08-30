@@ -8,7 +8,7 @@
 
 #### About This Project
 
-The **History Survival Guide** (or, A Time Traveler’s Guide to Surviving History) started in July 2019. History Survival Guide is pulp-era inspired STEM and history blog that explores  different engineer and scientific concepts with practical information about how to recreate by hand
+The _**History Survival Guide**_ (or, A Time Traveler’s Guide to Surviving History) started in July 2019. History Survival Guide is pulp-era inspired STEM and history blog that explores  different engineer and scientific concepts with practical information about how to recreate by hand
 
 Each page is the accumulation of research for a particular topic, synthesized, and summarized in a useful ‘survival guide’ format. So far, topics covered include using the proper motion of stars to determine what time period a time traveler could have found themselves in, deciphering over a hundred ‘Hobo Symbols’ of the 1800’s, how to read the Pioneer Plaque, and how to build an astrolabe by hand!
 
@@ -113,7 +113,7 @@ Code will generate both the angular distance from the Vernal Equinox to the Janu
 ```python calculate_eccentric_calendar_offset.py```
 
 Variables:
-1. Year to calculate (for example: 2024)
+1. Year to calculate (for example: 2025)
 2. The longitude of the observer (-71.05° for Boston, -105.27° for Boulder, 0° for Greenwich, 13.74° for Dresden)
 3. Radius of the back plate
 
