@@ -8,9 +8,11 @@
 
 **About This Project**
 
-This is a science and history blog that explores scientific concepts coupled with practical information about how to recreate and use the techniques described by hand.  The History Survival Guide (or,  A Time Traveler’s Guide to Surviving History) has been updating since July 2019. Each page is the accumulation of research for a particular topic, synthesized and summarized in a useful ‘survival guide’ format. So far, topics covered included using the proper motion of stars to determine what time period a time traveler could have found themselves in, deciphering ‘Hobo Symbols’ from the 1800’s, reading the Pioneer Plaque, and constructing an astrolabe from scratch. All pages are done in a pulp science fiction aesthetic.
+The **History Survival Guide** (or, A Time Traveler’s Guide to Surviving History) started in July 2019. History Survival Guide is pulp-era inspired STEM and history blog that explores  different engineer and scientific concepts with practical information about how to recreate by hand
 
-This github repo includes all relevant code and images used in a given guidebook page for public use
+Each page is the accumulation of research for a particular topic, synthesized, and summarized in a useful ‘survival guide’ format. So far, topics covered include using the proper motion of stars to determine what time period a time traveler could have found themselves in, deciphering over a hundred ‘Hobo Symbols’ of the 1800’s, how to read the Pioneer Plaque, and how to build an astrolabe by hand!
+
+This github repo includes all relevant code and images used in a given guidebook page
 
 [historysurvivalguide.com](http://historysurvivalguide.com/)
 
@@ -138,3 +140,4 @@ _How Changing the Longitude Changes the Angular Distance to the Vernal Equinox_
 ![change_in_longitude_angular_distance+png](https://github.com/cyschneck/History-Survival-Guide/blob/master/page_21_astrolabe/calculate_eccentric_calendar_offset_outputs/eccentric_calendar_change_in_longitude_versus_angular_distance.png)
 
 **Constructing a Star Chart**
+
