@@ -7,14 +7,14 @@ import configparser
 import logging
 import matplotlib.pyplot as plt
 
-yearToCalculate = 2024 # Year (YYYY) in CE
+yearToCalculate = 2025 # Year (YYYY) in CE
 
 def determineApside(julian_time):
 	# Define the line of apsides (longitude of aphelion and perihelion)
 	apside_perihelion = 102.937348 + (1.7195269 * julian_time) + (0.00045962 * (julian_time**2)) + (0.000000499 * (julian_time**3))
 	apside_aphelion = apside_perihelion + 180
 	logger.info(f"Perihelion = {apside_perihelion:3f}°")
-	logger.info("Aphelion   = {apside_aphelion:3f}°")
+	logger.info(f"Aphelion   = {apside_aphelion:3f}°")
 	return apside_perihelion, apside_aphelion
 
 def determineEccentrictiyOverTime(julian_time):
