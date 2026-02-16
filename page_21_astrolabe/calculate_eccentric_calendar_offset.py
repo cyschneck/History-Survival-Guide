@@ -7,7 +7,7 @@ import configparser
 import logging
 import matplotlib.pyplot as plt
 
-yearToCalculate = 2025 # Year (YYYY) in CE
+yearToCalculate = 2026 # Year (YYYY) in CE
 
 def determineApside(julian_time):
 	# Define the line of apsides (longitude of aphelion and perihelion)

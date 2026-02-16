@@ -113,21 +113,21 @@ Code will generate both the angular distance from the Vernal Equinox to the Janu
 ```python calculate_eccentric_calendar_offset.py```
 
 Variables:
-1. Year to calculate (for example: 2025)
+1. Year to calculate (for example: 2026)
 2. The longitude of the observer (-71.05° for Boston, -105.27° for Boulder, 0° for Greenwich, 13.74° for Dresden)
 3. Radius of the back plate
 
 ```
-For the Year 2025 at longitude -105.2705° for a plate with a radius of 1.0
+For the Year 2026 at longitude -105.2705° for a plate with a radius of 1.0
 
-Perihelion = 103.367258°
-Aphelion   = 283.367258°
-Mean Anomaly of Jan 0 = 357.291665°
-Line of Apside relative to Vernal Equinox for Longitude -105.2705° = -79.62948862096914°
+Perihelion = 103.384456°
+Aphelion   = 283.384456°
+Mean Anomaly of Jan 0 = 357.282167°
+Line of Apside relative to Vernal Equinox for Longitude -105.2705° = -79.62178880296062°
 
-Offset due to Eccentricity with radius of 1.0 = 0.033396
-X offset with radius of 1.0 = -0.007721
-Y offset with radius of 1.0 = 0.032491
+Offset due to Eccentricity with radius of 1.0 = 0.033395
+X offset with radius of 1.0 = -0.007730
+Y offset with radius of 1.0 = 0.032488
 ```
 _How Changing the Year Changes Eccentricity_
 ![change_in_year_eccentricity+png](https://github.com/cyschneck/History-Survival-Guide/blob/master/page_21_astrolabe/calculate_eccentric_calendar_offset_outputs/eccentric_calendar_change_in_year_versus_eccentricity.png)
