@@ -60,12 +60,13 @@ def plotEccentricityOverTime(offset_year):
 		y_eccentricity.append(e)
 
 	plt.xticks(x_year_range, rotation=90)
-	plt.title("Change in Year vs. Eccentricity")
-	plt.xlabel("Year (CE)")
-	plt.ylabel("Eccentricity")
-	plt.scatter(x_year_range, y_eccentricity)
+	plt.yticks(np.linspace(min(y_eccentricity), max(y_eccentricity), 10))
+	plt.title("Change in Year vs. Eccentricity", fontsize=15, weight='bold')
+	plt.xlabel("Year (CE)", weight='bold')
+	plt.ylabel("Eccentricity", weight='bold')
+	plt.scatter(x_year_range, y_eccentricity, c="#C93924")
 	plt.show()
-	fig.savefig('calculate_eccentric_calendar_offset_outputs/eccentric_calendar_change_in_year_versus_eccentricity.png', dpi=fig.dpi)
+	fig.savefig('calculate_eccentric_calendar_offset_outputs/eccentric_calendar_change_in_year_versus_eccentricity.png', dpi=fig.dpi, transparent=False)
 
 def plotYearToOffset(offset_year, year_to_calculate, radius_of_plate, given_longitude):
 	# plot Year vs. Offset for fixed longitude (0°) for radius 1
@@ -85,14 +86,15 @@ def plotYearToOffset(offset_year, year_to_calculate, radius_of_plate, given_long
 		y_offset_y.append(y_offset)
 
 	plt.xticks(x_year_range, rotation=90)
-	plt.title("Change in Year vs. Offset (X, Y) from Center of Plate")
-	plt.xlabel("Year (CE)")
-	plt.ylabel("Offset with Fixed longitude (0°) and Radius (1)")
-	plt.scatter(x_year_range, y_offset_x)
-	plt.scatter(x_year_range, y_offset_y)
+	plt.yticks(np.linspace(max(y_offset_y), min(y_offset_x), 10))
+	plt.title("Change in Year vs. Offset (X, Y) from Center of Plate", fontsize=15, weight='bold')
+	plt.xlabel("Year (CE)", weight='bold')
+	plt.ylabel("Offset with Fixed longitude (0°) and Radius (1)", weight='bold')
+	plt.scatter(x_year_range, y_offset_x, c="#C93924")
+	plt.scatter(x_year_range, y_offset_y, c="#42617D")
 	plt.legend(["X Offset", "Y Offset"])
 	plt.show()
-	fig.savefig('calculate_eccentric_calendar_offset_outputs/eccentric_calendar_change_in_year_versus_offset.png', dpi=fig.dpi)
+	fig.savefig('calculate_eccentric_calendar_offset_outputs/eccentric_calendar_change_in_year_versus_offset.png', dpi=fig.dpi, transparent=False)
 
 def plotLongitudeToAngularDistance(year_to_calculate):
 	# plot Year vs. Longitude for fixed year (2024) for radius 1
@@ -109,12 +111,13 @@ def plotLongitudeToAngularDistance(year_to_calculate):
 		y_angular_distance_apside.append(vernal_equinox_angle)
 
 	plt.xticks(x_range_longitude, rotation=90)
-	plt.title("Change in Longitude vs. Angluar Distance to Vernal Equinox")
-	plt.xlabel("Longitude (°)")
-	plt.ylabel(f"Vernal Equinox Angle (Apside) with Fixed Year ({yearToCalculate}) and Radius (1)")
-	plt.scatter(x_range_longitude, y_angular_distance_apside)
+	plt.yticks(np.linspace(min(y_angular_distance_apside), max(y_angular_distance_apside), 10))
+	plt.title("Change in Longitude vs. Angluar Distance to Vernal Equinox", fontsize=15, weight='bold')
+	plt.xlabel("Longitude (°)", weight='bold')
+	plt.ylabel(f"Vernal Equinox Angle (Apside) with Fixed Year ({yearToCalculate}) and Radius (1)", weight='bold')
+	plt.scatter(x_range_longitude, y_angular_distance_apside, c="#C93924")
 	plt.show()
-	fig.savefig('calculate_eccentric_calendar_offset_outputs/eccentric_calendar_change_in_longitude_versus_angular_distance.png', dpi=fig.dpi)
+	fig.savefig('calculate_eccentric_calendar_offset_outputs/eccentric_calendar_change_in_longitude_versus_angular_distance.png', dpi=fig.dpi, transparent=False)
 
 if __name__ == '__main__':
 	logger = logging.getLogger(__name__)
