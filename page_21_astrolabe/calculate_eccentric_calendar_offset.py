@@ -8,6 +8,7 @@ import logging
 import matplotlib.pyplot as plt
 
 yearToCalculate = 2026 # Year (YYYY) in CE
+plot_transparent_background = False
 
 def determineApside(julian_time):
 	# Define the line of apsides (longitude of aphelion and perihelion)
@@ -34,7 +35,7 @@ def determineAngularDistanceEquinox(julian_time, given_longitude, given_aphelion
 	angular_distance_equinox -= 360 # reversed from the original position
 	logger.info(f"Line of Apside relative to Vernal Equinox for Longitude {given_longitude}° = {angular_distance_equinox}°\n")
 
-	return angular_distance_equinox
+	return angular_distance_equinox, mean_anomaly_jan0
 
 def offsetfromCenterOfPlate(julian_time, radius_of_plate, given_perihelion):
 	# offset from the center of the plate
@@ -66,7 +67,7 @@ def plotEccentricityOverTime(offset_year):
 	plt.ylabel("Eccentricity", weight='bold')
 	plt.scatter(x_year_range, y_eccentricity, c="#C93924")
 	plt.show()
-	fig.savefig('calculate_eccentric_calendar_offset_outputs/eccentric_calendar_change_in_year_versus_eccentricity.png', dpi=fig.dpi, transparent=False)
+	fig.savefig('calculate_eccentric_calendar_offset_outputs/eccentric_calendar_change_in_year_versus_eccentricity.png', dpi=fig.dpi, transparent=plot_transparent_background)
 
 def plotYearToOffset(offset_year, year_to_calculate, radius_of_plate, given_longitude):
 	# plot Year vs. Offset for fixed longitude (0°) for radius 1
@@ -80,7 +81,7 @@ def plotYearToOffset(offset_year, year_to_calculate, radius_of_plate, given_long
 		julian_time = (year - 2000) / 100 # Calculate the time in Julian centuries from J2000.0
 		logger.info(f"Julian Time in Centuries for the Year {year} = {julian_time}")
 		offset_perihelion, offset_aphelion = determineApside(julian_time)
-		vernal_equinox_angle = determineAngularDistanceEquinox(julian_time, given_longitude, offset_aphelion)
+		vernal_equinox_angle, _ = determineAngularDistanceEquinox(julian_time, given_longitude, offset_aphelion)
 		x_offset, y_offset = offsetfromCenterOfPlate(julian_time, radius_of_plate, offset_perihelion)
 		y_offset_x.append(x_offset)
 		y_offset_y.append(y_offset)
@@ -94,7 +95,7 @@ def plotYearToOffset(offset_year, year_to_calculate, radius_of_plate, given_long
 	plt.scatter(x_year_range, y_offset_y, c="#42617D")
 	plt.legend(["X Offset", "Y Offset"])
 	plt.show()
-	fig.savefig('calculate_eccentric_calendar_offset_outputs/eccentric_calendar_change_in_year_versus_offset.png', dpi=fig.dpi, transparent=False)
+	fig.savefig('calculate_eccentric_calendar_offset_outputs/eccentric_calendar_change_in_year_versus_offset.png', dpi=fig.dpi, transparent=plot_transparent_background)
 
 def plotLongitudeToAngularDistance(year_to_calculate):
 	# plot Year vs. Longitude for fixed year (2024) for radius 1
@@ -104,20 +105,43 @@ def plotLongitudeToAngularDistance(year_to_calculate):
 
 	y_angular_distance_apside = []
 	for x_longitude in x_range_longitude:
-		julian_time = (yearToCalculate - 2000) / 100 # Calculate the time in Julian centuries from J2000.0
-		logger.info(f"Julian Time in Centuries for the Year {yearToCalculate} = {julian_time}")
+		julian_time = (year_to_calculate - 2000) / 100 # Calculate the time in Julian centuries from J2000.0
+		logger.info(f"Julian Time in Centuries for the Year {year_to_calculate} = {julian_time}")
 		x_perihelion, x_aphelion = determineApside(julian_time)
-		vernal_equinox_angle = determineAngularDistanceEquinox(julian_time, x_longitude, x_aphelion)
+		vernal_equinox_angle, _ = determineAngularDistanceEquinox(julian_time, x_longitude, x_aphelion)
 		y_angular_distance_apside.append(vernal_equinox_angle)
 
 	plt.xticks(x_range_longitude, rotation=90)
 	plt.yticks(np.linspace(min(y_angular_distance_apside), max(y_angular_distance_apside), 10))
 	plt.title("Change in Longitude vs. Angluar Distance to Vernal Equinox", fontsize=15, weight='bold')
 	plt.xlabel("Longitude (°)", weight='bold')
-	plt.ylabel(f"Vernal Equinox Angle (Apside) with Fixed Year ({yearToCalculate}) and Radius (1)", weight='bold')
+	plt.ylabel(f"Vernal Equinox Angle (Apside) with Fixed Year ({year_to_calculate}) and Radius (1)", weight='bold')
 	plt.scatter(x_range_longitude, y_angular_distance_apside, c="#C93924")
 	plt.show()
-	fig.savefig('calculate_eccentric_calendar_offset_outputs/eccentric_calendar_change_in_longitude_versus_angular_distance.png', dpi=fig.dpi, transparent=False)
+	fig.savefig('calculate_eccentric_calendar_offset_outputs/eccentric_calendar_change_in_longitude_versus_angular_distance.png', dpi=fig.dpi, transparent=plot_transparent_background)
+	
+def plotMeanAnomaly(offset_year, year_to_calculate, radius_of_plate, given_longitude):
+	# plot Year vs. Mean Anomaly for fixed longitude and for radius 1
+	fig = plt.figure(figsize=(10,10), dpi=100)
+	ax = fig.subplots()
+	x_year_range = np.arange(1800, 2000+offset_year+1, 100)
+
+	y_mean_anomaly = []
+	for year in x_year_range:
+		julian_time = (year - 2000) / 100 # Calculate the time in Julian centuries from J2000.0
+		logger.info(f"Julian Time in Centuries for the Year {year} = {julian_time}")
+		x_perihelion, x_aphelion = determineApside(julian_time)
+		_, mean_anomaly_jan0 = determineAngularDistanceEquinox(julian_time, given_longitude, x_aphelion)
+		y_mean_anomaly.append(mean_anomaly_jan0)
+
+	plt.xticks(x_year_range, rotation=90)
+	plt.yticks(np.linspace(min(y_mean_anomaly), max(y_mean_anomaly), 10))
+	plt.title("Change in Mean Anomaly on January 0 and Angular Distance to Vernal Equinox", fontsize=15, weight='bold')
+	plt.xlabel("Year (CE)", weight='bold')
+	plt.ylabel(f"Vernal Equinox Angle with Fixed Longitude ({given_longitude}) and Radius (1)", weight='bold')
+	plt.scatter(x_year_range, y_mean_anomaly, c="#C93924")
+	plt.show()
+	fig.savefig('calculate_eccentric_calendar_offset_outputs/eccentric_calendar_change_in_time_vs_mean_anomaly.png', dpi=fig.dpi, transparent=plot_transparent_background)
 
 if __name__ == '__main__':
 	logger = logging.getLogger(__name__)
@@ -134,7 +158,7 @@ if __name__ == '__main__':
 
 	# Calculate the time in Julian centuries from J2000.0 (example)
 	julianTime = (yearToCalculate - 2000) / 100
-	logger.info(f"EXAMPLE:\nFor the Year {yearToCalculate} at longitude {longitude}° for a plate with a radius of {radiusOfPlate}\n")
+	logger.info(f"EXAMPLE:\nFor the Year {yearToCalculate} at longitude {longitude}° for a plate with a radius of {radiusOfPlate}\n\nEccentricity = {determineEccentrictiyOverTime(julianTime):3f}")
 	perihelion, aphelion = determineApside(julianTime)
 	vernal_equinox_angle = determineAngularDistanceEquinox(julianTime, longitude, aphelion)
 	x_offset, y_offset = offsetfromCenterOfPlate(julianTime, radiusOfPlate, perihelion)
@@ -142,7 +166,8 @@ if __name__ == '__main__':
 	# Plot how the Longitude and Year change the Offset and Apside
 	if plotGraphs:
 		offset_year = 1000 # (+/-) x years
-		#logger.setLevel(logging.WARN)
+		logger.setLevel(logging.WARN)
 		plotEccentricityOverTime(offset_year)
 		plotYearToOffset(offset_year, yearToCalculate, radiusOfPlate, longitude)
 		plotLongitudeToAngularDistance(yearToCalculate)
+		plotMeanAnomaly(offset_year, yearToCalculate, radiusOfPlate, longitude)
