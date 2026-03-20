@@ -11,7 +11,7 @@ yearToCalculate = 2026                 # Year (YYYY) in CE
 longitude = -105.2705                  # longitude of observation (-105.2705° for Boulder, 0° for Greenwich)
 radiusOfPlate = 1                      # radius of the plate
 plot_transparent_background = False    # set the background to transparent
-plotGraphs = False                     # save plots
+plotGraphs = True                      # save plots
 
 def determineApside(julian_time):
 	# Define the line of apsides (longitude of aphelion and perihelion)
@@ -162,7 +162,7 @@ def plotMeanAnomaly(offset_year, year_to_calculate, radius_of_plate, given_longi
 
 	plt.xticks(x_year_range, rotation=90)
 	plt.yticks(np.linspace(min(y_mean_anomaly), max(y_mean_anomaly), 10))
-	plt.title("Change in Mean Anomaly on January 0 and Angular Distance to Vernal Equinox", fontsize=15, weight='bold')
+	plt.title("Angular Distance to Vernal Equinox", fontsize=15, weight='bold')
 	plt.xlabel("Year (CE)", weight='bold')
 	plt.ylabel(f"Vernal Equinox Angle with Fixed Longitude ({given_longitude}) and Radius ({radius_of_plate})", weight='bold')
 	plt.scatter(x_year_range, y_mean_anomaly, c="#C93924")
@@ -173,7 +173,7 @@ if __name__ == '__main__':
 	# Calculate the time in Julian centuries from J2000.0 (example)
 	julianTime = (yearToCalculate - 2000) / 100
 	print(f"\nFor the Year {yearToCalculate} at longitude {longitude}° for a plate with a radius of {radiusOfPlate}")
-	print(f"T = {julianTime:3f}")
+	print(f"\nT = {julianTime:3f}")
 	print(f"Eccentricity = {determineEccentrictiyOverTime(julianTime):6f}")
 	print(f"Offset of calendar center = 2e = {2*determineEccentrictiyOverTime(julianTime):8f}")
 	perihelion, aphelion = determineApside(julianTime)

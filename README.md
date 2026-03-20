@@ -119,6 +119,7 @@ Variables:
 
 ```
 For the Year 2026 at longitude -105.2705° for a plate with a radius of 1
+
 T = 0.260000
 Eccentricity = 0.016698
 Offset of calendar center = 2e = 0.033395
