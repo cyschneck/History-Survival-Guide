@@ -7,11 +7,11 @@ import configparser
 import logging
 import matplotlib.pyplot as plt
 
-yearToCalculate = 1961                 # Year (YYYY) in CE
-longitude= 0                           # longitude of observation (-105.2705° for Boulder, 0° for Greenwich)
+yearToCalculate = 2026                 # Year (YYYY) in CE
+longitude = -105.2705                  # longitude of observation (-105.2705° for Boulder, 0° for Greenwich)
 radiusOfPlate = 1                      # radius of the plate
 plot_transparent_background = False    # set the background to transparent
-plotGraphs = True                      # save plots
+plotGraphs = False                     # save plots
 
 def determineApside(julian_time):
 	# Define the line of apsides (longitude of aphelion and perihelion)

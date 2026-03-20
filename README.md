@@ -118,17 +118,25 @@ Variables:
 3. Radius of the back plate
 
 ```
-For the Year 2026 at longitude -105.2705° for a plate with a radius of 1.0
-
+For the Year 2026 at longitude -105.2705° for a plate with a radius of 1
+T = 0.260000
 Eccentricity = 0.016698
+Offset of calendar center = 2e = 0.033395
 Perihelion = 103.384456°
 Aphelion   = 283.384456°
-Mean Anomaly of Jan 0 = 357.282167°
-Line of Apside relative to Vernal Equinox for Longitude -105.2705° = -79.62178880296062°
 
-Offset due to Eccentricity with radius of 1.0 = 0.033395
-X offset with radius of 1.0 = -0.007730
-Y offset with radius of 1.0 = 0.032488
+Morrison: Mean Anomaly of Jan 0 = 357.282167°
+Meeus:    Mean Anomaly of Jan 0 = 357.282174°
+Meeus     Mean Anomaly of Jan 0 = 357.280798°
+
+Ecliptic longitude (λ) = -105.27049999999997
+The angular distance from the vernal equinox to January 0 = π + M0 + λ / 365
+(283.38445607308245° + 357.2807975051346° + 105.2705°) / 365
+Line of Apside relative to Vernal Equinox = -78.63685738068705°
+
+Offset due to Eccentricity with radius of 1 = 0.033395
+X offset with radius of 1 = -0.007730
+Y offset with radius of 1 = 0.032488
 ```
 _How Eccentricity Changes over Time_
 ![change_in_year_eccentricity+png](https://github.com/cyschneck/History-Survival-Guide/blob/master/page_21_astrolabe/calculate_eccentric_calendar_offset_outputs/eccentric_calendar_change_in_year_versus_eccentricity.png)
