@@ -18,7 +18,7 @@ This github repo includes all relevant code and images used in a given guidebook
 
 [Behind the Scenes - Tumblr](https://historysurvivalguide.tumblr.com/)
 
-### [Proper Motion](https://github.com/cyschneck/History-Survival-Guide/tree/master/page_1_proper_motion)
+### [Proper Motion](https://github.com/cyschneck/History-Survival-Guide/tree/master/1_proper_motion)
 Determine angular distance between two given stars
 
 Included:
@@ -26,50 +26,38 @@ Included:
 
 Guidebook page:
 
-[Proper Motion](http://historysurvivalguide.com/page/determine-eon-proper-motion/)
+[Proper Motion](https://historysurvivalguide.com/determine-eon-proper-motion/)
 
-### [Hobo Symbols](https://github.com/cyschneck/History-Survival-Guide/tree/master/page_3_hobo_symbols)
+### [Hobo Symbols](https://github.com/cyschneck/History-Survival-Guide/tree/master/2_hobo_symbols)
 Hobo Signs and Symbols with definitions
 
 Included:
 * Each individual Hobo symbols (png) with 248 x 248 pixels dimensions (that is formatted for Slack)
-* [Zip file with all symbols](https://github.com/cyschneck/History-Survival-Guide/blob/master/page_3_hobo_symbols/all_hobo_signs_and_symbols.zip)
+* [Zip file with all symbols](https://github.com/cyschneck/History-Survival-Guide/blob/master/2_hobo_symbols/all_hobo_signs_and_symbols.zip)
 
-| ![good_dog](https://github.com/cyschneck/History-Survival-Guide/blob/master/page_3_hobo_symbols/good_dog.png) | ![bad_dog](https://github.com/cyschneck/History-Survival-Guide/blob/master/page_3_hobo_symbols/bad_dog.png) |
+| ![good_dog](https://github.com/cyschneck/History-Survival-Guide/blob/master/2_hobo_symbols/good_dog.png) | ![bad_dog](https://github.com/cyschneck/History-Survival-Guide/blob/master/2_hobo_symbols/bad_dog.png) |
 | ------------- | ------------- |
-| ![bad_man_with_gun](https://github.com/cyschneck/History-Survival-Guide/blob/master/page_3_hobo_symbols/bad_man_with_gun_lives_here.png) | ![kind_woman_lives_here](https://github.com/cyschneck/History-Survival-Guide/blob/master/page_3_hobo_symbols/kind_woman_lives_here.png) | ------------- | ------------- |
-| ![safe_camp](https://github.com/cyschneck/History-Survival-Guide/blob/master/page_3_hobo_symbols/safe_camp.png) | ![courthouse](https://github.com/cyschneck/History-Survival-Guide/blob/master/page_3_hobo_symbols/courthouse.png) | | ------------- | ------------- |
- ![dangerous_drinking_water](https://github.com/cyschneck/History-Survival-Guide/blob/master/page_3_hobo_symbols/dangerous_drinking_water.png) | ![doctor](https://github.com/cyschneck/History-Survival-Guide/blob/master/page_3_hobo_symbols/doctor.png)
+| ![bad_man_with_gun](https://github.com/cyschneck/History-Survival-Guide/blob/master/2_hobo_symbols/bad_man_with_gun_lives_here.png) | ![kind_woman_lives_here](https://github.com/cyschneck/History-Survival-Guide/blob/master/2_hobo_symbols/kind_woman_lives_here.png) | ------------- | ------------- |
+| ![safe_camp](https://github.com/cyschneck/History-Survival-Guide/blob/master/2_hobo_symbols/safe_camp.png) | ![courthouse](https://github.com/cyschneck/History-Survival-Guide/blob/master/2_hobo_symbols/courthouse.png) | | ------------- | ------------- |
+ ![dangerous_drinking_water](https://github.com/cyschneck/History-Survival-Guide/blob/master/2_hobo_symbols/dangerous_drinking_water.png) | ![doctor](https://github.com/cyschneck/History-Survival-Guide/blob/master/2_hobo_symbols/doctor.png)
 
-Guidebook pages:
-
-[Page 3: Hobo Signs](http://historysurvivalguide.com/page/hobo-signs-and-symbols-part-one/)
-
-[Page 4: Hobo Signs](http://historysurvivalguide.com/page/hobo-signs-and-symbols-part-two/)
-
-[Page 5: Hobo Signs](http://historysurvivalguide.com/page/hobo-signs-and-symbols-part-three/)
-
-[Page 6: Hobo Signs](http://historysurvivalguide.com/page/hobo-signs-and-symbols-part-four/)
+[Hobo Signs](https://historysurvivalguide.com/hobo-signs-and-symbols/)
 
 ### [Pioneer Plaque](https://github.com/cyschneck/History-Survival-Guide/tree/master/page_10_pioneer_plaque)
 
 Clean PNG of the Pioneer Plaque
 
-![pioneer_plaque+png](https://github.com/cyschneck/History-Survival-Guide/blob/master/page_10_pioneer_plaque/full_scale_pioneer_plaque.png)
+![pioneer_plaque+png](https://github.com/cyschneck/History-Survival-Guide/blob/master/6_pioneer_plaque/full_scale_pioneer_plaque.png)
 
 Reuse of this image is governed by [NASA's image use policy](https://www.nasa.gov/multimedia/guidelines/index.html).
 
  <p align="center">
-  <img src="https://github.com/cyschneck/History-Survival-Guide/blob/master/page_10_pioneer_plaque/full_scale_diagram.jpg" width="50%" height="50%"/>
+  <img src="https://github.com/cyschneck/History-Survival-Guide/blob/master/6_pioneer_plaque/full_scale_diagram.jpg" width="50%" height="50%"/>
 </p>
 
-[Pioneer Plaque - Part 1](http://historysurvivalguide.com/page/pioneer-plaque-part-1/)
+[Pioneer Plaque](https://historysurvivalguide.com/pioneer-plaque/)
 
-[Pioneer Plaque - Part 2](http://historysurvivalguide.com/page/pioneer-plaque-part-2/)
-
-[Pioneer Plaque - Part 3](http://historysurvivalguide.com/page/pioneer-plaque-part-3/)
-
-### [Astrolabe](https://github.com/cyschneck/History-Survival-Guide/tree/master/page_21_astrolabe)
+### [Astrolabe](https://github.com/cyschneck/History-Survival-Guide/tree/master/12_astrolabe)
 
 Currently uses: Python 3.12 (`pip install -r requirements.txt`)
 
@@ -86,8 +74,8 @@ outer_tropic_radius = base_plate_radius
 equator_radius = base_plate_radius / (tan(45° + (obliquity / 2))
 inner_tropic_radius = base_plate_radius / (tan(45° - (obliquity / 2))
 ```
-![change_in_obliquity_radius+png](https://github.com/cyschneck/History-Survival-Guide/blob/master/page_21_astrolabe/generate_base_plate_outputs/base_plate_change_due_to_obliquity.png)
-![earth_base_plate+png](https://github.com/cyschneck/History-Survival-Guide/blob/master/page_21_astrolabe/generate_base_plate_outputs/base_plate_for_earth_at_23.4_degrees.png)
+![change_in_obliquity_radius+png](https://github.com/cyschneck/History-Survival-Guide/blob/master/12_astrolabe/generate_base_plate_outputs/base_plate_change_due_to_obliquity.png)
+![earth_base_plate+png](https://github.com/cyschneck/History-Survival-Guide/blob/master/12_astrolabe/generate_base_plate_outputs/base_plate_for_earth_at_23.4_degrees.png)
 
 Currently, uses [star-chart-spherical-projection package](https://github.com/cyschneck/Star-Chart-Spherical-Projection)
 
@@ -102,7 +90,7 @@ star_chart_spherical_projection.plotStarPositionOverTime(builtInStarName="Vega",
 							incrementYear=5,
 							DecOrRA="D")
 ```
-![test_prcession_star+png](https://github.com/cyschneck/History-Survival-Guide/blob/master/page_21_astrolabe/test_precession_vondrak_example.png)
+![test_prcession_star+png](https://github.com/cyschneck/History-Survival-Guide/blob/master/12_astrolabe/test_precession_vondrak_example.png)
 
 **Constructing Eccentric Calendar for Back Plate**
 
@@ -140,12 +128,12 @@ X offset with radius of 1 = -0.007730
 Y offset with radius of 1 = 0.032488
 ```
 _How Eccentricity Changes over Time_
-![change_in_year_eccentricity+png](https://github.com/cyschneck/History-Survival-Guide/blob/master/page_21_astrolabe/calculate_eccentric_calendar_offset_outputs/eccentric_calendar_change_in_year_versus_eccentricity.png)
+![change_in_year_eccentricity+png](https://github.com/cyschneck/History-Survival-Guide/blob/master/12_astrolabe/calculate_eccentric_calendar_offset_outputs/eccentric_calendar_change_in_year_versus_eccentricity.png)
 _How Offset (X, Y) Changes over Time_
-![change_in_year_offset+png](https://github.com/cyschneck/History-Survival-Guide/blob/master/page_21_astrolabe/calculate_eccentric_calendar_offset_outputs/eccentric_calendar_change_in_year_versus_offset.png)
+![change_in_year_offset+png](https://github.com/cyschneck/History-Survival-Guide/blob/master/12_astrolabe/calculate_eccentric_calendar_offset_outputs/eccentric_calendar_change_in_year_versus_offset.png)
 _How Changing the Longitude Changes the Angular Distance to the Vernal Equinox_
-![change_in_longitude_angular_distance+png](https://github.com/cyschneck/History-Survival-Guide/blob/master/page_21_astrolabe/calculate_eccentric_calendar_offset_outputs/eccentric_calendar_change_in_longitude_versus_angular_distance.png)
+![change_in_longitude_angular_distance+png](https://github.com/cyschneck/History-Survival-Guide/blob/master/12_astrolabe/calculate_eccentric_calendar_offset_outputs/eccentric_calendar_change_in_longitude_versus_angular_distance.png)
 _How Changing the Mean Anomaly Changes over Time_
-![change_in_longitude_angular_distance+png](https://github.com/cyschneck/History-Survival-Guide/blob/master/page_21_astrolabe/calculate_eccentric_calendar_offset_outputs/eccentric_calendar_change_in_time_vs_mean_anomaly.png)
+![change_in_longitude_angular_distance+png](https://github.com/cyschneck/History-Survival-Guide/blob/master/12_astrolabe/calculate_eccentric_calendar_offset_outputs/eccentric_calendar_change_in_time_vs_mean_anomaly.png)
 
 
